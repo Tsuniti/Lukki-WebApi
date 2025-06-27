@@ -1,0 +1,11 @@
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\bin\Debug\net9.0\Lukki.Contracts.deps.json
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\bin\Debug\net9.0\Lukki.Contracts.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\bin\Debug\net9.0\Lukki.Contracts.pdb
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.AssemblyInfoInputs.cache
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.AssemblyInfo.cs
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\refint\Lukki.Contracts.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\Lukki.Contracts.pdb
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Contracts\obj\Debug\net9.0\ref\Lukki.Contracts.dll

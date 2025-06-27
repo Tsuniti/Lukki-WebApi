@@ -1,0 +1,16 @@
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Lukki.Application.deps.json
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Lukki.Application.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Lukki.Application.pdb
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.AssemblyInfoInputs.cache
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.AssemblyInfo.cs
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.csproj.CoreCompileInputs.cache
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\refint\Lukki.Application.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.pdb
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\ref\Lukki.Application.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Lukki.Domain.dll
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Lukki.Domain.pdb
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Application.csproj.AssemblyReference.cache
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\obj\Debug\net9.0\Lukki.Ap.0AB5B47A.Up2Date
+C:\Users\Tsuni\RiderProjects\Lukki\Lukki\Lukki.Application\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "9uOy8W0rgGpfMvoR9tFvgSakT7ybU38rGo6ZaL3iao0=",
+  "Source": "Lukki.Api",
+  "BasePath": "_content/Lukki.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
