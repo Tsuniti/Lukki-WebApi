@@ -1,7 +1,9 @@
-﻿namespace Lukki.Application.Services.Authentication;
+﻿using ErrorOr;
+
+namespace Lukki.Application.Services.Authentication;
 
 public interface IAuthenticationService
 {
-    AuthenticationResult Register(string firstName, string lastname, string email, string password);
-    AuthenticationResult Login(string email, string password);
+    ErrorOr<AuthenticationResult> Register(string firstName, string lastname, string email, string password);
+    ErrorOr<AuthenticationResult> Login(string email, string password);
 }
