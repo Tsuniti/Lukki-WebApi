@@ -1,0 +1,4 @@
+﻿@host=http://localhost:5190
+
+GET {{host}}/cart
+Authorization: Bearer {{}}
