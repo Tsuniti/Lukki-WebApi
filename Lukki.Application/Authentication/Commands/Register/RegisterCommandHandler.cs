@@ -3,7 +3,7 @@ using Lukki.Application.Authentication.Common;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.Common.Errors;
-using Lukki.Domain.Entities;
+using Lukki.Domain.User;
 using MediatR;
 
 namespace Lukki.Application.Authentication.Commands.Register;

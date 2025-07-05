@@ -1,5 +1,5 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Domain.Entities;
+using Lukki.Domain.User;
 
 namespace Lukki.Infrastructure.Persistence;
 

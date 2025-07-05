@@ -1,4 +1,4 @@
-﻿namespace Lukki.Domain.Entities;
+﻿namespace Lukki.Domain.User;
 
 public class User
 {

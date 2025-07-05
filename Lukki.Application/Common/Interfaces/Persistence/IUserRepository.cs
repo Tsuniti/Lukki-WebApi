@@ -1,4 +1,4 @@
-﻿using Lukki.Domain.Entities;
+﻿using Lukki.Domain.User;
 
 namespace Lukki.Application.Common.Interfaces.Persistence;
 
