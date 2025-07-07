@@ -3,11 +3,15 @@ using Lukki.Application.Authentication.Commands.Register;
 using Lukki.Application.Authentication.Common;
 using Lukki.Application.Authentication.Queries.Login;
 using Lukki.Contracts.Authentication;
+using Lukki.Domain.Common.Enums;
 using Lukki.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using LoginRequest = Lukki.Contracts.Authentication.LoginRequest;
+using RegisterRequest = Lukki.Contracts.Authentication.RegisterRequest;
 
 namespace Lukki.Api.Controllers;
 
@@ -28,7 +32,7 @@ public class AuthenticationController : ApiController
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var command = _mapper.Map<RegisterCommand>(request);
+        var command = _mapper.Map<RegisterCommand>(request) with { Role = UserRole.SELLER };
 
         ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
 

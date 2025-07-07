@@ -1,4 +1,5 @@
 ﻿using Lukki.Domain.Common.Models;
+using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
@@ -10,7 +11,7 @@ public sealed class Category  : AggregateRoot<ReviewId>
     public int Rating { get; }
     public string Comment { get; }
     public ProductId ProductId { get; }
-    public CustomerId CustomerId { get; }
+    public UserId CustomerId { get; }
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; private set; }
 
@@ -19,7 +20,7 @@ public sealed class Category  : AggregateRoot<ReviewId>
         int rating,
         string comment,
         ProductId productId,
-        CustomerId customerId,
+        UserId customerId,
         DateTime createdAt
     ) : base(reviewId)
     {
@@ -34,7 +35,7 @@ public sealed class Category  : AggregateRoot<ReviewId>
         int rating,
         string comment,
         ProductId productId,
-        CustomerId customerId
+        UserId customerId
     )
     {
         return new(

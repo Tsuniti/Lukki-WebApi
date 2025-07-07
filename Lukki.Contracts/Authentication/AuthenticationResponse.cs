@@ -1,8 +1,7 @@
 ﻿namespace Lukki.Contracts.Authentication;
 
 public record AuthenticationResponse(
-    Guid Id,
-    string FirstName,
-    string LastName,
+    string Id,
     string Email,
+    string Role,
     string Token);

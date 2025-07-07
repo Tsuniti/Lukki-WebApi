@@ -22,6 +22,7 @@ class Customer{
     "lastName": "Doe",
     "email": "JohnDoe@email.com",
     "passwordHash": "hashed_password",
+    "role": "Customer",
     "phoneNumber": "+1234567890",
   "cartItems": [
     {

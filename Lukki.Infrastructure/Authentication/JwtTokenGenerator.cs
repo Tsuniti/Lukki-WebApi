@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Services;
+using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +23,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(IUser user)
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
@@ -31,8 +32,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-            new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(JwtSettings.RoleClaimType, user.Role),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
 

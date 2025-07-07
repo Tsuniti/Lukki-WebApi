@@ -1,0 +1,28 @@
+﻿@host=http://localhost:5190
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MzE3OGQ2NS1mZjE3LTQ5M2MtYWNjNS1jZmY3ODJmMzYxNzkiLCJlbWFpbCI6InRzdW5pdGlAdGVzdC5jb20iLCJyb2xlIjoiU0VMTEVSIiwianRpIjoiYTk0ZDkwODItMGYxNC00YWZiLTg1NTQtOTI0YjRlMjYzY2QxIiwiZXhwIjoxNzUxOTA2NjE5LCJpc3MiOiJMdWtraSIsImF1ZCI6Ikx1a2tpIn0.NhssjTKRidI7qP9iOemdjXFlegz3QQuMIKFOSOIjlW0
+
+POST {{host}}/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "string",
+  "description": "string",
+  "targetGroup": "MALE",
+  "price": {
+    "amount": 100.0,
+    "currency": "USD"
+  },
+  "images": [
+    "https://example.com/image.jpg"
+  ],
+  "inStockProducts": [
+    {
+      "quantity": 100,
+      "size": "L"
+    }
+  ],
+  "categoryIds": [
+    "category-id-1"
+  ]
+}

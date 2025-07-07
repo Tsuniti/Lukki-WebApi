@@ -7,7 +7,7 @@ public class Price : ValueObject
     public decimal Amount { get; private set;  }
     public string Currency { get; private set; }
 
-    public Price(decimal amount, string currency)
+    private Price(decimal amount, string currency)
     {
         if (amount < 0)
         {
@@ -26,6 +26,11 @@ public class Price : ValueObject
 
         Amount = amount;
         Currency = currency.ToUpperInvariant();
+    }
+    
+    public static Price Create(decimal amount, string currency)
+    {
+        return new Price(amount, currency);
     }
 
     public override string ToString() => $"{Amount} {Currency}";

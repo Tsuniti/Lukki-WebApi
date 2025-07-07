@@ -1,6 +1,5 @@
 ﻿using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.OrderAggregate.Entities;
 using Lukki.Domain.OrderAggregate.Enums;
 using Lukki.Domain.OrderAggregate.ValueObjects;
@@ -16,7 +15,7 @@ public sealed class Order : AggregateRoot<OrderId>
     public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
     public Adress ShippingAddress { get; }
     public Adress BillingAddress { get; }
-    public CustomerId CustomerId { get; }
+    public UserId CustomerId { get; }
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; private set; }
     
@@ -26,7 +25,7 @@ public sealed class Order : AggregateRoot<OrderId>
         Price totalAmount,
         Adress shippingAddress,
         Adress billingAddress,
-        CustomerId customerId,
+        UserId customerId,
         DateTime createdAt
     ) : base(orderId)
     {
@@ -43,7 +42,7 @@ public sealed class Order : AggregateRoot<OrderId>
         Price totalAmount,
         Adress shippingAddress,
         Adress billingAddress,
-        CustomerId customerId
+        UserId customerId
     )
     {
         return new(

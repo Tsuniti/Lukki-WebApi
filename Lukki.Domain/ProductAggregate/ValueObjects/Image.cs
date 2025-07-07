@@ -7,9 +7,19 @@ public class Image : ValueObject
     
     public string Url { get; }
 
-    public Image(string url)
+    private Image(string url)
     {
         Url = url;
+    }
+    
+    public static Image Create(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            throw new ArgumentException("Image URL cannot be null or empty.", nameof(url));
+        }
+
+        return new Image(url);
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

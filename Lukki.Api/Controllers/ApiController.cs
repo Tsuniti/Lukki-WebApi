@@ -1,13 +1,11 @@
 ﻿using ErrorOr;
 using Lukki.Api.Common.Http;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Lukki.Api.Controllers;
 
 [ApiController]
-[Authorize]
 
 public class ApiController : ControllerBase
 {

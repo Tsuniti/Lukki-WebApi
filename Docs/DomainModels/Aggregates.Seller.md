@@ -16,6 +16,7 @@ class Seller{
     "lastName": null,
     "email": "JohnDoe@email.com",
     "passwordHash": "hashed_password",
+    "role": "Seller",
     "productIds": [
         "00000000-0000-0000-0000-000000000000"
     ],

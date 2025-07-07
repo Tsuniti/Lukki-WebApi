@@ -4,7 +4,7 @@ namespace Lukki.Domain.ProductAggregate.ValueObjects;
 
 public sealed class ProductId : ValueObject
 {
-    Guid Value { get; }
+    public Guid Value { get; }
     
     private ProductId(Guid value)
     {

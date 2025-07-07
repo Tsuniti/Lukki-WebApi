@@ -1,10 +1,12 @@
-﻿using Lukki.Domain.Common.Models;
+﻿using Lukki.Domain.Common.Enums;
+using Lukki.Domain.Common.Interfaces;
+using Lukki.Domain.Common.Models;
+using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
-using Lukki.Domain.SellerAggregate.ObjectValues;
 
 namespace Lukki.Domain.SellerAggregate;
 
-public sealed class Seller : AggregateRoot<SellerId>
+public sealed class Seller : AggregateRoot<UserId>, IUser
 {
     private readonly List<ProductId> _productIds = new();
     
@@ -13,12 +15,13 @@ public sealed class Seller : AggregateRoot<SellerId>
     public string? LastName { get; }
     public string Email { get; }
     public string PasswordHash { get; }
+    public string Role => UserRole.SELLER.ToString();
     public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; private set; }
     
     private Seller(
-        SellerId sellerId,
+        UserId sellerId,
         string brandName,
         string? firstName,
         string? lastName,
@@ -44,7 +47,7 @@ public sealed class Seller : AggregateRoot<SellerId>
     )
     {
         return new(
-            SellerId.CreateUnique(),
+            UserId.CreateUnique(),
             brandName,
             firstName,
             lastName,

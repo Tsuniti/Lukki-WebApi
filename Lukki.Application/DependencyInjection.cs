@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using ErrorOr;
 using FluentValidation;
-using Lukki.Application.Authentication.Commands.Register;
 using Lukki.Application.Authentication.Common;
 using Lukki.Application.Common.Behaviors;
 using MediatR;

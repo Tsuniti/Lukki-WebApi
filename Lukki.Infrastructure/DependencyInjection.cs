@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services;
@@ -6,6 +7,7 @@ using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,10 +21,20 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.AddAuth(configuration);
+        services.AddAuth(configuration)
+            .AddPersistance();
+        
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddPersistance(
+        this IServiceCollection services)
+    {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+
         return services;
     }
 
@@ -46,8 +58,7 @@ public static class DependencyInjection
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-
+                        
                         ValidIssuer = JwtSettings.Issuer,
                         ValidAudience = JwtSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(

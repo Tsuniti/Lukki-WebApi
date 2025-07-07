@@ -3,6 +3,7 @@ using Lukki.Application.Authentication.Common;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.Common.Errors;
+using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.User;
 using MediatR;
 
@@ -24,15 +25,15 @@ public class LoginQuerydHandler :
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
         
-        await Task.CompletedTask; // todo: !!! Temporarily, until I add asynchronous logic !!!!      
+        await Task.CompletedTask; // hack: !!! Temporarily, until I add asynchronous logic !!!!      
         
         // 1. Validate the user exists
-        if (_userRepository.GetUserByEmail(query.Email) is not User user)
+        if (_userRepository.GetUserByEmail(query.Email) is not IUser user)
         {
             return Errors.Authentication.InvalidCredentials;
         }
         // 2. Validate the password is correct
-        if (user.Password != query.Password)
+        if (user.PasswordHash != query.Password)
         {
             return Errors.Authentication.InvalidCredentials;
         }
