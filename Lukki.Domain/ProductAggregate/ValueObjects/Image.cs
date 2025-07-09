@@ -5,7 +5,7 @@ namespace Lukki.Domain.ProductAggregate.ValueObjects;
 public class Image : ValueObject
 {
     
-    public string Url { get; }
+    public string Url { get; private set; }
 
     private Image(string url)
     {

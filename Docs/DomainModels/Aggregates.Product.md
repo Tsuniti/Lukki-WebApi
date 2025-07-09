@@ -6,8 +6,6 @@
 class Product{
     Product();
     void UpdateInStockProductQuantity(Size size, int newQuantity);
-    void AddCategory(Category category);
-    void RemoveCategory(Guid categoryId);
     void AddImage(Image image);
     void RemoveImage(string imageUrl);
 ```
@@ -38,9 +36,9 @@ class Product{
   "reviewIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
-  "categoryIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "categoryId": {
+    "id":  "00000000-0000-0000-0000-000000000000"
+},
   "createdAt": "2023-10-01T00:00:00Z",
   "updatedAt": null
 }

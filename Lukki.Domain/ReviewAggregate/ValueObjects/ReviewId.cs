@@ -4,7 +4,7 @@ namespace Lukki.Domain.ReviewAggregate.ValueObjects;
 
 public sealed class ReviewId : ValueObject
 {
-    public Guid Value { get; }
+    public Guid Value { get; private set; }
     
     private ReviewId(Guid value)
     {

@@ -3,10 +3,7 @@
 ## Category
 
 ```csharp
-class Order{
-    Order();
-    
-}
+
 ```
 
 ```json

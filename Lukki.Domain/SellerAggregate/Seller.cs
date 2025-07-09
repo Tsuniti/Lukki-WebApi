@@ -10,14 +10,14 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
 {
     private readonly List<ProductId> _productIds = new();
     
-    public string BrandName { get; }
-    public string? FirstName { get; }
-    public string? LastName { get; }
-    public string Email { get; }
-    public string PasswordHash { get; }
+    public string BrandName { get; private set; }
+    public string? FirstName { get; private set; }
+    public string? LastName { get; private set; }
+    public string Email { get; private set; }
+    public string PasswordHash { get; private set; }
     public string Role => UserRole.SELLER.ToString();
     public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
     private Seller(
@@ -56,4 +56,13 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
             DateTime.UtcNow
         );
     }
+    
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private Seller()
+    {
+        // Required for EF Core
+    }
+#pragma warning restore CS8618 
+
 }
+

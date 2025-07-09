@@ -4,7 +4,6 @@ using System.Text;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Domain.Common.Interfaces;
-using Lukki.Domain.User;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

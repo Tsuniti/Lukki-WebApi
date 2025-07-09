@@ -1,6 +1,5 @@
 ﻿using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 
@@ -47,5 +46,11 @@ public sealed class Category  : AggregateRoot<ReviewId>
             DateTime.UtcNow
         );
     }
-
+    
+    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private Category()
+    {
+        // EF Core requires a parameterless constructor for materialization
+    }
+    #pragma warning restore CS8618
 }

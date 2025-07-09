@@ -1,5 +1,5 @@
 ﻿@host=http://localhost:5190
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MzE3OGQ2NS1mZjE3LTQ5M2MtYWNjNS1jZmY3ODJmMzYxNzkiLCJlbWFpbCI6InRzdW5pdGlAdGVzdC5jb20iLCJyb2xlIjoiU0VMTEVSIiwianRpIjoiYTk0ZDkwODItMGYxNC00YWZiLTg1NTQtOTI0YjRlMjYzY2QxIiwiZXhwIjoxNzUxOTA2NjE5LCJpc3MiOiJMdWtraSIsImF1ZCI6Ikx1a2tpIn0.NhssjTKRidI7qP9iOemdjXFlegz3QQuMIKFOSOIjlW0
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwYjc1OWY3OC1jZmU1LTQ5OTItYTZkNy1kZWEyN2M2YjllZDkiLCJlbWFpbCI6InRzdW5pdGlAdGVzdC5jb20iLCJyb2xlIjoiU0VMTEVSIiwianRpIjoiOGRjMTQ2YzYtMmUxNi00YTQzLWI4OTMtMmJjMDQ5NjFhMmRiIiwiZXhwIjoxNzUyMTAwNzY2LCJpc3MiOiJMdWtraSIsImF1ZCI6Ikx1a2tpIn0.YRqcJsXE-ostuJ9aLKbVnXlnObLsFzAym19hWWDcUhw
 
 POST {{host}}/products
 Content-Type: application/json
@@ -22,7 +22,5 @@ Authorization: Bearer {{token}}
       "size": "L"
     }
   ],
-  "categoryIds": [
-    "category-id-1"
-  ]
+  "categoryId": "123e4567-e89b-12d3-a456-426614174000"
 }

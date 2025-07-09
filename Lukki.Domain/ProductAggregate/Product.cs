@@ -11,19 +11,17 @@ public sealed class Product : AggregateRoot<ProductId>
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();
     private readonly List<ReviewId> _reviewIds = new();
-    private readonly List<CategoryId> _categoryIds = new();
-    
-    public string Name { get; }
-    public string Description { get; }
-    public TargetGroup TargetGroup { get; }
-    public AverageRating AverageRating { get; }
-    public Price Price { get; }
-    public UserId SellerId { get; }
+    public string Name { get; private set; }
+    public string Description { get; private set; }
+    public TargetGroup TargetGroup { get; private set; }
+    public AverageRating AverageRating { get; private set; }
+    public Price Price { get; private set; }
+    public CategoryId CategoryId { get; private set; }
+    public UserId SellerId { get; private set; }
     public IReadOnlyList<Image> Images => _images.AsReadOnly();
     public IReadOnlyList<InStockProduct> InStockProducts => _inStockProducts.AsReadOnly();
     public IReadOnlyList<ReviewId> ReviewIds => _reviewIds.AsReadOnly();
-    public IReadOnlyList<CategoryId> CategoryIds => _categoryIds.AsReadOnly();
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
     private Product(
@@ -33,6 +31,7 @@ public sealed class Product : AggregateRoot<ProductId>
         TargetGroup targetGroup,
         AverageRating averageRating,
         Price price,
+        CategoryId categoryId,
         List<Image> images,
         List<InStockProduct> inStockProducts,
         UserId sellerId,
@@ -43,6 +42,7 @@ public sealed class Product : AggregateRoot<ProductId>
         TargetGroup = targetGroup;
         AverageRating = averageRating;
         Price = price;
+        CategoryId = categoryId;
         _images = images;
         _inStockProducts = inStockProducts;
         SellerId = sellerId;
@@ -53,6 +53,7 @@ public sealed class Product : AggregateRoot<ProductId>
         string description,
         TargetGroup targetGroup,
         Price price,
+        CategoryId categoryId,
         List<Image> images,
         List<InStockProduct> inStockProducts,
         UserId sellerId
@@ -65,9 +66,17 @@ public sealed class Product : AggregateRoot<ProductId>
             targetGroup,
             AverageRating.CreateNew(),
             price,
+            categoryId,
             images,
             inStockProducts,
             sellerId,
             DateTime.Now);
     }
+    
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private Product()
+    {
+        // EF Core requires a parameterless constructor for materialization
+    }
+#pragma warning restore CS8618
 }

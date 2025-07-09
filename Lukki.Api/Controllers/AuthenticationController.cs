@@ -8,7 +8,6 @@ using Lukki.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using LoginRequest = Lukki.Contracts.Authentication.LoginRequest;
 using RegisterRequest = Lukki.Contracts.Authentication.RegisterRequest;

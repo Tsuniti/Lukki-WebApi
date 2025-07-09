@@ -4,7 +4,7 @@ namespace Lukki.Domain.Common.ValueObjects;
 
 public class UserId : ValueObject
 {
-    public Guid Value { get; }
+    public Guid Value { get; private set; }
     
     private UserId(Guid value)
     {
@@ -19,6 +19,7 @@ public class UserId : ValueObject
     {
         return new UserId(value);
     }
+    
     public static UserId Create(string value)
     {
         if (!Guid.TryParse(value, out var guidValue))

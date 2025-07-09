@@ -1,8 +1,7 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.Common.Interfaces;
-using Lukki.Domain.User;
 
-namespace Lukki.Infrastructure.Persistence;
+namespace Lukki.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {

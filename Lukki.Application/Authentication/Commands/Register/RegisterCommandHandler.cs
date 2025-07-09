@@ -7,7 +7,6 @@ using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.SellerAggregate;
-using Lukki.Domain.User;
 using MediatR;
 
 namespace Lukki.Application.Authentication.Commands.Register;

@@ -6,7 +6,7 @@ public class InStockProduct : ValueObject
 {
 
     public uint Quantity { get; private set; }
-    public string Size { get; }
+    public string Size { get; private set; }
     
     private InStockProduct(uint quantity, string size)
     {

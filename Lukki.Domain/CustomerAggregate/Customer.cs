@@ -16,19 +16,19 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
     private readonly List<OrderId> _orderIds = new();
     private readonly List<ReviewId> _reviewIds = new();
     
-    public string FirstName { get; }
-    public string LastName { get; }
-    public string Email { get; }
-    public string PasswordHash { get; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public string Email { get; private set; }
+    public string PasswordHash { get; private set; }
     public string Role => UserRole.SELLER.ToString();
 
-    public string? PhoneNumber { get; }
+    public string? PhoneNumber { get; private set; }
     
     public IReadOnlyList<CartItem> CartItems => _cartItems.AsReadOnly();
     public IReadOnlyList<ProductId> InWishListProductIds => _inWishListProductIds.AsReadOnly();
     public IReadOnlyList<OrderId> OrderIds => _orderIds.AsReadOnly();
     public IReadOnlyList<ReviewId> ReviewIds => _reviewIds.AsReadOnly();
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
     private Customer(
@@ -67,5 +67,12 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
             DateTime.UtcNow
         );
     }
+    
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private Customer()
+    {
+        // EF Core requires a parameterless constructor for materialization
+    }
+#pragma warning restore CS8618
     
 }

@@ -7,10 +7,10 @@ public record ProductResponse(
     string TargetGroup,
     float? AverageRating,
     PriceResponse Price,
+    string CategoryId,
     List<string> ImageUrls,
     List<InStockProductResponse> InStockProducts,
     List<string> ReviewIds,
-    List<string> CategoryIds,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

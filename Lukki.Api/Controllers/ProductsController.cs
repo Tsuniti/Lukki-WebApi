@@ -1,10 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Lukki.Application.Products.Commands.CreateProduct;
 using Lukki.Contracts.Products;
 using Lukki.Domain.Common.Enums;
-using Lukki.Domain.CustomerAggregate;
-using Mapster;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

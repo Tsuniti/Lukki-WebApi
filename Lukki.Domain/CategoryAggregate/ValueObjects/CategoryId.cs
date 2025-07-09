@@ -15,8 +15,22 @@ public sealed class CategoryId : ValueObject
     {
       return new(Guid.NewGuid());
     }
+    
+    public static CategoryId Create(Guid value)
+    {
+        return new CategoryId(value);
+    }
 
-
+    public static CategoryId Create(string value)
+    {
+        if (!Guid.TryParse(value, out var guidValue))
+        {
+            throw new ArgumentException("Invalid GUID format.", nameof(value));
+        }
+        
+        return new CategoryId(guidValue);
+    }
+    
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

@@ -4,7 +4,7 @@ namespace Lukki.Domain.OrderAggregate.ValueObjects;
 
 public sealed class InOrderProductId : ValueObject
 {
-    Guid Value { get; }
+    public Guid Value { get; private set; }
     
     private InOrderProductId(Guid value)
     {

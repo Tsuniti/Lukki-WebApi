@@ -10,13 +10,13 @@ public sealed class Order : AggregateRoot<OrderId>
 {
     private readonly List<InOrderProduct> _inOrderProducts = new();
 
-    public OrderStatus Status { get; }
-    public Price TotalAmount { get; }
+    public OrderStatus Status { get; private set; }
+    public Price TotalAmount { get; private set; }
     public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
-    public Adress ShippingAddress { get; }
-    public Adress BillingAddress { get; }
-    public UserId CustomerId { get; }
-    public DateTime CreatedAt { get; }
+    public Adress ShippingAddress { get; private set; }
+    public Adress BillingAddress { get; private set; }
+    public UserId CustomerId { get; private set; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
     private Order(
@@ -55,4 +55,11 @@ public sealed class Order : AggregateRoot<OrderId>
             DateTime.UtcNow
         );
     }
+    
+#pragma warning disable CS8618
+    private Order()
+    {
+        // EF Core requires a parameterless constructor for materialization
+    }
+#pragma warning restore CS8618
 }

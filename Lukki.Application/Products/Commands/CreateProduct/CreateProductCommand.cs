@@ -10,9 +10,9 @@ public record CreateProductCommand(
     string Description,
     string TargetGroup,
     PriceCommand Price,
+    string CategoryId,
     List<string> Images,
-    List<InStockProductCommand> InStockProducts,
-    List<string> CategoryIds
+    List<InStockProductCommand> InStockProducts
 ) : IRequest<ErrorOr<Product>>;
 
 

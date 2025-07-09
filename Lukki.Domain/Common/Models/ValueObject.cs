@@ -35,5 +35,6 @@ public abstract class ValueObject : IEquatable<ValueObject>
     {
         return Equals((object?)other);
     }
-
+    
+    
 }

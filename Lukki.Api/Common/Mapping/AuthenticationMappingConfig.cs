@@ -4,7 +4,6 @@ using Lukki.Application.Authentication.Queries.Login;
 using Lukki.Contracts.Authentication;
 using Lukki.Domain.Common.ValueObjects;
 using Mapster;
-using Microsoft.AspNetCore.Identity.Data;
 using LoginRequest = Lukki.Contracts.Authentication.LoginRequest;
 using RegisterRequest = Lukki.Contracts.Authentication.RegisterRequest;
 

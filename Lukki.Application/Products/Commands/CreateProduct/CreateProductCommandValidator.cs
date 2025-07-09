@@ -18,8 +18,8 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
             .GreaterThan(0);
         RuleFor(x => x.Price.Currency)
             .Length(3);
-        RuleFor(x => x.Images).NotEmpty();
-        RuleFor(x => x.CategoryIds)
+        RuleFor(x => x.CategoryId)
             .NotEmpty();
+        RuleFor(x => x.Images).NotEmpty();
     }
 }
