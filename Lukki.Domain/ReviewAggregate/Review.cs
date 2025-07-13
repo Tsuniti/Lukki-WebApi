@@ -5,18 +5,18 @@ using Lukki.Domain.ReviewAggregate.ValueObjects;
 
 namespace Lukki.Domain.ReviewAggregate;
 
-public sealed class Category  : AggregateRoot<ReviewId>
+public sealed class Review  : AggregateRoot<ReviewId, Guid>
 {
-    public int Rating { get; }
+    public uint Rating { get; }
     public string Comment { get; }
     public ProductId ProductId { get; }
     public UserId CustomerId { get; }
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; private set; }
 
-    private Category(
+    private Review(
         ReviewId reviewId,
-        int rating,
+        uint rating,
         string comment,
         ProductId productId,
         UserId customerId,
@@ -30,8 +30,8 @@ public sealed class Category  : AggregateRoot<ReviewId>
         CreatedAt = createdAt;
     }
     
-    public static Category Create(
-        int rating,
+    public static Review Create(
+        uint rating,
         string comment,
         ProductId productId,
         UserId customerId
@@ -48,7 +48,7 @@ public sealed class Category  : AggregateRoot<ReviewId>
     }
     
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    private Category()
+    private Review()
     {
         // EF Core requires a parameterless constructor for materialization
     }

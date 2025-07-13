@@ -3,7 +3,7 @@ using Lukki.Domain.Common.Models;
 
 namespace Lukki.Domain.CategoryAggregate;
 
-public sealed class Category : AggregateRoot<CategoryId>
+public sealed class Category : AggregateRoot<CategoryId, Guid>
 {
     public string Name { get; }
     public CategoryId? ParentCategoryId { get; private set; }
@@ -29,4 +29,12 @@ public sealed class Category : AggregateRoot<CategoryId>
             parentCategoryId
         );
     }
+    
+    
+#pragma warning disable CS8618
+    private Category()
+    {
+        // EF Core requires a parameterless constructor for materialization
+    }
+#pragma warning restore CS8618
 }

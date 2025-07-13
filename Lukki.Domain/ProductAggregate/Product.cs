@@ -6,7 +6,7 @@ using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 namespace Lukki.Domain.ProductAggregate;
 
-public sealed class Product : AggregateRoot<ProductId>
+public sealed class Product : AggregateRoot<ProductId, Guid>
 {
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();

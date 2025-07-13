@@ -6,7 +6,7 @@ using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Domain.SellerAggregate;
 
-public sealed class Seller : AggregateRoot<UserId>, IUser
+public sealed class Seller : AggregateRoot<UserId, Guid>, IUser
 {
     private readonly List<ProductId> _productIds = new();
     
@@ -15,7 +15,7 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
     public string? LastName { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    public string Role => UserRole.SELLER.ToString();
+    public string Role { get; private set; }
     public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
@@ -27,6 +27,7 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
         string? lastName,
         string email,
         string passwordHash,
+        string role,
         DateTime createdAt
     ) : base(sellerId)
     {
@@ -35,6 +36,7 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
         LastName = lastName;
         Email = email;
         PasswordHash = passwordHash;
+        Role = role;
         CreatedAt = createdAt;
     }
     
@@ -53,6 +55,7 @@ public sealed class Seller : AggregateRoot<UserId>, IUser
             lastName,
             email,
             passwordHash,
+            UserRole.SELLER.ToString(),
             DateTime.UtcNow
         );
     }

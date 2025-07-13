@@ -6,16 +6,17 @@ using Lukki.Domain.OrderAggregate.ValueObjects;
 
 namespace Lukki.Domain.OrderAggregate;
 
-public sealed class Order : AggregateRoot<OrderId>
+public sealed class Order : AggregateRoot<OrderId, Guid>
 {
     private readonly List<InOrderProduct> _inOrderProducts = new();
 
     public OrderStatus Status { get; private set; }
     public Price TotalAmount { get; private set; }
-    public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
-    public Adress ShippingAddress { get; private set; }
-    public Adress BillingAddress { get; private set; }
+
+    public Address ShippingAddress { get; private set; }
+    public Address BillingAddress { get; private set; }
     public UserId CustomerId { get; private set; }
+    public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
@@ -23,8 +24,8 @@ public sealed class Order : AggregateRoot<OrderId>
         OrderId orderId,
         OrderStatus status,
         Price totalAmount,
-        Adress shippingAddress,
-        Adress billingAddress,
+        Address shippingAddress,
+        Address billingAddress,
         UserId customerId,
         DateTime createdAt
     ) : base(orderId)
@@ -40,8 +41,8 @@ public sealed class Order : AggregateRoot<OrderId>
     public static Order Create(
         OrderStatus status,
         Price totalAmount,
-        Adress shippingAddress,
-        Adress billingAddress,
+        Address shippingAddress,
+        Address billingAddress,
         UserId customerId
     )
     {

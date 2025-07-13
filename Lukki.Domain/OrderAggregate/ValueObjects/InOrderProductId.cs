@@ -15,6 +15,11 @@ public sealed class InOrderProductId : ValueObject
     {
       return new(Guid.NewGuid());
     }
+    
+    public static InOrderProductId Create(Guid value)
+    {
+        return new InOrderProductId(value);
+    }
 
 
     protected override IEnumerable<object> GetEqualityComponents()

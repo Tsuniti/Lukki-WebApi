@@ -14,11 +14,11 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         ConfigureProductsTable(builder);
         ConfigureProductImagesTable(builder);
         ConfigureProductInStockProductsTable(builder);
-        ConfigureProductReviewIdTable(builder);
+        ConfigureProductReviewIdsTable(builder);
 
     }
 
-    private void ConfigureProductReviewIdTable(EntityTypeBuilder<Product> builder)
+    private void ConfigureProductReviewIdsTable(EntityTypeBuilder<Product> builder)
     {
         builder.OwnsMany(
             p => p.ReviewIds,
@@ -46,7 +46,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             p => p.InStockProducts,
             pb =>
             {
-                pb.ToTable("InStockProducts");
+                pb.ToTable("ProductInStockProducts");
 
                 pb.WithOwner().HasForeignKey("ProductId");
 
@@ -85,13 +85,17 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.ToTable("Products");
         
         builder.HasKey(p => p.Id);
-        builder.HasIndex(p => p.TargetGroup);
-
+        
         builder.Property(p => p.Id)
             .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
                 value => ProductId.Create(value));
+        
+        
+        builder.HasIndex(p => p.TargetGroup);
+
+
 
         builder.Property(p => p.Name)
             .HasMaxLength(100);
@@ -100,7 +104,14 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         builder.Property(p => p.TargetGroup)
             .HasConversion<string>();
 
-        builder.OwnsOne(p => p.AverageRating);
+        builder.OwnsOne(p => p.AverageRating, pb =>
+        {
+            pb.Property(p => p.Value)
+                .HasPrecision(2, 1);
+            
+            pb.Property(p => p.NumRatings)
+                .HasDefaultValue(0);
+        });
         
         builder.OwnsOne(p => p.Price, pb =>
         {

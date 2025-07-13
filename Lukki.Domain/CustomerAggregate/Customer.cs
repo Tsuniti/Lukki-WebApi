@@ -9,7 +9,7 @@ using Lukki.Domain.ReviewAggregate.ValueObjects;
 
 namespace Lukki.Domain.CustomerAggregate;
 
-public sealed class Customer : AggregateRoot<UserId>, IUser
+public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
 {
     private readonly List<CartItem> _cartItems = new();
     private readonly List<ProductId> _inWishListProductIds = new();
@@ -20,7 +20,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    public string Role => UserRole.SELLER.ToString();
+    public string Role { get; private set; }
 
     public string? PhoneNumber { get; private set; }
     
@@ -38,6 +38,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
         string email,
         string passwordHash,
         string? phoneNumber,
+        string role,
         DateTime createdAt
     ) : base(customerId)
     {
@@ -46,6 +47,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
         Email = email;
         PasswordHash = passwordHash;
         PhoneNumber = phoneNumber;
+        Role = role;
         CreatedAt = createdAt;
     }
     
@@ -64,6 +66,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
             email,
             passwordHash,
             phoneNumber,
+            UserRole.CUSTOMER.ToString(),
             DateTime.UtcNow
         );
     }
