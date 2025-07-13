@@ -1,6 +1,5 @@
 ﻿using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
-using Lukki.Domain.ProductAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

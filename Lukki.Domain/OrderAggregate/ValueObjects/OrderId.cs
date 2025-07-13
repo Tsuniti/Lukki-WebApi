@@ -5,7 +5,7 @@ namespace Lukki.Domain.OrderAggregate.ValueObjects;
 public class OrderId : AggregateRootId<Guid>
 {
     public override Guid Value { get; protected set; }
-    
+
     private OrderId(Guid value)
     {
         Value = value;
@@ -15,7 +15,7 @@ public class OrderId : AggregateRootId<Guid>
     {
         return new(Guid.NewGuid());
     }
-    
+
     public static OrderId Create(Guid value)
     {
         return new OrderId(value);
