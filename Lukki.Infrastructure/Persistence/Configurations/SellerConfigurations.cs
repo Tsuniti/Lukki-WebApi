@@ -19,12 +19,12 @@ public class SellerConfigurations : IEntityTypeConfiguration<Seller>
         builder.ToTable("Sellers");
         
         builder.HasKey(s => s.Id);
-        
+
         builder.Property(s => s.Id)
-            .ValueGeneratedNever()
             .HasConversion(
                 id => id.Value,
-                value => UserId.Create(value));
+                value => UserId.Create(value))
+            .ValueGeneratedNever();
         
         builder.Property(s => s.BrandName)
             .HasMaxLength(100);

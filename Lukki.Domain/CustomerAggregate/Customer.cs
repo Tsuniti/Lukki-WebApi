@@ -20,7 +20,7 @@ public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    public string Role { get; private set; }
+    public UserRole Role { get; private set; }
 
     public string? PhoneNumber { get; private set; }
     
@@ -38,7 +38,7 @@ public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
         string email,
         string passwordHash,
         string? phoneNumber,
-        string role,
+        UserRole role,
         DateTime createdAt
     ) : base(customerId)
     {
@@ -66,7 +66,7 @@ public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
             email,
             passwordHash,
             phoneNumber,
-            UserRole.CUSTOMER.ToString(),
+            UserRole.CUSTOMER,
             DateTime.UtcNow
         );
     }

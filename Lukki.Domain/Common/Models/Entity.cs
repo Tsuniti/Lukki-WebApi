@@ -11,10 +11,7 @@
         }
         public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Entity<TId>)obj);
+            return Equals(obj as Entity<TId>);
         }
         public static bool operator ==(Entity<TId> left, Entity<TId> right)
         {
@@ -28,7 +25,9 @@
 
         public bool Equals(Entity<TId>? other)
         {
-            return Equals((object?)other);
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id.Equals(other.Id);
         }
 
         public override int GetHashCode()

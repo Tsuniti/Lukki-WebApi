@@ -5,14 +5,30 @@ namespace Lukki.Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    private static readonly List<IUser> _users = new();
-    public void Add(IUser user)
+    private readonly LukkiDbContext _dbContext;
+
+    public UserRepository(LukkiDbContext dbContext)
     {
-        _users.Add(user);
-    }
-    public IUser? GetUserByEmail(string email)
-    {
-        return _users.SingleOrDefault(u => u.Email == email);
+        _dbContext = dbContext;
     }
 
+    public void Add(IUser user)
+    {
+        _dbContext.Add(user);
+        _dbContext.SaveChanges();
+    }
+
+    public IUser? GetUserByEmail(string email)
+    {
+        var customer =  _dbContext.Customers
+            .FirstOrDefault(c => c.Email == email);
+
+        if (customer is not null)
+            return customer;
+
+        var seller =  _dbContext.Sellers
+            .FirstOrDefault(s => s.Email == email);
+
+        return seller;
+    }
 }

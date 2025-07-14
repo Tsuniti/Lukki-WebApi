@@ -1,11 +1,13 @@
-﻿using Lukki.Domain.Common.ValueObjects;
+﻿using Lukki.Domain.Common.Enums;
+using Lukki.Domain.Common.Models;
+using Lukki.Domain.Common.ValueObjects;
 
 namespace Lukki.Domain.Common.Interfaces;
 
 public interface IUser
 {
-    UserId Id { get; }
+    AggregateRootId<Guid> Id { get; }
     string Email { get; }
     string PasswordHash { get; }
-    string Role { get; }
+    UserRole Role { get; }
 }
