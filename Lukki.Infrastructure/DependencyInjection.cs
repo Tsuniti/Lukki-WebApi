@@ -4,6 +4,7 @@ using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Persistence;
+using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Repositories;
 using Lukki.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +35,8 @@ public static class DependencyInjection
     {
         services.AddDbContext<LukkiDbContext>(options =>
             options.UseSqlServer("Server=localhost;Database=Lukki;User Id=sa;Password=lukki123!;Encrypt=false"));
+        
+        services.AddScoped<PublishDomainEventsInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
 

@@ -1,18 +1,22 @@
 ﻿using Lukki.Domain.CategoryAggregate;
+using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.SellerAggregate;
+using Lukki.Infrastructure.Persistence.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence;
 
 public class LukkiDbContext : DbContext
 {
-    public LukkiDbContext(DbContextOptions<LukkiDbContext> options)
+    private readonly PublishDomainEventsInterceptor _publishDomainEventsInterceptor;
+    public LukkiDbContext(DbContextOptions<LukkiDbContext> options, PublishDomainEventsInterceptor publishDomainEventsInterceptor)
         : base(options)
     {
+        _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
     }
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Customer> Customers { get; set; } = null!;
@@ -24,8 +28,15 @@ public class LukkiDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
+            .Ignore<List<IDomainEvent>>()
             .ApplyConfigurationsFromAssembly(typeof(LukkiDbContext).Assembly);
         
         base.OnModelCreating(modelBuilder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.AddInterceptors(_publishDomainEventsInterceptor);
+        base.OnConfiguring(optionsBuilder);
     }
 }
