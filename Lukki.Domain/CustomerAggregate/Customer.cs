@@ -3,13 +3,11 @@ using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
-using Lukki.Domain.OrderAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
-using Lukki.Domain.ReviewAggregate.ValueObjects;
 
 namespace Lukki.Domain.CustomerAggregate;
 
-public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
+public sealed class Customer : AggregateRoot<UserId>, IUser
 {
     private readonly List<CartItem> _cartItems = new();
     private readonly List<ProductId> _inWishListProductIds = new();

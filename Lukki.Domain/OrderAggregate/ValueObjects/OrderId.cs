@@ -2,9 +2,9 @@
 
 namespace Lukki.Domain.OrderAggregate.ValueObjects;
 
-public class OrderId : AggregateRootId<Guid>
+public class OrderId : ValueObject
 {
-    public override Guid Value { get; protected set; }
+    public Guid Value { get; protected set; }
 
     private OrderId(Guid value)
     {

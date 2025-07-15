@@ -4,10 +4,10 @@ using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate.Enums;
 using Lukki.Domain.ProductAggregate.Events;
 using Lukki.Domain.ProductAggregate.ValueObjects;
-using Lukki.Domain.ReviewAggregate.ValueObjects;
+
 namespace Lukki.Domain.ProductAggregate;
 
-public sealed class Product : AggregateRoot<ProductId, Guid>
+public sealed class Product : AggregateRoot<ProductId>
 {
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();

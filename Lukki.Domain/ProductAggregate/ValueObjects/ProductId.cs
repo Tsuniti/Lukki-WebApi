@@ -2,9 +2,9 @@
 
 namespace Lukki.Domain.ProductAggregate.ValueObjects;
 
-public sealed class ProductId : AggregateRootId<Guid>
+public sealed class ProductId : ValueObject
 {
-    public override Guid Value { get; protected set; }
+    public Guid Value { get; protected set; }
     
     private ProductId(Guid value)
     {

@@ -3,7 +3,7 @@ using Lukki.Domain.Common.Models;
 
 namespace Lukki.Domain.CategoryAggregate;
 
-public sealed class Category : AggregateRoot<CategoryId, Guid>
+public sealed class Category : AggregateRoot<CategoryId>
 {
     public string Name { get; }
     public CategoryId? ParentCategoryId { get; private set; }

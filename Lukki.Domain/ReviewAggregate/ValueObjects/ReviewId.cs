@@ -2,9 +2,9 @@
 
 namespace Lukki.Domain.ReviewAggregate.ValueObjects;
 
-public sealed class ReviewId : AggregateRootId<Guid>
+public sealed class ReviewId : ValueObject
 {
-    public override Guid Value { get; protected set; }
+    public Guid Value { get; protected set; }
     
     private ReviewId(Guid value)
     {

@@ -2,11 +2,10 @@
 using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Domain.SellerAggregate;
 
-public sealed class Seller :  AggregateRoot<UserId, Guid>, IUser
+public sealed class Seller :  AggregateRoot<UserId>, IUser
 {
     public string BrandName { get; private set; }
     public string? FirstName { get; private set; }

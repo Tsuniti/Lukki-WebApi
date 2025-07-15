@@ -2,9 +2,9 @@
 
 namespace Lukki.Domain.Common.ValueObjects;
 
-public class UserId : AggregateRootId<Guid>
+public sealed class UserId : ValueObject
 {
-    public override Guid Value { get; protected set; }
+    public Guid Value { get; protected set; }
     
     private UserId(Guid value)
     {

@@ -6,7 +6,7 @@ using Lukki.Domain.OrderAggregate.ValueObjects;
 
 namespace Lukki.Domain.OrderAggregate;
 
-public sealed class Order : AggregateRoot<OrderId, Guid>
+public sealed class Order : AggregateRoot<OrderId>
 {
     private readonly List<InOrderProduct> _inOrderProducts = new();
 

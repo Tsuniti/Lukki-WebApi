@@ -2,9 +2,9 @@
 
 namespace Lukki.Domain.CategoryAggregate.ValueObjects;
 
-public sealed class CategoryId : AggregateRootId<Guid>
+public sealed class CategoryId : ValueObject
 {
-    public override Guid Value { get; protected set; }
+    public Guid Value { get; protected set; }
     
     private CategoryId(Guid value)
     {

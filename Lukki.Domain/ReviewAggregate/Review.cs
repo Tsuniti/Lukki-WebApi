@@ -5,7 +5,7 @@ using Lukki.Domain.ReviewAggregate.ValueObjects;
 
 namespace Lukki.Domain.ReviewAggregate;
 
-public sealed class Review  : AggregateRoot<ReviewId, Guid>
+public sealed class Review  : AggregateRoot<ReviewId>
 {
     public uint Rating { get; }
     public string Comment { get; }

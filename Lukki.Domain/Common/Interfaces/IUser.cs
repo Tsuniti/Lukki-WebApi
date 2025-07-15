@@ -6,7 +6,7 @@ namespace Lukki.Domain.Common.Interfaces;
 
 public interface IUser
 {
-    AggregateRootId<Guid> Id { get; }
+    UserId Id { get; }
     string Email { get; }
     string PasswordHash { get; }
     UserRole Role { get; }
