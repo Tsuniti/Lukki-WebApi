@@ -15,7 +15,7 @@ public sealed class Order : AggregateRoot<OrderId, Guid>
 
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
-    public UserId CustomerId { get; private set; }
+    public UserId? CustomerId { get; private set; } // Nullable to save orders if customer is deleted
     public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }

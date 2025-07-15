@@ -10,7 +10,7 @@ public sealed class Review  : AggregateRoot<ReviewId, Guid>
     public uint Rating { get; }
     public string Comment { get; }
     public ProductId ProductId { get; }
-    public UserId CustomerId { get; }
+    public UserId? CustomerId { get; }      // Nullable to save reviews if customer is deleted
     public DateTime CreatedAt { get; }
     public DateTime? UpdatedAt { get; private set; }
 

@@ -20,7 +20,6 @@ public class ProductMappingConfig : IRegister
                          .Map(dest => dest.AverageRating, src => src.AverageRating.NumRatings > 0 ? src.AverageRating.Value : 0)
                          .Map(dest => dest.CategoryId , src => src.CategoryId.Value)
                          .Map(dest => dest.ImageUrls, src => src.Images.Select(image => image.Url))
-                         .Map(dest => dest.ReviewIds, src => src.ReviewIds.Select(reviewId => reviewId.Value))
         ;
         /*config.NewConfig<Price, PriceResponse>()
             .Map(dest => dest, src => src);

@@ -8,14 +8,12 @@ namespace Lukki.Domain.SellerAggregate;
 
 public sealed class Seller :  AggregateRoot<UserId, Guid>, IUser
 {
-    private readonly List<ProductId> _productIds = new();
     public string BrandName { get; private set; }
     public string? FirstName { get; private set; }
     public string? LastName { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
     public UserRole Role { get; private set; }
-    public IReadOnlyList<ProductId> ProductIds => _productIds.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     

@@ -1,7 +1,9 @@
-﻿using Lukki.Domain.CategoryAggregate.ValueObjects;
+﻿using Lukki.Domain.CategoryAggregate;
+using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
+using Lukki.Domain.SellerAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,30 +16,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         ConfigureProductsTable(builder);
         ConfigureProductImagesTable(builder);
         ConfigureProductInStockProductsTable(builder);
-        ConfigureProductReviewIdsTable(builder);
 
-    }
-
-    private void ConfigureProductReviewIdsTable(EntityTypeBuilder<Product> builder)
-    {
-        builder.OwnsMany(
-            p => p.ReviewIds,
-            rib =>
-            {
-                rib.ToTable("ProductReviewIds");
-
-                rib.WithOwner().HasForeignKey("ProductId");
-
-                rib.HasKey("Id");
-
-                rib.Property(p => p.Value)
-                    .HasColumnName("ReviewId")
-                    .ValueGeneratedNever();
-
-            });
-        
-        builder.Metadata.FindNavigation(nameof(Product.ReviewIds))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 
     private void ConfigureProductInStockProductsTable(EntityTypeBuilder<Product> builder)
@@ -46,7 +25,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             p => p.InStockProducts,
             pb =>
             {
-                pb.ToTable("ProductInStockProducts");
+                pb.ToTable("InStockProducts");
 
                 pb.WithOwner().HasForeignKey("ProductId");
 
@@ -128,10 +107,21 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 id => id.Value,
                 value => CategoryId.Create(value));
         
+        /*builder.HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(p => p.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);*/
+        
+        
         builder.Property(p => p.SellerId)
             .HasConversion(
                 id => id.Value,
                 value => UserId.Create(value));
+        
+        /*builder.HasOne<Seller>()
+            .WithMany()
+            .HasForeignKey(p => p.SellerId)
+            .OnDelete(DeleteBehavior.Cascade);*/
         
     }
 }

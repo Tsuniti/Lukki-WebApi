@@ -1,5 +1,6 @@
 ﻿using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate;
+using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,55 +14,9 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
         ConfigureCustomersTable(builder);
         ConfigureCustomerCartItems(builder);
         ConfigureCustomerInWishListProductIdsTable(builder);
-        ConfigureCustomerOrderIdsTable(builder);
-        ConfigureCustomerReviewIdsTable(builder);
 
 
     }
-
-    private void ConfigureCustomerOrderIdsTable(EntityTypeBuilder<Customer> builder)
-    {
-        builder.OwnsMany(
-            c => c.OrderIds,
-            oib =>
-            {
-                oib.ToTable("OrderIds");
-        
-                oib.WithOwner().HasForeignKey("CustomerId");
-        
-                oib.HasKey("Id");
-
-                oib.Property(oi => oi.Value)
-                    .HasColumnName("OrderId")
-                    .ValueGeneratedNever();
-
-            });
-        
-        builder.Metadata.FindNavigation(nameof(Customer.OrderIds))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
-    }
-
-     private void ConfigureCustomerReviewIdsTable(EntityTypeBuilder<Customer> builder)
-     {
-         builder.OwnsMany(
-             c => c.ReviewIds,
-             rib =>
-             {
-                 rib.ToTable("CustomerReviewIds");
-     
-                 rib.WithOwner().HasForeignKey("CustomerId");
-     
-                 rib.HasKey("Id");
-     
-                 rib.Property(ri => ri.Value)
-                     .HasColumnName("ReviewId")
-                     .ValueGeneratedNever();
-     
-             });
-         
-         builder.Metadata.FindNavigation(nameof(Customer.ReviewIds))!
-             .SetPropertyAccessMode(PropertyAccessMode.Field);
-     }
 
      private void ConfigureCustomerInWishListProductIdsTable(EntityTypeBuilder<Customer> builder)
      {
@@ -78,6 +33,12 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
                  pib.Property(p => p.Value)
                      .HasColumnName("ProductId")
                      .ValueGeneratedNever();
+                 
+                 /*builder.HasOne<Product>()
+                     .WithMany()
+                     .HasForeignKey("ProductId")
+                     .OnDelete(DeleteBehavior.Cascade);*/
+
      
              });
          

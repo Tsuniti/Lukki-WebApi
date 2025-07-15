@@ -1,4 +1,5 @@
 ﻿using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.OrderAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
@@ -110,6 +111,11 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
             .HasConversion(
                 id => id.Value,
                 value => UserId.Create(value));
+        
+        /*builder.HasOne<Customer>()
+            .WithMany()
+            .HasForeignKey(o => o.CustomerId)
+            .OnDelete(DeleteBehavior.SetNull);*/
         
     }
 }

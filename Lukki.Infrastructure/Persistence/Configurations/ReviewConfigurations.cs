@@ -1,4 +1,6 @@
 ﻿using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.CustomerAggregate;
+using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
@@ -29,14 +31,28 @@ public class ReviewConfigurations : IEntityTypeConfiguration<Review>
         builder.Property(r => r.Rating);
         builder.Property(r => r.Comment)
             .HasMaxLength(1000);
+        
         builder.Property(r => r.ProductId)
             .HasConversion(
                 id => id.Value,
                 value => ProductId.Create(value));
+        
+        /*builder.HasOne<Product>()
+            .WithMany()
+            .HasForeignKey(r => r.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);*/
+        
+        
         builder.Property(r => r.CustomerId)
             .HasConversion(
                 id => id.Value,
                 value => UserId.Create(value));
+        
+        /*builder.HasOne<Customer>()
+            .WithMany()
+            .HasForeignKey(r => r.CustomerId)
+            .OnDelete(DeleteBehavior.SetNull);*/
+        
 
     }
 }

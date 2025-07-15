@@ -10,7 +10,6 @@ public class SellerConfigurations : IEntityTypeConfiguration<Seller>
     public void Configure(EntityTypeBuilder<Seller> builder)
     {
         ConfigureSellersTable(builder);
-        ConfigureSellerProductIdsTable(builder);
         
     }
 
@@ -38,27 +37,5 @@ public class SellerConfigurations : IEntityTypeConfiguration<Seller>
         builder.Property(s => s.Role)
             .HasMaxLength(100);
         
-    }
-    
-    private void ConfigureSellerProductIdsTable(EntityTypeBuilder<Seller> builder)
-    {
-        builder.OwnsMany(
-            p => p.ProductIds,
-            rib =>
-            {
-                rib.ToTable("SellerProductIds");
-
-                rib.WithOwner().HasForeignKey("SellerId");
-
-                rib.HasKey("Id");
-
-                rib.Property(p => p.Value)
-                    .HasColumnName("ProductId")
-                    .ValueGeneratedNever();
-
-            });
-        
-        builder.Metadata.FindNavigation(nameof(Seller.ProductIds))!
-            .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
 }

@@ -32,7 +32,14 @@ public class CategoryConfigurations : IEntityTypeConfiguration<Category>
         builder.Property(c => c.ParentCategoryId)
             .HasConversion(
                 id => id.Value,
-                value => CategoryId.Create(value));
+                value => CategoryId.Create(value))
+            .IsRequired(false);
+        
+        /*builder.HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(c => c.ParentCategoryId)
+            .OnDelete(DeleteBehavior.ClientCascade);*/
+
         
     }
 }

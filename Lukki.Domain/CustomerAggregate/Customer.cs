@@ -13,8 +13,6 @@ public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
 {
     private readonly List<CartItem> _cartItems = new();
     private readonly List<ProductId> _inWishListProductIds = new();
-    private readonly List<OrderId> _orderIds = new();
-    private readonly List<ReviewId> _reviewIds = new();
     
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
@@ -26,8 +24,6 @@ public sealed class Customer : AggregateRoot<UserId, Guid>, IUser
     
     public IReadOnlyList<CartItem> CartItems => _cartItems.AsReadOnly();
     public IReadOnlyList<ProductId> InWishListProductIds => _inWishListProductIds.AsReadOnly();
-    public IReadOnlyList<OrderId> OrderIds => _orderIds.AsReadOnly();
-    public IReadOnlyList<ReviewId> ReviewIds => _reviewIds.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     

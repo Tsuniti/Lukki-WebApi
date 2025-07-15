@@ -11,7 +11,6 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
 {
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();
-    private readonly List<ReviewId> _reviewIds = new();
     public string Name { get; private set; }
     public string Description { get; private set; }
     public TargetGroup TargetGroup { get; private set; }
@@ -21,7 +20,6 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
     public UserId SellerId { get; private set; }
     public IReadOnlyList<Image> Images => _images.AsReadOnly();
     public IReadOnlyList<InStockProduct> InStockProducts => _inStockProducts.AsReadOnly();
-    public IReadOnlyList<ReviewId> ReviewIds => _reviewIds.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     
@@ -78,6 +76,8 @@ public sealed class Product : AggregateRoot<ProductId, Guid>
         return product;
 
     }
+    
+    
     
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Product()
