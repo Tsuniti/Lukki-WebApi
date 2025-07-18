@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
 
@@ -12,22 +13,24 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public void Add(IUser user)
+    public async Task AddAsync(IUser user)
     {
         _dbContext.Add(user);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
-    public IUser? GetUserByEmail(string email)
+    public async Task<IUser?> GetUserByEmailAsync(string email)
     {
-        var customer =  _dbContext.Customers
-            .FirstOrDefault(c => c.Email == email);
+        var customer = await _dbContext.Customers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == email);
 
         if (customer is not null)
             return customer;
 
-        var seller =  _dbContext.Sellers
-            .FirstOrDefault(s => s.Email == email);
+        var seller = await _dbContext.Sellers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Email == email);
 
         return seller;
     }

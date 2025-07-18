@@ -4,7 +4,7 @@ namespace Lukki.Domain.ProductAggregate.ValueObjects;
 
 public sealed class ProductId : ValueObject
 {
-    public Guid Value { get; protected set; }
+    public Guid Value { get; private set; }
     
     private ProductId(Guid value)
     {
@@ -21,6 +21,15 @@ public sealed class ProductId : ValueObject
        return new ProductId(value);
     }
 
+    public static ProductId Create(string value)
+    {
+        if (!Guid.TryParse(value, out var guidValue))
+        {
+            throw new ArgumentException("Invalid GUID format.", nameof(value));
+        }
+        
+        return new ProductId(guidValue);
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

@@ -22,14 +22,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         CreateProductCommand request,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask; // hack: !!! Temporarily, until I add asynchronous logic !!!!
         
         // Create Product
         var product = Product.Create(
             name: request.Name,
             description: request.Description,
             targetGroup: Enum.Parse<TargetGroup>(request.TargetGroup, true),
-            price: Price.Create(
+            price: Money.Create(
                 amount: request.Price.Amount,
                 currency: request.Price.Currency
             ),
@@ -44,7 +43,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             sellerId: UserId.Create(request.SellerId)
         );
         // Persist Product
-        _productRepository.Add(product);
+        await _productRepository.AddAsync(product);
         // Return Product
         return product;
     }

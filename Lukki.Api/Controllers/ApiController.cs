@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Lukki.Api.Controllers;
 
 [ApiController]
-
 public class ApiController : ControllerBase
 {
     protected IActionResult Problem(List<Error> errors)

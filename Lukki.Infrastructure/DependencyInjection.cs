@@ -2,7 +2,10 @@
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services;
+using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Infrastructure.Authentication;
+using Lukki.Infrastructure.External;
+using Lukki.Infrastructure.External.ExchangeRateApi;
 using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Repositories;
@@ -37,7 +40,14 @@ public static class DependencyInjection
             options.UseSqlServer("Server=localhost;Database=Lukki;User Id=sa;Password=lukki123!;Encrypt=false"));
         
         services.AddScoped<PublishDomainEventsInterceptor>();
+        
+        services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
+
+        
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
@@ -70,6 +80,21 @@ public static class DependencyInjection
                             Encoding.UTF8.GetBytes(JwtSettings.Secret))
                     };
                 });
+        return services;
+    }
+    
+    public static IServiceCollection AddExchangeRateApi(
+        this IServiceCollection services,
+        ConfigurationManager configuration)
+    {
+        var ExchangeRateApiSettings = new ExchangeRateApiSettings();
+        configuration.Bind(ExchangeRateApiSettings.SectionName, ExchangeRateApiSettings);
+        services.Configure<ExchangeRateApiSettings>(configuration.GetSection(ExchangeRateApiSettings.SectionName));
+        
+        services.AddSingleton(Options.Create(ExchangeRateApiSettings));
+        services.AddHttpClient<IExchangeRateApiClient, ExchangeRateApiClient>();
+
+        
         return services;
     }
 }

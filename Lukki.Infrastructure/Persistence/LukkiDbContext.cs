@@ -6,6 +6,7 @@ using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.SellerAggregate;
 using Lukki.Infrastructure.Persistence.Interceptors;
+using Lukki.Infrastructure.Persistence.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence;
@@ -24,6 +25,9 @@ public class LukkiDbContext : DbContext
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Seller> Sellers { get; set; } = null!;
+    
+    public DbSet<ExchangeRate> ExchangeRates { get; set; } = null!;
+
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

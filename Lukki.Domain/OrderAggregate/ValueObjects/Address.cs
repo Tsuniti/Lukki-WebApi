@@ -9,13 +9,29 @@ public class Address : ValueObject
     public string PostalCode { get; private set; }
     public string Country { get; private set; }
     
-    public Address(string street, string city, string postalCode, string country)
+    private Address(string street, string city, string postalCode, string country)
     {
         Street = street;
         City = city;
         PostalCode = postalCode;
         Country = country;
     }
+    
+    
+    public static Address Create(
+        string street,
+        string city,
+        string postalCode,
+        string country)
+    {
+        return new Address(
+            street,
+            city,
+            postalCode,
+            country);
+    }
+    
+    
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Street;

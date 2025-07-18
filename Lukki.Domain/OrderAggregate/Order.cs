@@ -11,7 +11,7 @@ public sealed class Order : AggregateRoot<OrderId>
     private readonly List<InOrderProduct> _inOrderProducts = new();
 
     public OrderStatus Status { get; private set; }
-    public Price TotalAmount { get; private set; }
+    public Money TotalAmount { get; private set; }
 
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
@@ -23,10 +23,11 @@ public sealed class Order : AggregateRoot<OrderId>
     private Order(
         OrderId orderId,
         OrderStatus status,
-        Price totalAmount,
+        Money totalAmount,
         Address shippingAddress,
         Address billingAddress,
         UserId customerId,
+        List<InOrderProduct> inOrderProducts,
         DateTime createdAt
     ) : base(orderId)
     {
@@ -35,14 +36,16 @@ public sealed class Order : AggregateRoot<OrderId>
         ShippingAddress = shippingAddress;
         BillingAddress = billingAddress;
         CustomerId = customerId;
+        _inOrderProducts = inOrderProducts ?? new List<InOrderProduct>();
         CreatedAt = createdAt;
     }
     
     public static Order Create(
         OrderStatus status,
-        Price totalAmount,
+        Money totalAmount,
         Address shippingAddress,
         Address billingAddress,
+        List<InOrderProduct> inOrderProducts,
         UserId customerId
     )
     {
@@ -53,6 +56,7 @@ public sealed class Order : AggregateRoot<OrderId>
             shippingAddress,
             billingAddress,
             customerId,
+            inOrderProducts,
             DateTime.UtcNow
         );
     }

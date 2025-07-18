@@ -16,10 +16,13 @@ public record CreateProductCommand(
 ) : IRequest<ErrorOr<Product>>;
 
 
-public record PriceCommand(
-    decimal Amount,
-    string Currency);
+
 
 public record InStockProductCommand(
     uint Quantity,
     string Size);
+
+
+public record PriceCommand(
+    decimal Amount,
+    string Currency);

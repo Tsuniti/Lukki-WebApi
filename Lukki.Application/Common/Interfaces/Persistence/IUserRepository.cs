@@ -4,6 +4,6 @@ namespace Lukki.Application.Common.Interfaces.Persistence;
 
 public interface IUserRepository
 {
-    IUser? GetUserByEmail(string email);
-    void Add(IUser user);
+    Task<IUser?> GetUserByEmailAsync(string email);
+    Task AddAsync(IUser user);
 }

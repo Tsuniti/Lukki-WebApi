@@ -1,8 +1,12 @@
-﻿using Lukki.Domain.ProductAggregate;
+﻿using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.ProductAggregate;
+using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Application.Common.Interfaces.Persistence;
 
 public interface IProductRepository
 {
-    void Add(Product product);
+    Task AddAsync(Product product);
+
+    Task<List<Product>> GetProductsByProductIdsAsync(IEnumerable<ProductId> productIds);
 }

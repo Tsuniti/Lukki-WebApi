@@ -11,12 +11,12 @@ namespace Lukki.Api.Controllers;
 
 
 [Route("products")]
-public class Products : ApiController
+public class ProductsController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
-    public Products(IMapper mapper, ISender mediator)
+    public ProductsController(IMapper mapper, ISender mediator)
     {
         _mapper = mapper;
         _mediator = mediator;
@@ -26,7 +26,7 @@ public class Products : ApiController
     [Authorize(Roles = nameof(UserRole.SELLER))]
     public async Task<IActionResult> CreateProduct(CreateProductRequest request)
     {
-        var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier); // или другое имя claim, которое вы используете
+        var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
         
         if (string.IsNullOrEmpty(sellerId))
         {

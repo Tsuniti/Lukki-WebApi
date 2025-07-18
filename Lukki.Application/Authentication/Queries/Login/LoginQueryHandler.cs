@@ -24,10 +24,8 @@ public class LoginQuerydHandler :
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
         
-        await Task.CompletedTask; // hack: !!! Temporarily, until I add asynchronous logic !!!!      
-        
         // 1. Validate the user exists
-        if (_userRepository.GetUserByEmail(query.Email) is not IUser user)
+        if (await _userRepository.GetUserByEmailAsync(query.Email) is not IUser user)
         {
             return Errors.Authentication.InvalidCredentials;
         }

@@ -7,12 +7,12 @@ namespace Lukki.Domain.OrderAggregate.Entities;
 
 public class InOrderProduct : Entity<InOrderProductId>
 {
-    public Price PriceAtTimeOfOrder { get; private set; }
+    public Money PriceAtTimeOfOrder { get; private set; }
     public string Size { get; private set; }
     public uint Quantity { get; private set; }
     public ProductId ProductId { get; private set; }
 
-    private InOrderProduct(InOrderProductId inOrderProductId, Price priceAtTimeOfOrder, string size, uint quantity, ProductId productId) : base(inOrderProductId)
+    private InOrderProduct(InOrderProductId inOrderProductId, Money priceAtTimeOfOrder, string size, uint quantity, ProductId productId) : base(inOrderProductId)
     { 
 
         PriceAtTimeOfOrder = priceAtTimeOfOrder;
@@ -22,7 +22,7 @@ public class InOrderProduct : Entity<InOrderProductId>
     }
 
     public static InOrderProduct Create(
-        Price priceAtTimeOfOrder,
+        Money priceAtTimeOfOrder,
         string size,
         uint quantity,
         ProductId productId)

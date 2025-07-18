@@ -1,6 +1,6 @@
 ﻿using Lukki.Domain.Common.Models;
 
-namespace Lukki.Domain.ProductAggregate.ValueObjects;
+namespace Lukki.Domain.Common.ValueObjects;
 
 public class Image : ValueObject
 {
@@ -14,11 +14,6 @@ public class Image : ValueObject
     
     public static Image Create(string url)
     {
-        if (string.IsNullOrWhiteSpace(url))
-        {
-            throw new ArgumentException("Image URL cannot be null or empty.", nameof(url));
-        }
-
         return new Image(url);
     }
 

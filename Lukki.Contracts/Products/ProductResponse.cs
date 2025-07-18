@@ -6,7 +6,7 @@ public record ProductResponse(
     string Description,
     string TargetGroup,
     float? AverageRating,
-    PriceResponse Price,
+    MoneyResponse Price,
     string CategoryId,
     List<string> ImageUrls,
     List<InStockProductResponse> InStockProducts,
@@ -15,7 +15,7 @@ public record ProductResponse(
     DateTime? UpdatedAt
 );
 
-public record PriceResponse(
+public record MoneyResponse(
     decimal Amount,
     string Currency);
 

@@ -15,7 +15,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public string Description { get; private set; }
     public TargetGroup TargetGroup { get; private set; }
     public AverageRating AverageRating { get; private set; }
-    public Price Price { get; private set; }
+    public Money Price { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public UserId SellerId { get; private set; }
     public IReadOnlyList<Image> Images => _images.AsReadOnly();
@@ -29,7 +29,7 @@ public sealed class Product : AggregateRoot<ProductId>
         string description,
         TargetGroup targetGroup,
         AverageRating averageRating,
-        Price price,
+        Money price,
         CategoryId categoryId,
         List<Image> images,
         List<InStockProduct> inStockProducts,
@@ -51,7 +51,7 @@ public sealed class Product : AggregateRoot<ProductId>
         string name,
         string description,
         TargetGroup targetGroup,
-        Price price,
+        Money price,
         CategoryId categoryId,
         List<Image> images,
         List<InStockProduct> inStockProducts,

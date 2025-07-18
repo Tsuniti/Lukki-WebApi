@@ -1,0 +1,11 @@
+﻿@host=http://localhost:5190
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZGRhYmM0Ni05YmI3LTQ0OTktYTVjMy1lZDRlNjc1NTAzMjUiLCJlbWFpbCI6InRzdW5pdGlAdGVzdC5jb20iLCJyb2xlIjoiU0VMTEVSIiwianRpIjoiMGUzYzlkMjAtMWI5MS00ZmM4LWE2NDYtZWE3MTkwNzQxZTU1IiwiZXhwIjoxNzUyNjA2NTQ3LCJpc3MiOiJMdWtraSIsImF1ZCI6Ikx1a2tpIn0.AcSG1L4pBAjLK8A-rYgyr8CupaCpC-g91p8YFwwfDGM
+
+POST {{host}}/categories
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "string",
+  "parentCategoryId": null
+}

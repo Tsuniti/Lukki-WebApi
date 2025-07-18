@@ -1,0 +1,30 @@
+﻿@host=http://localhost:5190
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkOGFmZDg1Mi00YzEzLTQwMDEtYjdlZS0zOTY2MmIzYTZhNWQiLCJlbWFpbCI6InRzdW5pdGkxQHRlc3QuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwianRpIjoiNWNiMmFkMTYtOTAwZS00MWYwLThjYzMtMWNlNWM1YmE4MWY5IiwiZXhwIjoxNzUyNzExMzYzLCJpc3MiOiJMdWtraSIsImF1ZCI6Ikx1a2tpIn0.9Q0ndV7azbWK--ujijY3i1dQL9lRawVGv7C-Zu49psc
+
+POST {{host}}/orders
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "CREATED",
+  "shippingAddress": {
+    "street":  "address",
+    "city":  "Poltava",
+    "postalCode":  "3600",
+    "country": "Ukraine"
+  },
+  "billingAddress": {
+    "street":  "address",
+    "city":  "Poltava",
+    "postalCode":  "3600",
+    "country": "Ukraine"
+  },
+  "inOrderProducts": [
+    {
+      "quantity": 4,
+      "size": "L",
+      "productId": "35b33bf8-45a6-47d8-8102-01bdf283adb7"
+    }
+  ],
+  "targetCurrency": "UAH"
+}

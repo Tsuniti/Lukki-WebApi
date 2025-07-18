@@ -1,23 +1,25 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json.Serialization;
-using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Common.Models;
 
-namespace Lukki.Infrastructure.External;
+namespace Lukki.Infrastructure.External.ExchangeRateApi;
 
 public class ExchangeRateApiClient : IExchangeRateApiClient
 {
+    private readonly ExchangeRateApiSettings _exchangeRateApiSettings;
     private readonly HttpClient _httpClient;
 
-    public ExchangeRateApiClient(HttpClient httpClient)
+    public ExchangeRateApiClient(HttpClient httpClient, ExchangeRateApiSettings exchangeRateApiSettings)
     {
         _httpClient = httpClient;
+        _exchangeRateApiSettings = exchangeRateApiSettings;
     }
 
     public async Task<ExchangeRateData> FetchLatestRatesAsync()
     {
-        var response = await _httpClient.GetFromJsonAsync<ApiResponse>("https://v6.exchangerate-api.com/v6/c41ac8c7f418a10d15ddbd05/latest/USD");
+        var response = await _httpClient.GetFromJsonAsync<ApiResponse>(
+            $"{_exchangeRateApiSettings.Url}/v6/{_exchangeRateApiSettings.ApiKey}/latest/{_exchangeRateApiSettings.BaseCurrency}");
 
         if (response is null || response.Result != "success")
             throw new Exception("Failed to fetch exchange rates");
