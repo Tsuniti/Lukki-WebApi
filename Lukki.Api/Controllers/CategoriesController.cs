@@ -24,7 +24,7 @@ public class CategoriesController : ApiController
 
     
     [HttpPost]
-    [Authorize(Roles = nameof(UserRole.SELLER))] // Temporary, until we have an admin
+    [Authorize(Roles = nameof(UserRole.SELLER))] // hack: Temporary, until we have an admin
     public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
     {
         var command = _mapper.Map<CreateCategoryCommand>(request);

@@ -27,6 +27,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     {
 
 
+        // Create Images
         List<Image> newImages = new();
         
         foreach (var requestImage in request.Images)

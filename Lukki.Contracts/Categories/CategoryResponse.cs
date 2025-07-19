@@ -4,5 +4,7 @@ public record CategoryResponse
 (
     string Id,
     string Name,
-    string? ParentCategoryId
+    string? ParentCategoryId,
+    DateTime CreatedAt,
+    DateTime? UpdatedAt
 );

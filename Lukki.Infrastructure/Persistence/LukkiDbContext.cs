@@ -1,4 +1,5 @@
-﻿using Lukki.Domain.CategoryAggregate;
+﻿using Lukki.Domain.BannerAggregate;
+using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.OrderAggregate;
@@ -25,7 +26,8 @@ public class LukkiDbContext : DbContext
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Seller> Sellers { get; set; } = null!;
-    
+    public DbSet<Banner> Banners { get; set; } = null!;
+
     public DbSet<ExchangeRate> ExchangeRates { get; set; } = null!;
 
     

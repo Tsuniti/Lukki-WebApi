@@ -16,4 +16,13 @@ public static class FileHelpers
         }
         return streams;
     }
+    
+    public static async Task<Stream> ConvertToStreamAsync(IFormFile file)
+    {
+        var stream = new MemoryStream();
+        await file.CopyToAsync(stream);
+        stream.Position = 0;
+        return stream;
+    }
+    
 }

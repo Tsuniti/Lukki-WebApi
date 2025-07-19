@@ -1,5 +1,4 @@
-﻿using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.ProductAggregate;
+﻿using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Application.Common.Interfaces.Persistence;

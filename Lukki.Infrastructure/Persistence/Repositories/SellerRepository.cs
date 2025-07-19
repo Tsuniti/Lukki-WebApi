@@ -1,5 +1,4 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Domain.SellerAggregate;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
 

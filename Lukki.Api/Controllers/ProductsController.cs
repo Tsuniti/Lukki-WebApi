@@ -27,7 +27,7 @@ public class ProductsController : ApiController
     [Authorize(Roles = nameof(UserRole.SELLER))]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> CreateProduct(
-        [FromForm]CreateProductRequest? request, 
+        [FromForm]CreateProductRequest request, 
         [FromForm]List<IFormFile> images)
     {
         var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier); 

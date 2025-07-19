@@ -31,7 +31,7 @@ public class AuthenticationController : ApiController
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var command = _mapper.Map<RegisterCommand>(request) with { Role = UserRole.CUSTOMER };
+        var command = _mapper.Map<RegisterCommand>(request) with { Role = UserRole.SELLER };
 
         ErrorOr<AuthenticationResult> authResult = await _mediator.Send(command);
 

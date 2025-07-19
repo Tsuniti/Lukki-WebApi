@@ -8,7 +8,7 @@ public record ProductResponse(
     float? AverageRating,
     MoneyResponse Price,
     string CategoryId,
-    List<string> ImageUrls,
+    List<string> Images,
     List<InStockProductResponse> InStockProducts,
     List<string> ReviewIds,
     DateTime CreatedAt,

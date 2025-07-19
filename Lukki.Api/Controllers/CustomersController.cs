@@ -1,6 +1,5 @@
 ﻿using MapsterMapper;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Lukki.Api.Controllers;
 

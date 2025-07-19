@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Domain.OrderAggregate;
-using Lukki.Domain.OrderAggregate.Enums;
 using MediatR;
 
 namespace Lukki.Application.Orders.Commands.CreateOrder;
