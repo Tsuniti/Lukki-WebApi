@@ -6,7 +6,6 @@ public record CreateProductRequest(
     string TargetGroup,
     Price Price,
     string CategoryId,
-    List<string> Images,
     List<InStockProduct> InStockProducts
 );
 

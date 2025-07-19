@@ -3,9 +3,10 @@ using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Application.Common.Interfaces.Services.Currency;
+using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Infrastructure.Authentication;
-using Lukki.Infrastructure.External;
 using Lukki.Infrastructure.External.ExchangeRateApi;
+using Lukki.Infrastructure.External.Cloudinary;
 using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Repositories;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using CloudinaryImageService = Lukki.Infrastructure.External.Cloudinary.CloudinaryImageService;
 
 namespace Lukki.Infrastructure;
 
@@ -26,6 +28,8 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddAuth(configuration)
+            .AddExchangeRateApi(configuration)
+            .AddCloudinaryImageService(configuration)
             .AddPersistance();
         
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -87,14 +91,21 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        var ExchangeRateApiSettings = new ExchangeRateApiSettings();
-        configuration.Bind(ExchangeRateApiSettings.SectionName, ExchangeRateApiSettings);
-        services.Configure<ExchangeRateApiSettings>(configuration.GetSection(ExchangeRateApiSettings.SectionName));
-        
-        services.AddSingleton(Options.Create(ExchangeRateApiSettings));
+        services.Configure<ExchangeRateApiSettings>(
+            configuration.GetSection(ExchangeRateApiSettings.SectionName));
+    
         services.AddHttpClient<IExchangeRateApiClient, ExchangeRateApiClient>();
-
-        
+    
         return services;
     }
+    
+    public static IServiceCollection AddCloudinaryImageService(
+        this IServiceCollection services,
+        ConfigurationManager configuration)
+    {
+        services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
+        services.AddSingleton<IImageStorageService, CloudinaryImageService>();
+        return services;
+    }
+    
 }

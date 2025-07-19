@@ -2,6 +2,7 @@
 using Lukki.Application.Products.Commands.CreateProduct;
 using Lukki.Contracts.Products;
 using Lukki.Domain.Common.Enums;
+using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,10 @@ public class ProductsController : ApiController
 
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.SELLER))]
-    public async Task<IActionResult> CreateProduct(CreateProductRequest request)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> CreateProduct(
+        [FromForm]CreateProductRequest? request, 
+        [FromForm]List<IFormFile> images)
     {
         var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
         
@@ -36,7 +40,10 @@ public class ProductsController : ApiController
         
         var command = _mapper.Map<CreateProductCommand>(request);
 
-        var createProductResult = await _mediator.Send(command with { SellerId = sellerId });
+        var streamImages = await FileHelpers.ConvertToStreamsAsync(images);
+        
+        var createProductResult = await _mediator.Send(command with 
+            { SellerId = sellerId, Images = streamImages });
         
         return createProductResult.Match(
             product => Ok(_mapper.Map<ProductResponse>(product)),

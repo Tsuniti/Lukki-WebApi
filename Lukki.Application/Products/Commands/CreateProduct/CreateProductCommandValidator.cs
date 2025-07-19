@@ -20,6 +20,5 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
             .Length(3);
         RuleFor(x => x.CategoryId)
             .NotEmpty();
-        RuleFor(x => x.Images).NotEmpty();
     }
 }

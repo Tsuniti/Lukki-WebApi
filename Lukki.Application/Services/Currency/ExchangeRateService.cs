@@ -1,5 +1,4 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 
 namespace Lukki.Application.Services.Currency;

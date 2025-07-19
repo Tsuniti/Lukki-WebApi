@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Common.Models;
+using Microsoft.Extensions.Options;
 
 namespace Lukki.Infrastructure.External.ExchangeRateApi;
 
@@ -10,10 +11,12 @@ public class ExchangeRateApiClient : IExchangeRateApiClient
     private readonly ExchangeRateApiSettings _exchangeRateApiSettings;
     private readonly HttpClient _httpClient;
 
-    public ExchangeRateApiClient(HttpClient httpClient, ExchangeRateApiSettings exchangeRateApiSettings)
+    public ExchangeRateApiClient(
+        HttpClient httpClient,
+        IOptions<ExchangeRateApiSettings> exchangeRateOptions)
     {
         _httpClient = httpClient;
-        _exchangeRateApiSettings = exchangeRateApiSettings;
+        _exchangeRateApiSettings = exchangeRateOptions.Value;
     }
 
     public async Task<ExchangeRateData> FetchLatestRatesAsync()

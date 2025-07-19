@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
+using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
@@ -12,16 +13,27 @@ namespace Lukki.Application.Products.Commands.CreateProduct;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ErrorOr<Product>>
 {
     private readonly IProductRepository _productRepository;
+    private readonly IImageStorageService _imageStorage;
 
-    public CreateProductCommandHandler(IProductRepository productRepository)
+    public CreateProductCommandHandler(IProductRepository productRepository, IImageStorageService imageStorage)
     {
         _productRepository = productRepository;
+        _imageStorage = imageStorage;
     }
 
     public async Task<ErrorOr<Product>> Handle(
         CreateProductCommand request,
         CancellationToken cancellationToken)
     {
+
+
+        List<Image> newImages = new();
+        
+        foreach (var requestImage in request.Images)
+        {
+            string name = Guid.NewGuid().ToString();
+            newImages.Add(Image.Create( await _imageStorage.UploadImageAsync(requestImage, name)));
+        }
         
         // Create Product
         var product = Product.Create(
@@ -33,7 +45,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
                 currency: request.Price.Currency
             ),
             categoryId: CategoryId.Create(request.CategoryId),
-            images: request.Images.ConvertAll(image => Image.Create(image)),
+            images: newImages,
             inStockProducts: request.InStockProducts.ConvertAll(
                 inStockProduct =>
                     InStockProduct.Create(
