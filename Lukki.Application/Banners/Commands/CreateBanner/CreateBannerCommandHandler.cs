@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
+using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.BannerAggregate;
 using Lukki.Domain.BannerAggregate.ValueObjects;
@@ -13,12 +14,14 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
 
     private readonly IBannerRepository _bannerRepository;
     private readonly IImageStorageService _imageStorage;
+    private readonly IImageCompressor _imageCompressor;
 
 
-    public CreateBannerCommandHandler(IBannerRepository bannerRepository, IImageStorageService imageStorage)
+    public CreateBannerCommandHandler(IBannerRepository bannerRepository, IImageStorageService imageStorage, IImageCompressor imageCompressor)
     {
         _bannerRepository = bannerRepository;
         _imageStorage = imageStorage;
+        _imageCompressor = imageCompressor;
     }
 
     public async Task<ErrorOr<Banner>> Handle(CreateBannerCommand request, CancellationToken cancellationToken)
@@ -29,7 +32,9 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
         // Create Image
         string name = Guid.NewGuid().ToString();
 
-        Image newImage = Image.Create( await _imageStorage.UploadImageAsync(request.Slide.ImageStream, name));
+        var compressedImageStream = await _imageCompressor.CompressAsync(request.Slide.ImageStream);
+
+        Image newImage = Image.Create( await _imageStorage.UploadImageAsync(compressedImageStream, name));
         
         
         // Create Banner

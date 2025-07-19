@@ -9,7 +9,7 @@ public record BannerResponse
     DateTime? UpdatedAt
 );
 
-public record SlideResponse(
+public record SlideResponse (
     string Image,
     string Text,
     string ButtonText,

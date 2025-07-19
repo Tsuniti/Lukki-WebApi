@@ -3,6 +3,7 @@ using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Application.Common.Interfaces.Services.Currency;
+using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.External.ExchangeRateApi;
@@ -11,6 +12,7 @@ using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Repositories;
 using Lukki.Infrastructure.Services;
+using Lukki.Infrastructure.Services.ImageCompressor;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +44,8 @@ public static class DependencyInjection
     {
         services.AddDbContext<LukkiDbContext>(options =>
             options.UseSqlServer("Server=localhost;Database=Lukki;User Id=sa;Password=lukki123!;Encrypt=false"));
+        
+        services.AddScoped<IImageCompressor, ImageCompressor>();
         
         services.AddScoped<PublishDomainEventsInterceptor>();
         
@@ -106,7 +110,7 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
-        services.AddSingleton<IImageStorageService, CloudinaryImageService>();
+        services.AddSingleton<IImageStorageService, /*CloudinaryImageService*/ LocalImageStorageService>();
         return services;
     }
     

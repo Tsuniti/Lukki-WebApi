@@ -25,6 +25,14 @@ public class BannerMappingConfig : IRegister
 
         config.NewConfig<Banner, BannerResponse>()
             .Map(dest => dest.Id, src => src.Id.Value)
-            .Map(dest => dest.Slides, src => src.Slides.Select(slide => slide.Image.Url));
+            .Map(
+                dest => dest.Slides,
+                src => src.Slides.Select(
+                    slide => new SlideResponse(
+                        slide.Image.Url,
+                        slide.Text,
+                        slide.ButtonText,
+                        slide.ButtonUrl,
+                        slide.SortOrder)));
     }
 }
