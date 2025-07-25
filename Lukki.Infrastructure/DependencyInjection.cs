@@ -8,6 +8,7 @@ using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.External.ExchangeRateApi;
 using Lukki.Infrastructure.External.Cloudinary;
+using Lukki.Infrastructure.OtherSettings;
 using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Repositories;
@@ -19,7 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using CloudinaryImageService = Lukki.Infrastructure.External.Cloudinary.CloudinaryImageService;
+using Npgsql;
 
 namespace Lukki.Infrastructure;
 
@@ -32,7 +33,7 @@ public static class DependencyInjection
         services.AddAuth(configuration)
             .AddExchangeRateApi(configuration)
             .AddCloudinaryImageService(configuration)
-            .AddPersistance();
+            .AddPersistance(configuration);
         
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
@@ -40,10 +41,20 @@ public static class DependencyInjection
     }
 
     public static IServiceCollection AddPersistance(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        ConfigurationManager configuration)
     {
-        services.AddDbContext<LukkiDbContext>(options =>
-            options.UseSqlServer("Server=localhost;Database=Lukki;User Id=sa;Password=lukki123!;Encrypt=false"));
+        
+        var DBSettings = new DBSettings();
+        configuration.Bind(DBSettings.SectionName, DBSettings);
+        services.Configure<DBSettings>(configuration.GetSection(DBSettings.SectionName));
+
+        services.AddDbContext<LukkiDbContext>( options =>
+        {
+            options.UseNpgsql(
+                "Host=aws-0-eu-central-1.pooler.supabase.com;Port=6543;Database=postgres;Username=postgres.yxcbmpstideccjuhegdt;Password=Lukki!23;Ssl Mode=Prefer;Trust Server Certificate=true");
+        });
+        
         
         services.AddScoped<IImageCompressor, ImageCompressor>();
         

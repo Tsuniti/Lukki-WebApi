@@ -37,19 +37,6 @@ public sealed class Banner : AggregateRoot<BannerId>
         );
     }
     
-    public static Banner Create(
-        String name,
-        Slide slide
-    )
-    {
-        return new(
-            BannerId.CreateUnique(),
-            name,
-            new List<Slide> {slide},
-            DateTime.UtcNow
-        );
-    }
-    
     
 #pragma warning disable CS8618
     private Banner()

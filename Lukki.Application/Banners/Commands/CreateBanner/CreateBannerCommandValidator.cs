@@ -9,31 +9,31 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name is required.")
             .Length(3, 100);
-           // .WithMessage("Name length must be between 3 and 100 characters.");
-        
-        RuleFor(x => x.Slide)
-            .NotNull();
-    //        .WithMessage("Slide is required.");
-        
-        
-        RuleFor(x => x.Slide.Text)
-            .MaximumLength(200);
-          //  .WithMessage("Text length can't exceed 200 characters.");
+        // .WithMessage("Name length must be between 3 and 100 characters.");
 
-        RuleFor(x => x.Slide.ButtonText)
-            .NotEmpty()
-            .MaximumLength(100);
-            //.WithMessage("ButtonText length can't exceed 100 characters.");
-
-            RuleFor(x => x.Slide.ButtonUrl)
-                .NotEmpty()
-                .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute));
-//            .WithMessage("ButtonUrl must be a valid URL.");
-
-        RuleFor(x => x.Slide.ButtonUrl)
+        RuleFor(x => x.Slides)
             .NotEmpty();
-        
-        RuleFor(x => x.Slide.SortOrder)
-            .NotEmpty();
+        //        .WithMessage("Slide is required.");
+
+
+        RuleForEach(x => x.Slides).ChildRules(slide =>
+        {
+            slide.RuleFor(s => s.Text)
+                .MaximumLength(200);
+                //.WithMessage("Text length can't exceed 200 characters.");
+
+                slide.RuleFor(s => s.ButtonText)
+                    .NotEmpty()
+                    //.WithMessage("ButtonText is required.")
+                    .MaximumLength(100);
+                //.WithMessage("ButtonText length can't exceed 100 characters.");
+
+                slide.RuleFor(s => s.ButtonUrl)
+                    .NotEmpty()
+                    //.WithMessage("ButtonUrl is required.")
+                    .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute));
+                //.WithMessage("ButtonUrl must be a valid URL.");
+        });
+
     }
 }

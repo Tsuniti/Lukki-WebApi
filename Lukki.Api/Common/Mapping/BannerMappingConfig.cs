@@ -1,4 +1,5 @@
-﻿using Lukki.Application.Banners.Commands.CreateBanner;
+﻿using Lukki.Api.ApiModels.Banners;
+using Lukki.Application.Banners.Commands.CreateBanner;
 using Lukki.Contracts.Banners;
 using Lukki.Domain.BannerAggregate;
 using Mapster;
@@ -9,18 +10,18 @@ public class BannerMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<(CreateBannerRequest Request, Stream Image), CreateBannerCommand>()
-            .Map(dest => dest, src => src.Request)
+
+        config.NewConfig<(SlideFormModel Form, Stream Image), SlideCommand>()
+            .Ignore(dest => dest.ImageStream)
+            .Map(dest => dest, src => src.Form)
+            .Map(dest => dest.ImageStream, src => src.Image);
+
+
+        config.NewConfig<(CreateBannerFormModel Form, List<SlideCommand> Slides), CreateBannerCommand>()
             .MapWith(
                 src => new CreateBannerCommand(
-                    src.Request.Name,
-                    new SlideCommand(
-                        src.Image, // Stream
-                        src.Request.Slide.Text ?? "",
-                        src.Request.Slide.ButtonText,
-                        src.Request.Slide.ButtonUrl,
-                        src.Request.Slide.SortOrder
-                    )
+                    src.Form.Name,
+                    src.Slides
                 ));
 
         config.NewConfig<Banner, BannerResponse>()

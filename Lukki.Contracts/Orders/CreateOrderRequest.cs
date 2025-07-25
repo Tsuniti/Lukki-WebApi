@@ -3,20 +3,20 @@
 public record CreateOrderRequest
 (
     string Status,
-    Address ShippingAddress,
-    Address BillingAddress,
-    List<InOrderProduct> InOrderProducts,
+    AddressRequest ShippingAddressRequest,
+    AddressRequest BillingAddressRequest,
+    List<InOrderProductRequest> InOrderProducts,
     string TargetCurrency
 );
 
-public record Address(
+public record AddressRequest(
     string Street,
     string City,
     string PostalCode,
     string Country
 );
 
-public record InOrderProduct(
+public record InOrderProductRequest(
     uint Quantity,
     string Size,
     string ProductId

@@ -6,7 +6,7 @@ namespace Lukki.Application.Banners.Commands.CreateBanner;
 
 public record CreateBannerCommand(
     string Name,
-    SlideCommand Slide
+    List<SlideCommand> Slides
 ) : IRequest<ErrorOr<Banner>>;
 
 public record SlideCommand(

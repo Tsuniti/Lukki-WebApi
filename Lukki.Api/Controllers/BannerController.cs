@@ -1,4 +1,5 @@
-﻿using Lukki.Application.Banners.Commands.CreateBanner;
+﻿using Lukki.Api.ApiModels.Banners;
+using Lukki.Application.Banners.Commands.CreateBanner;
 using Lukki.Contracts.Banners;
 using Lukki.Domain.Common.Enums;
 using Lukki.Infrastructure.Helpers;
@@ -27,16 +28,22 @@ public class BannerController : ApiController
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.SELLER))]  // hack: Temporary, until we have an admin
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> CreateBanner(  // possible create only one slide, then add more slides
-        [FromForm]CreateBannerRequest request,
-        [FromForm]IFormFile image)
+    public async Task<IActionResult> CreateBanner([FromForm] CreateBannerFormModel form)
     {
         
-        var streamImage = await FileHelpers.ConvertToStreamAsync(image);
+        var slides = new List<SlideCommand>();
+
+        foreach (var slide in form.Slides)
+        {
+            var imageStream = await FileHelpers.ConvertToStreamAsync(slide.Image);
+
+            var mappedSlide = _mapper.Map<(SlideFormModel, Stream), SlideCommand>((slide, imageStream));
+            
+            slides.Add(mappedSlide);
+        }
         
-        var command = _mapper.Map<(CreateBannerRequest, Stream), CreateBannerCommand>((request, streamImage));
-       
-        //var command = _mapper.Map<CreateBannerCommand>(request);
+        var command = _mapper.Map<(CreateBannerFormModel, List<SlideCommand>), CreateBannerCommand>((form, slides));
+        
 
         var createBannerResult = await _mediator.Send(command);
         

@@ -7,7 +7,7 @@ public record CreateProductRequest(
     Price Price,
     string CategoryId,
     //Image does not fall into contracts, because This is IFormFile
-    List<InStockProduct> InStockProducts
+    List<InStockProductRequest> InStockProducts
 );
 
 
@@ -15,7 +15,7 @@ public record Price(
     decimal Amount,
     string Currency);
 
-public record InStockProduct(
+public record InStockProductRequest(
     uint Quantity,
     string Size);
     

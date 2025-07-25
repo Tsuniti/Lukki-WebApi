@@ -30,22 +30,34 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
         // Validate
         
         // Create Image
-        string name = Guid.NewGuid().ToString();
-
-        var compressedImageStream = await _imageCompressor.CompressAsync(request.Slide.ImageStream);
-
-        Image newImage = Image.Create( await _imageStorage.UploadImageAsync(compressedImageStream, name));
         
+        // Create Slides
+
+        var slides = new List<Slide>(request.Slides.Count);
+
+        foreach (var requestSlide in request.Slides)
+        {
+            string name = Guid.NewGuid().ToString();
+
+            var compressedImageStream = await _imageCompressor.CompressAsync(requestSlide.ImageStream);
+
+            Image newImage = Image.Create( await _imageStorage.UploadImageAsync(compressedImageStream, name));
+
+            slides.Add(
+                Slide.Create(
+                    image: newImage,
+                    text: requestSlide.Text,
+                    buttonText: requestSlide.ButtonText,
+                    buttonUrl: requestSlide.ButtonUrl,
+                    sortOrder: requestSlide.SortOrder));
+        }
+        
+
         
         // Create Banner
         var banner = Banner.Create(
             name: request.Name,
-            slide: Slide.Create(
-                image: newImage,
-                text: request.Slide.Text,
-                buttonText: request.Slide.ButtonText,
-                buttonUrl: request.Slide.ButtonUrl,
-                sortOrder: request.Slide.SortOrder)
+            slides: slides 
         );
         // Persist Banner
         await _bannerRepository.AddAsync(banner);

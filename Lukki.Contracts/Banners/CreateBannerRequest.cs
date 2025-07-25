@@ -2,10 +2,10 @@
 
 public record CreateBannerRequest(
     string Name,
-    Slide Slide
+    List<SlideRequest> Slides
 );
 
-public record Slide(
+public record SlideRequest(
     string? Text,
     string ButtonText,
     string ButtonUrl,
