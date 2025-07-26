@@ -21,7 +21,7 @@ public static class DependencyInjection
         services.AddScoped<ICurrencyConverter, CurrencyConverter>();
 
 
-        //ValidatorOptions.Global.LanguageManager.Enabled = false; // Disable global language manager
+        ValidatorOptions.Global.LanguageManager.Enabled = false; // Disable global language manager
         services.AddScoped(
             typeof(IPipelineBehavior<,>),
             typeof(ValidationBehavior<,>));
