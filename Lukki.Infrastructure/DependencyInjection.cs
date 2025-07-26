@@ -33,7 +33,8 @@ public static class DependencyInjection
         services.AddAuth(configuration)
             .AddExchangeRateApi(configuration)
             .AddCloudinaryImageService(configuration)
-            .AddPersistance(configuration);
+            .AddDbContext(configuration)
+            .AddPersistance();
         
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
@@ -41,21 +42,11 @@ public static class DependencyInjection
     }
 
     public static IServiceCollection AddPersistance(
-        this IServiceCollection services,
-        ConfigurationManager configuration)
+        this IServiceCollection services)
     {
         
-        var DBSettings = new DBSettings();
-        configuration.Bind(DBSettings.SectionName, DBSettings);
-        services.Configure<DBSettings>(configuration.GetSection(DBSettings.SectionName));
 
-        services.AddDbContext<LukkiDbContext>( options =>
-        {
-            options.UseNpgsql(
-                "Host=aws-0-eu-central-1.pooler.supabase.com;Port=6543;Database=postgres;Username=postgres.yxcbmpstideccjuhegdt;Password=Lukki!23;Ssl Mode=Prefer;Trust Server Certificate=true");
-        });
-        
-        
+
         services.AddScoped<IImageCompressor, ImageCompressor>();
         
         services.AddScoped<PublishDomainEventsInterceptor>();
@@ -71,6 +62,19 @@ public static class DependencyInjection
 
         services.AddScoped<IBannerRepository, BannerRepository>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddDbContext(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var DBSettings = new DBSettings();
+        configuration.Bind(DBSettings.SectionName, DBSettings);
+        services.Configure<DBSettings>(configuration.GetSection(DBSettings.SectionName));
+
+        services.AddDbContext<LukkiDbContext>( options =>
+        {
+            options.UseNpgsql(DBSettings.ConnectionString);
+        });
         return services;
     }
 
