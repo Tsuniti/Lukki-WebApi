@@ -21,17 +21,17 @@ public class UserRepository : IUserRepository
 
     public async Task<IUser?> GetUserByEmailAsync(string email)
     {
-        // var customer = await _dbContext.Customers
-        //     .AsNoTracking()
-        //     .FirstOrDefaultAsync(c => c.Email == email);
-        //
-        // if (customer is not null)
-        //     return customer;
-        //
-        // var seller = await _dbContext.Sellers
-        //     .AsNoTracking()
-        //     .FirstOrDefaultAsync(s => s.Email == email);
+        var customer = await _dbContext.Customers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(c => c.Email == email);
+        
+        if (customer is not null)
+            return customer;
+        
+        var seller = await _dbContext.Sellers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Email == email);
 
-        return null;
+        return seller;
     }
 }
