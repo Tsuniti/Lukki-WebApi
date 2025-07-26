@@ -11,21 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
         .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration)
-
-        .AddOpenApi()
-        
+        .AddOpenApi(
+            options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); })
         .AddHttpContextAccessor();
-    
-    
-    builder.Services.Configure<ForwardedHeadersOptions>(options =>
-    {
-        options.ForwardedHeaders = ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
-        options.KnownNetworks.Clear();
-        options.KnownProxies.Clear();
-    });
-    
-}
 
+
+    builder.Services.Configure<ForwardedHeadersOptions>(
+        options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+        });
+}
 
 
 var app = builder.Build();
@@ -35,11 +33,11 @@ var app = builder.Build();
     {
         app.UseHttpsRedirection();
     }
-    
+
     app.UseExceptionHandler("/error");
 
     app.UseDefaultOpenApi();
-    
+
     app.UseForwardedHeaders();
     app.UseAuthentication();
     app.UseAuthorization();
