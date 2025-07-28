@@ -11,10 +11,13 @@ public class BannerMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
 
-        config.NewConfig<(SlideFormModel Form, Stream Image), SlideCommand>()
-            .Ignore(dest => dest.ImageStream)
-            .Map(dest => dest, src => src.Form)
-            .Map(dest => dest.ImageStream, src => src.Image);
+        config.NewConfig<(SlideFormModel Model, Stream ImageStream), SlideCommand>()
+            .MapWith(src => new SlideCommand(
+                src.ImageStream,
+                src.Model.Text ?? string.Empty,
+                src.Model.ButtonText,
+                src.Model.ButtonUrl,
+                src.Model.SortOrder));
 
 
         config.NewConfig<(CreateBannerFormModel Form, List<SlideCommand> Slides), CreateBannerCommand>()

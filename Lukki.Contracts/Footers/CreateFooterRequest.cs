@@ -2,7 +2,7 @@
 
 public record CreateFooterRequest(
     string Name,
-    string CopyrigtText,
+    string CopyrightText,
     List<FooterSectionRequest> Sections
 );
 
@@ -14,7 +14,7 @@ public record FooterSectionRequest(
 
 public record FooterLinkRequest(
     string Text,
-    string Url,
-//Icon does not fall into contracts, because This is IFormFile
+    string Url,    
+    //Icon does not fall into contracts, because This is IFormFile
     Int16 SortOrder
 );

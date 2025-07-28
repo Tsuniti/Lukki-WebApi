@@ -6,11 +6,7 @@ public class CreateBannerFormModel
 {
     public string Name { get; set; } = null!;
 
-    public List<SlideFormModel> Slides
-    {
-        get => new();
-        set => throw new NotImplementedException();
-    }
+    public List<SlideFormModel> Slides { get; set; } = new();
 };
 
 public class SlideFormModel

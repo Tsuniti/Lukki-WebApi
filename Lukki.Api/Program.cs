@@ -5,14 +5,17 @@ using Lukki.Infrastructure;
 using Microsoft.AspNetCore.HttpOverrides;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
         .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration)
-        .AddOpenApi(
-            options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); })
+.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+})
         .AddHttpContextAccessor();
 
 
