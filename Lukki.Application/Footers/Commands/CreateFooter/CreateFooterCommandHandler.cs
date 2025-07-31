@@ -21,7 +21,7 @@ public class CreateFooterCommandHandler : IRequestHandler<CreateFooterCommand, E
         _imageStorage = imageStorage;
     }
 
-    public async Task<ErrorOr<Footer>> Handle(CreateFooterCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Footer>> Handle(CreateFooterCommand command, CancellationToken cancellationToken)
     {
         
         // Validate
@@ -30,9 +30,9 @@ public class CreateFooterCommandHandler : IRequestHandler<CreateFooterCommand, E
         
         // Create Slides
 
-        var sections = new List<FooterSection>(request.Sections.Count);
+        var sections = new List<FooterSection>(command.Sections.Count);
         
-        foreach (var requestSection in request.Sections)
+        foreach (var requestSection in command.Sections)
         {
             var links = new List<FooterLink>(requestSection.Links.Count);
             
@@ -62,8 +62,8 @@ public class CreateFooterCommandHandler : IRequestHandler<CreateFooterCommand, E
         
         
         var footer = Footer.Create(
-            name: request.Name,
-            copyrightText: request.CopyrightText,
+            name: command.Name,
+            copyrightText: command.CopyrightText,
             sections: sections
         );
         // Persist Footer

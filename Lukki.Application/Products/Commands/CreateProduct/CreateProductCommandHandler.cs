@@ -22,7 +22,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     }
 
     public async Task<ErrorOr<Product>> Handle(
-        CreateProductCommand request,
+        CreateProductCommand command,
         CancellationToken cancellationToken)
     {
 
@@ -30,7 +30,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         // Create Images
         List<Image> newImages = new();
         
-        foreach (var requestImage in request.Images)
+        foreach (var requestImage in command.Images)
         {
             string name = Guid.NewGuid().ToString();
             newImages.Add(Image.Create( await _imageStorage.UploadImageAsync(requestImage, name)));
@@ -38,22 +38,22 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         
         // Create Product
         var product = Product.Create(
-            name: request.Name,
-            description: request.Description,
-            targetGroup: Enum.Parse<TargetGroup>(request.TargetGroup, true),
+            name: command.Name,
+            description: command.Description,
+            targetGroup: Enum.Parse<TargetGroup>(command.TargetGroup, true),
             price: Money.Create(
-                amount: request.Price.Amount,
-                currency: request.Price.Currency
+                amount: command.Price.Amount,
+                currency: command.Price.Currency
             ),
-            categoryId: CategoryId.Create(request.CategoryId),
+            categoryId: CategoryId.Create(command.CategoryId),
             images: newImages,
-            inStockProducts: request.InStockProducts.ConvertAll(
+            inStockProducts: command.InStockProducts.ConvertAll(
                 inStockProduct =>
                     InStockProduct.Create(
                         quantity: inStockProduct.Quantity,
                         size: inStockProduct.Size
                     )),
-            sellerId: UserId.Create(request.SellerId)
+            sellerId: UserId.Create(command.SellerId)
         );
         // Persist Product
         await _productRepository.AddAsync(product);

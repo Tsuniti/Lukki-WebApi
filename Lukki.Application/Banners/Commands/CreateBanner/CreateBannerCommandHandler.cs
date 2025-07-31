@@ -4,6 +4,7 @@ using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.BannerAggregate;
 using Lukki.Domain.BannerAggregate.ValueObjects;
+using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.ValueObjects;
 using MediatR;
 
@@ -24,18 +25,26 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
         _imageCompressor = imageCompressor;
     }
 
-    public async Task<ErrorOr<Banner>> Handle(CreateBannerCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Banner>> Handle(CreateBannerCommand command, CancellationToken cancellationToken)
     {
         
         // Validate
+        
+        if (await _bannerRepository.GetByNameAsync(command.Name) is not null)
+        {
+            return Errors.Banner.DuplicateName(command.Name);
+        }
         
         // Create Image
         
         // Create Slides
 
-        var slides = new List<Slide>(request.Slides.Count);
+        
+        
+        
+        var slides = new List<Slide>(command.Slides.Count);
 
-        foreach (var requestSlide in request.Slides)
+        foreach (var requestSlide in command.Slides)
         {
             string name = Guid.NewGuid().ToString();
 
@@ -56,7 +65,7 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
         
         // Create Banner
         var banner = Banner.Create(
-            name: request.Name,
+            name: command.Name,
             slides: slides 
         );
         // Persist Banner

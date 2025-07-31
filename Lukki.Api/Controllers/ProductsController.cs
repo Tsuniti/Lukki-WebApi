@@ -2,6 +2,7 @@
 using Lukki.Application.Products.Commands.CreateProduct;
 using Lukki.Contracts.Products;
 using Lukki.Domain.Common.Enums;
+using Lukki.Domain.ProductAggregate;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
@@ -26,6 +27,8 @@ public class ProductsController : ApiController
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.SELLER))]
     [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> CreateProduct(
         [FromForm]CreateProductRequest request, 
         [FromForm]List<IFormFile> images)

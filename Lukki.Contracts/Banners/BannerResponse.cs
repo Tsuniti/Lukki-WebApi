@@ -4,7 +4,7 @@ public record BannerResponse
 (
     string Id,
     string Name,
-    List<SlideResponse> Slides,
+    SlideResponse[] Slides,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

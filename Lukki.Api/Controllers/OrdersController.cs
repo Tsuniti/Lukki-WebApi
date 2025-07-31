@@ -2,6 +2,7 @@
 using Lukki.Application.Orders.Commands.CreateOrder;
 using Lukki.Contracts.Orders;
 using Lukki.Domain.Common.Enums;
+using Lukki.Domain.OrderAggregate;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +26,8 @@ public class OrdersController : ApiController
     
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.CUSTOMER))]
+    [ProducesResponseType(typeof(Order), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {
         var customerId = User.FindFirstValue(ClaimTypes.NameIdentifier);

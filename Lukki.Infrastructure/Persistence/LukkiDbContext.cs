@@ -28,7 +28,7 @@ public class LukkiDbContext : DbContext
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Seller> Sellers { get; set; } = null!;
     public DbSet<Banner> Banners { get; set; } = null!;
-   // public DbSet<Footer> Footers { get; set; } = null!;
+    public DbSet<Footer> Footers { get; set; } = null!;
 
     public DbSet<ExchangeRate> ExchangeRates { get; set; } = null!;
 

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace Lukki.Api.Controllers;
 
 [ApiController]
-[ProducesResponseType(typeof(AuthenticationResponse), StatusCodes.Status200OK)]
 [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
 public class ApiController : ControllerBase
 {

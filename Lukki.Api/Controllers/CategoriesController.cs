@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Categories.Commands.CreateCategory;
 using Lukki.Contracts.Categories;
+using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.Common.Enums;
 using MapsterMapper;
 using MediatR;
@@ -25,6 +26,8 @@ public class CategoriesController : ApiController
     
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.SELLER))] // hack: Temporary, until we have an admin
+    [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
     {
         var command = _mapper.Map<CreateCategoryCommand>(request);

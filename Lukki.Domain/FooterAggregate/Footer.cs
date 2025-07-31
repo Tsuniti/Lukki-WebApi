@@ -12,7 +12,7 @@ public sealed class Footer  : AggregateRoot<FooterId>
     public string CopyrightText { get; set; }
     
     public IReadOnlyList<FooterSection> Sections => _sections.AsReadOnly();
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; private set; }
 
     private Footer(

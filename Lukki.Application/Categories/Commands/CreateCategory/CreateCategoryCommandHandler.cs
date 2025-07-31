@@ -16,16 +16,15 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<ErrorOr<Category>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Category>> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
     {
-        // Validate Category Name is unique in the tree
         
         // Create Category
         var category = Category.Create(
-            name: request.Name,
-            parentCategoryId: request.ParentCategoryId is null
+            name: command.Name,
+            parentCategoryId: command.ParentCategoryId is null
                 ? null
-                : CategoryId.Create(request.ParentCategoryId)
+                : CategoryId.Create(command.ParentCategoryId)
         );
         // Persist Category
         await _categoryRepository.AddAsync(category);

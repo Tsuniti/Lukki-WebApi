@@ -29,6 +29,8 @@ public class AuthenticationController : ApiController
 
 
     [HttpPost("register")]
+    [ProducesResponseType(typeof(AuthenticationResponse), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> Register(RegisterRequest request)
     {
         var command = _mapper.Map<RegisterCommand>(request) with { Role = UserRole.SELLER };
@@ -43,6 +45,8 @@ public class AuthenticationController : ApiController
     
     
     [HttpPost("login")]
+    [ProducesResponseType(typeof(AuthenticationResponse), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> Login(LoginRequest request)
     {
         var query = _mapper.Map<LoginQuery>(request);

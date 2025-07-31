@@ -26,10 +26,10 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
         _currencyConverter = currencyConverter;
     }
 
-    public async Task<ErrorOr<Order>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Order>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
         
-        var productIds = request.InOrderProducts
+        var productIds = command.InOrderProducts
             .Select(iop => ProductId.Create(iop.ProductId))
             .ToList();
 
@@ -45,11 +45,11 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
         var productsDict = existingProducts
             .ToDictionary(p => p.Id.Value.ToString()); // Используем Guid как ключ
         
-        var inOrderProducts = new List<InOrderProduct>(request.InOrderProducts.Count);
+        var inOrderProducts = new List<InOrderProduct>(command.InOrderProducts.Count);
         
-        var totalAmount = Money.Create(0, request.TargetCurrency);
+        var totalAmount = Money.Create(0, command.TargetCurrency);
 
-        foreach (var requestItem in request.InOrderProducts)
+        foreach (var requestItem in command.InOrderProducts)
         {
             var product = productsDict[requestItem.ProductId];
             
@@ -57,7 +57,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             
             var convertedMoney =  await _currencyConverter.ConvertAsync(
                     money: product.Price,
-                    toCurrency: request.TargetCurrency
+                    toCurrency: command.TargetCurrency
                 );
             
             // Calculate total amount
@@ -78,22 +78,22 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
 
 
         var order = Order.Create(
-            status: Enum.Parse<OrderStatus>(request.Status, true),
+            status: Enum.Parse<OrderStatus>(command.Status, true),
             totalAmount: totalAmount,
             
             shippingAddress: Address.Create(
-                street: request.ShippingAddress.Street,
-                city: request.ShippingAddress.City,
-                postalCode: request.ShippingAddress.PostalCode,
-                country: request.ShippingAddress.Country),
+                street: command.ShippingAddress.Street,
+                city: command.ShippingAddress.City,
+                postalCode: command.ShippingAddress.PostalCode,
+                country: command.ShippingAddress.Country),
         
             billingAddress: Address.Create(
-                street: request.BillingAddress.Street,
-                city: request.BillingAddress.City,
-                postalCode: request.BillingAddress.PostalCode,
-                country: request.BillingAddress.Country),
+                street: command.BillingAddress.Street,
+                city: command.BillingAddress.City,
+                postalCode: command.BillingAddress.PostalCode,
+                country: command.BillingAddress.Country),
             
-            customerId: UserId.Create(request.CustomerId),
+            customerId: UserId.Create(command.CustomerId),
             inOrderProducts: inOrderProducts
             
         );

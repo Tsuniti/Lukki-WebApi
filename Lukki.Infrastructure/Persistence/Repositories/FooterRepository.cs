@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.FooterAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
 
@@ -16,5 +17,11 @@ public class FooterRepository : IFooterRepository
     {
         _dbContext.Add(footer);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Footer?> GetByNameAsync(string name)
+    {
+        return await _dbContext.Footers
+            .FirstOrDefaultAsync(f => f.Name == name);
     }
 }

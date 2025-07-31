@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.BannerAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
 
@@ -16,5 +17,11 @@ public class BannerRepository : IBannerRepository
     {
         _dbContext.Add(banner);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Banner?> GetByNameAsync(string name)
+    {
+        return await _dbContext.Banners
+            .FirstOrDefaultAsync(b => b.Name == name);
     }
 }

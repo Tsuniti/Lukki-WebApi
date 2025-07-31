@@ -1,6 +1,10 @@
 ﻿using Lukki.Api.ApiModels.CreateFooterFormModel;
+using Lukki.Application.Banners.Queries.GetBanner;
 using Lukki.Application.Footers.Commands.CreateFooter;
+using Lukki.Application.Footers.Queries.GetFooter;
+using Lukki.Contracts.Banners;
 using Lukki.Contracts.Footers;
+using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.Enums;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
@@ -27,6 +31,8 @@ public class FooterController : ApiController
     [HttpPost]
     [Authorize(Roles = nameof(UserRole.SELLER))] // hack: Temporary, until we have an admin
     [Consumes("multipart/form-data")]
+    [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
+
     public async Task<IActionResult> CreateFooter([FromForm]CreateFooterFormModel form)
     {
         
@@ -72,4 +78,21 @@ public class FooterController : ApiController
             errors => Problem(errors) 
         );
     }
+    
+    
+    [HttpGet]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
+
+    public async Task<IActionResult> GetFooterByName([FromQuery]GetFooterRequest request)
+    {
+        var query = _mapper.Map<GetFooterQuery>(request);
+
+        var getFooterByNameResult = await _mediator.Send(query);
+
+        return getFooterByNameResult.Match(
+            footerResult => Ok(_mapper.Map<FooterResponse>(footerResult)),
+            errors => Problem(errors));
+    }
+    
 }

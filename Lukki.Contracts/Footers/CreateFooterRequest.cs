@@ -15,6 +15,5 @@ public record FooterSectionRequest(
 public record FooterLinkRequest(
     string Text,
     string Url,    
-    //Icon does not fall into contracts, because This is IFormFile
     Int16 SortOrder
 );
