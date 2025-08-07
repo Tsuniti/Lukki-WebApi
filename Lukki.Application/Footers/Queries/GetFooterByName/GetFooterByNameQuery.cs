@@ -2,7 +2,7 @@
 using Lukki.Domain.FooterAggregate;
 using MediatR;
 
-namespace Lukki.Application.Footers.Queries.GetFooter;
+namespace Lukki.Application.Footers.Queries.GetFooterByName;
 
-public record GetFooterQuery(
+public record GetFooterByNameQuery(
     string Name) : IRequest<ErrorOr<Footer>>;

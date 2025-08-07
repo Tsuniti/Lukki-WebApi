@@ -38,5 +38,7 @@ public class BannerMappingConfig : IRegister
                         slide.ButtonText,
                         slide.ButtonUrl,
                         slide.SortOrder)));
+        config.NewConfig<List<string>, BannerNamesResponse>()
+            .Map(dest => dest.BannerNames, src => src);
     }
 }

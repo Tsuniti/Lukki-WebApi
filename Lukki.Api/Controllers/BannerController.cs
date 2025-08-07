@@ -1,6 +1,8 @@
 ﻿using Lukki.Api.ApiModels.Banners;
 using Lukki.Application.Banners.Commands.CreateBanner;
-using Lukki.Application.Banners.Queries.GetBanner;
+using Lukki.Application.Banners.Queries.GetAllBannerNames;
+using Lukki.Application.Banners.Queries.GetBannerByName;
+using Lukki.Contracts;
 using Lukki.Contracts.Authentication;
 using Lukki.Contracts.Banners;
 using Lukki.Domain.BannerAggregate;
@@ -62,15 +64,27 @@ public class BannerController : ApiController
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(typeof(Banner), StatusCodes.Status200OK)]
-
-    public async Task<IActionResult> GetBannerByName([FromQuery]string name)
+    public async Task<IActionResult> GetBannerByName([FromQuery]GetBannerRequest request)
     {
-        var query = _mapper.Map<GetBannerQuery>(name);
+        var query = _mapper.Map<GetBannerByNameQuery>(request);
 
         var getBannerByNameResult = await _mediator.Send(query);
 
         return getBannerByNameResult.Match(
-            bannerResult => Ok(_mapper.Map<BannerResponse>(bannerResult)),
+            bannerResult => Ok(UniversalResponse<BannerResponse>.Create($"Banner {bannerResult.Name} successfully found",_mapper.Map<BannerResponse>(bannerResult))),
+            errors => Problem(errors));
+    }
+    
+    [HttpGet]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(Banner), StatusCodes.Status200OK)]
+    [Route("names")]
+    public async Task<IActionResult> GetAllBannerNames()
+    {
+        var getAllBannerNamesResult = await _mediator.Send(new GetAllBannerNamesQuery());
+
+        return getAllBannerNamesResult.Match(
+            bannerResult => Ok(UniversalResponse<BannerNamesResponse>.Create($"Banner names successfully found",_mapper.Map<BannerNamesResponse>(bannerResult))),
             errors => Problem(errors));
     }
 }
