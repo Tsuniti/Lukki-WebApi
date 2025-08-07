@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
+using Lukki.Domain.Common.Errors;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.FooterAggregate.ValueObjects;
@@ -25,6 +26,11 @@ public class CreateFooterCommandHandler : IRequestHandler<CreateFooterCommand, E
     {
         
         // Validate
+        
+        if (await _footerRepository.GetByNameAsync(command.Name) is not null)
+        {
+            return Errors.Footer.DuplicateName(command.Name);
+        }
         
         // Create Image
         

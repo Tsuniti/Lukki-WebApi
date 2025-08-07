@@ -23,7 +23,7 @@ public class GetAllFooterNamesQueryHandler :
 
         if (footers is null || footers.Count == 0)
         {
-            return Errors.Footer.NotFound("All footers");
+            return Errors.Footer.NoNamesFound();
         }
 
         return footers;

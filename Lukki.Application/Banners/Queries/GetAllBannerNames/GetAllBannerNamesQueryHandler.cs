@@ -23,7 +23,7 @@ public class GetAllBannerNamesQueryHandler :
 
         if (banners is null || banners.Count == 0)
         {
-            return Errors.Banner.NotFound("All banners");
+            return Errors.Banner.NoNamesFound();
         }
 
         return banners;
