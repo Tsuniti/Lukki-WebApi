@@ -6,4 +6,5 @@ public interface IBannerRepository
 {
     Task AddAsync(Banner banner);
     Task<Banner?> GetByNameAsync(string name);
+    Task<List<string>> GetAllNamesAsync();
 }

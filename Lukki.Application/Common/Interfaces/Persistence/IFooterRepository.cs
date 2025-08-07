@@ -6,4 +6,5 @@ public interface IFooterRepository
 {
     Task AddAsync(Footer footer);
     Task<Footer?> GetByNameAsync(string name);
+    Task<List<string>> GetAllNamesAsync();
 }

@@ -2,6 +2,7 @@
 using Lukki.Application.Authentication.Commands.Register;
 using Lukki.Application.Authentication.Common;
 using Lukki.Application.Authentication.Queries.Login;
+using Lukki.Contracts;
 using Lukki.Contracts.Authentication;
 using Lukki.Domain.Common.Enums;
 using Lukki.Domain.Common.Errors;
@@ -60,8 +61,10 @@ public class AuthenticationController : ApiController
                 title: authResult.FirstError.Description);
         }
 
+
+        
         return authResult.Match(
-            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
+            authResult => Ok(UniversalResponse<AuthenticationResponse>.Create("Login successful", _mapper.Map<AuthenticationResponse>(authResult))),
             errors => Problem(errors));
     }
     

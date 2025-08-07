@@ -1,8 +1,10 @@
 ﻿using Lukki.Api.ApiModels.CreateFooterFormModel;
-using Lukki.Application.Banners.Queries.GetBanner;
 using Lukki.Application.Footers.Commands.CreateFooter;
-using Lukki.Application.Footers.Queries.GetFooter;
+using Lukki.Application.Footers.Queries.GetAllFooterNames;
+using Lukki.Application.Footers.Queries.GetFooterByName;
+using Lukki.Contracts;
 using Lukki.Contracts.Banners;
+using Lukki.Contracts.Footers;
 using Lukki.Contracts.Footers;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.Enums;
@@ -86,12 +88,25 @@ public class FooterController : ApiController
 
     public async Task<IActionResult> GetFooterByName([FromQuery]GetFooterRequest request)
     {
-        var query = _mapper.Map<GetFooterQuery>(request);
+        var query = _mapper.Map<GetFooterByNameQuery>(request);
 
         var getFooterByNameResult = await _mediator.Send(query);
 
         return getFooterByNameResult.Match(
-            footerResult => Ok(_mapper.Map<FooterResponse>(footerResult)),
+            footerResult => Ok(UniversalResponse<FooterResponse>.Create($"Footer {footerResult.Name} successfully found", _mapper.Map<FooterResponse>(footerResult))),
+            errors => Problem(errors));
+    }
+    
+    [HttpGet]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
+    [Route("names")]
+    public async Task<IActionResult> GetAllFooterNames()
+    {
+        var getAllFooterNamesResult = await _mediator.Send(new GetAllFooterNamesQuery());
+
+        return getAllFooterNamesResult.Match(
+            footerResult => Ok(UniversalResponse<FooterNamesResponse>.Create($"Footer names successfully found",_mapper.Map<FooterNamesResponse>(footerResult))),
             errors => Problem(errors));
     }
     

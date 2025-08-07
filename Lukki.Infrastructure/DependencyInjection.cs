@@ -126,7 +126,7 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
-        services.AddSingleton<IImageStorageService, /*CloudinaryImageService*/ LocalImageStorageService>();
+        services.AddSingleton<IImageStorageService, CloudinaryImageService /*LocalImageStorageService*/>();
         return services;
     }
     

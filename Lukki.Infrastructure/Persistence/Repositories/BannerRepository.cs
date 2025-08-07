@@ -24,4 +24,11 @@ public class BannerRepository : IBannerRepository
         return await _dbContext.Banners
             .FirstOrDefaultAsync(b => b.Name == name);
     }
+
+    public async Task<List<string>> GetAllNamesAsync()
+    {
+        return await _dbContext.Banners
+            .Select(b => b.Name)
+            .ToListAsync();
+    }
 }

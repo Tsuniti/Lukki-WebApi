@@ -2,6 +2,7 @@
 using Lukki.Application.Authentication.Common;
 using Lukki.Application.Authentication.Queries.Login;
 using Lukki.Contracts.Authentication;
+using Lukki.Domain.Common.Enums;
 using Lukki.Domain.Common.ValueObjects;
 using Mapster;
 using LoginRequest = Lukki.Contracts.Authentication.LoginRequest;
@@ -19,6 +20,9 @@ public class AuthenticationMappingConfig : IRegister
         
         config.NewConfig<AuthenticationResult, AuthenticationResponse>()
             .Map(dest => dest, src => src.User);
+        
         TypeAdapterConfig<UserId, Guid>.NewConfig().MapWith(id => id.Value);
+        TypeAdapterConfig<UserRole, string>.NewConfig().MapWith(role => role.ToString());
+
     }
 }

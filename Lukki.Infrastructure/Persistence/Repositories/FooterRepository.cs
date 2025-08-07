@@ -24,4 +24,11 @@ public class FooterRepository : IFooterRepository
         return await _dbContext.Footers
             .FirstOrDefaultAsync(f => f.Name == name);
     }
+    
+    public async Task<List<string>> GetAllNamesAsync()
+    {
+        return await _dbContext.Footers
+            .Select(b => b.Name)
+            .ToListAsync();
+    }
 }

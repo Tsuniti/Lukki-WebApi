@@ -52,6 +52,8 @@ public class FooterMappingConfig : IRegister
                                     link.SortOrder)).ToList(),
                             section.SortOrder)));
 
-
+        config.NewConfig<List<string>, FooterNamesResponse>()
+            .Map(dest => dest.FooterNames, src => src);
     }
+    
 }
