@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Lukki.Api.ApiModels.Banners;
+﻿namespace Lukki.Api.ApiModels.Banners;
 
 public class CreateBannerFormModel
 {

@@ -1,12 +1,7 @@
-﻿using Lukki.Api.ApiModels.Banners;
-using Lukki.Api.ApiModels.CreateFooterFormModel;
-using Lukki.Application.Banners.Commands.CreateBanner;
+﻿using Lukki.Api.ApiModels.CreateFooterFormModel;
 using Lukki.Application.Footers.Commands.CreateFooter;
-using Lukki.Contracts.Banners;
 using Lukki.Contracts.Footers;
-using Lukki.Domain.BannerAggregate;
 using Lukki.Domain.FooterAggregate;
-using Lukki.Domain.FooterAggregate.ValueObjects;
 using Mapster;
 
 namespace Lukki.Api.Common.Mapping;

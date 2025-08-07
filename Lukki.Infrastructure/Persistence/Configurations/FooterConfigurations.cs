@@ -1,5 +1,4 @@
-﻿using Lukki.Domain.CategoryAggregate.ValueObjects;
-using Lukki.Domain.Common.ValueObjects;
+﻿using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.FooterAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;

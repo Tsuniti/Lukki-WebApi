@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Api.Common.Http;
-using Lukki.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 

@@ -5,7 +5,6 @@ using Lukki.Application.Footers.Queries.GetFooterByName;
 using Lukki.Contracts;
 using Lukki.Contracts.Banners;
 using Lukki.Contracts.Footers;
-using Lukki.Contracts.Footers;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.Enums;
 using Lukki.Infrastructure.Helpers;

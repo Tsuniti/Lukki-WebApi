@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.Errors;
 using MediatR;
 

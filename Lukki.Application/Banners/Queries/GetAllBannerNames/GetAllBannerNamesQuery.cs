@@ -1,5 +1,4 @@
-﻿using Lukki.Domain.BannerAggregate;
-using MediatR;
+﻿using MediatR;
 using ErrorOr;
 
 namespace Lukki.Application.Banners.Queries.GetAllBannerNames;
