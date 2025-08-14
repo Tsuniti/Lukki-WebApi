@@ -50,7 +50,10 @@ public class CreateFooterCommandHandler : IRequestHandler<CreateFooterCommand, E
                     string name = Guid.NewGuid().ToString();
                     icon = Image.Create(await _imageStorage.UploadImageAsync(requestLink.IconStream, name));
                 }
-
+                else
+                {
+                    icon = Image.Create(String.Empty);
+                }
                 links.Add(
                     FooterLink.Create(
                         text: requestLink.Text,

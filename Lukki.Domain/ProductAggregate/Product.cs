@@ -13,7 +13,7 @@ public sealed class Product : AggregateRoot<ProductId>
     private readonly List<Image> _images = new();
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public TargetGroup TargetGroup { get; private set; }
+    // public TargetGroup TargetGroup { get; private set; }
     public AverageRating AverageRating { get; private set; }
     public Money Price { get; private set; }
     public CategoryId CategoryId { get; private set; }
@@ -27,7 +27,7 @@ public sealed class Product : AggregateRoot<ProductId>
         ProductId productId,
         string name,
         string description,
-        TargetGroup targetGroup,
+        // TargetGroup targetGroup,
         AverageRating averageRating,
         Money price,
         CategoryId categoryId,
@@ -38,7 +38,7 @@ public sealed class Product : AggregateRoot<ProductId>
     {
         Name = name;
         Description = description;
-        TargetGroup = targetGroup;
+        // TargetGroup = targetGroup;
         AverageRating = averageRating;
         Price = price;
         CategoryId = categoryId;
@@ -50,7 +50,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public static Product Create(
         string name,
         string description,
-        TargetGroup targetGroup,
+        // TargetGroup targetGroup,
         Money price,
         CategoryId categoryId,
         List<Image> images,
@@ -62,7 +62,7 @@ public sealed class Product : AggregateRoot<ProductId>
             ProductId.CreateUnique(),
             name,
             description,
-            targetGroup,
+            // targetGroup,
             AverageRating.CreateNew(),
             price,
             categoryId,

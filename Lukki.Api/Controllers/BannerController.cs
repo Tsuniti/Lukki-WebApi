@@ -37,6 +37,19 @@ public class BannerController : ApiController
     public async Task<IActionResult> CreateBanner([FromForm] CreateBannerFormModel form)
     {
         
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState
+                .Where(kvp => kvp.Value?.Errors.Count > 0)
+                .Select(kvp => new
+                {
+                    Field = kvp.Key,
+                    Errors = kvp.Value!.Errors.Select(e => e.ErrorMessage)
+                });
+
+            return BadRequest(errors);
+        }
+        
         var slides = new List<SlideCommand>();
 
         foreach (var slide in form.Slides)
@@ -69,7 +82,7 @@ public class BannerController : ApiController
         var getBannerByNameResult = await _mediator.Send(query);
 
         return getBannerByNameResult.Match(
-            bannerResult => Ok(UniversalResponse<BannerResponse>.Create($"Banner {bannerResult.Name} successfully found",_mapper.Map<BannerResponse>(bannerResult))),
+            bannerResult => Ok(_mapper.Map<BannerResponse>(bannerResult)),
             errors => Problem(errors));
     }
     
@@ -82,7 +95,7 @@ public class BannerController : ApiController
         var getAllBannerNamesResult = await _mediator.Send(new GetAllBannerNamesQuery());
 
         return getAllBannerNamesResult.Match(
-            bannerResult => Ok(UniversalResponse<BannerNamesResponse>.Create($"Banner names successfully found",_mapper.Map<BannerNamesResponse>(bannerResult))),
+            bannerResult => Ok(_mapper.Map<BannerNamesResponse>(bannerResult)),
             errors => Problem(errors));
     }
 }

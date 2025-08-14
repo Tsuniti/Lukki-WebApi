@@ -15,7 +15,7 @@ public class ProductMappingConfig : IRegister
 
         config.NewConfig<Product, ProductResponse>()
             .Map(dest => dest.Id, src => src.Id.Value)
-            .Map(dest => dest.TargetGroup, src => src.TargetGroup.ToString())
+            // .Map(dest => dest.TargetGroup, src => src.TargetGroup.ToString())
             .Map(dest => dest.AverageRating, src => src.AverageRating.NumRatings > 0 ? src.AverageRating.Value : 0)
             .Map(dest => dest.CategoryId, src => src.CategoryId.Value)
             .Map(dest => dest.Images, src => src.Images.Select(image => image.Url))

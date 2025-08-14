@@ -4,21 +4,23 @@ namespace Lukki.Domain.Common.Errors;
 
 public static partial class Errors
 {
-    public static class Footer
+    public static class Header
     {
+        
         public static Error NotFound(string name) => Error.Validation(
-            code: "Footer.NotFound",
-            description: "Footer not found with name: " + name);
+            code: "Header.NotFound",
+            description: "Header not found with name: " + name);
         
         public static Error NoNamesFound() => Error.Validation(
-            code: "Footer.NamesNotFound",
-            description: "No footer names found. Probably no footer exists.");
+            code: "Header.NamesNotFound",
+            description: "No header names found. Probably no header exists.");
         
         public static Error DuplicateName(string name) => Error.Validation(
-            code: "Footer.DuplicateName",
-            description: "Footer with name '" + name + "' already exists.");
+            code: "Header.DuplicateName",
+            description: "Header with name '" + name + "' already exists.");
         public static Error ImageTooLarge(long yourImageSize, int maxImageSize) => Error.Validation(
-            code: "Footer.ImageTooLarge",
+            code: "Header.ImageTooLarge",
             description: $"Image is too large. Your image = {yourImageSize} bytes, max image size = {maxImageSize} bytes.");
+        
     }
 }

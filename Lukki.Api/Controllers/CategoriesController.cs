@@ -1,5 +1,7 @@
 ﻿using Lukki.Application.Categories.Commands.CreateCategory;
+using Lukki.Application.Categories.Queries.GetAllCategories;
 using Lukki.Contracts.Categories;
+using Lukki.Contracts.Footers;
 using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.Common.Enums;
 using MapsterMapper;
@@ -39,5 +41,17 @@ public class CategoriesController : ApiController
             category => Ok(_mapper.Map<CategoryResponse>(category)),
             errors => Problem(errors) 
         );
+    }
+    
+    [HttpGet]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllCategories()
+    {
+        var getAllCategoriesResult = await _mediator.Send(new GetAllCategoriesQuery());
+
+        return getAllCategoriesResult.Match(
+            categoriesResult => Ok(_mapper.Map<List<CategoryResponse>>(categoriesResult)),
+            errors => Problem(errors));
     }
 }

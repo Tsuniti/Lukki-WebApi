@@ -3,7 +3,7 @@
 public record CreateProductRequest(
     string Name,
     string Description,
-    string TargetGroup,
+//    string TargetGroup,
     Price Price,
     string CategoryId,
     //Image does not fall into contracts, because This is IFormFile

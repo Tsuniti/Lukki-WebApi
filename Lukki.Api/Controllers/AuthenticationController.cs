@@ -64,7 +64,7 @@ public class AuthenticationController : ApiController
 
         
         return authResult.Match(
-            authResult => Ok(UniversalResponse<AuthenticationResponse>.Create("Login successful", _mapper.Map<AuthenticationResponse>(authResult))),
+            authResult => Ok(_mapper.Map<AuthenticationResponse>(authResult)),
             errors => Problem(errors));
     }
     

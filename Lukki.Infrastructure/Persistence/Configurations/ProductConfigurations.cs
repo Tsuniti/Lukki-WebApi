@@ -70,7 +70,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
                 value => ProductId.Create(value));
         
         
-        builder.HasIndex(p => p.TargetGroup);
+        // builder.HasIndex(p => p.TargetGroup);
 
 
 
@@ -78,8 +78,8 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .HasMaxLength(100);
         builder.Property(p => p.Description)
             .HasMaxLength(200);
-        builder.Property(p => p.TargetGroup)
-            .HasConversion<string>();
+        // builder.Property(p => p.TargetGroup)
+        //     .HasConversion<string>();
 
         builder.OwnsOne(p => p.AverageRating, pb =>
         {

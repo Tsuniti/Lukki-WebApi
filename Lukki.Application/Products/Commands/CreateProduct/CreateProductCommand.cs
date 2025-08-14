@@ -8,7 +8,7 @@ public record CreateProductCommand(
     string SellerId,
     string Name,
     string Description,
-    string TargetGroup,
+//    string TargetGroup,
     PriceCommand Price,
     string CategoryId,
     List<Stream> Images,

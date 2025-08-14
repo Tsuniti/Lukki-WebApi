@@ -1,4 +1,4 @@
-﻿namespace Lukki.Contracts.Banners;
+﻿namespace Lukki.Contracts.Footers;
 
 public record GetFooterRequest
 (

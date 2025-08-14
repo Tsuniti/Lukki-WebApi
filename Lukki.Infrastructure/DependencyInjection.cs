@@ -61,7 +61,7 @@ public static class DependencyInjection
 
         services.AddScoped<IBannerRepository, BannerRepository>();
         services.AddScoped<IFooterRepository, FooterRepository>();
-
+        services.AddScoped<IHeaderRepository, HeaderRepository>();
         return services;
     }
 

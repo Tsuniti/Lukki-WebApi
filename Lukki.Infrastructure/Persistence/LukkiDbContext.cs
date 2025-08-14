@@ -3,6 +3,7 @@ using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.FooterAggregate;
+using Lukki.Domain.HeaderAggregate;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ReviewAggregate;
@@ -29,6 +30,7 @@ public class LukkiDbContext : DbContext
     public DbSet<Seller> Sellers { get; set; } = null!;
     public DbSet<Banner> Banners { get; set; } = null!;
     public DbSet<Footer> Footers { get; set; } = null!;
+    public DbSet<MyHeader> Headers { get; set; } = null!;
 
     public DbSet<ExchangeRate> ExchangeRates { get; set; } = null!;
 

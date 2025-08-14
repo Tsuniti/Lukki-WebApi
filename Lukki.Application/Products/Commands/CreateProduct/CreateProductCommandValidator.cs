@@ -10,10 +10,10 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
         RuleFor(x => x.SellerId).NotEmpty();
         RuleFor(x => x.Name).NotEmpty();
         RuleFor(x => x.Description).NotEmpty();
-        RuleFor(x => x.TargetGroup)
-            .NotEmpty()
-            .Must(value => Enum.TryParse<TargetGroup>(value, true, out _))
-            .WithMessage("Invalid target group specified.");
+        // RuleFor(x => x.TargetGroup)
+        //     .NotEmpty()
+        //     .Must(value => Enum.TryParse<TargetGroup>(value, true, out _))
+        //     .WithMessage("Invalid target group specified.");
         RuleFor(x => x.Price.Amount)
             .GreaterThan(0);
         RuleFor(x => x.Price.Currency)

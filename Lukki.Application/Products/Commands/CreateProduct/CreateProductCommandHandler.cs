@@ -40,7 +40,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         var product = Product.Create(
             name: command.Name,
             description: command.Description,
-            targetGroup: Enum.Parse<TargetGroup>(command.TargetGroup, true),
+            // targetGroup: Enum.Parse<TargetGroup>(command.TargetGroup, true),
             price: Money.Create(
                 amount: command.Price.Amount,
                 currency: command.Price.Currency

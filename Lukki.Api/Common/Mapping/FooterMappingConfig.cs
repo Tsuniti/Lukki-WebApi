@@ -1,4 +1,4 @@
-﻿using Lukki.Api.ApiModels.CreateFooterFormModel;
+﻿using Lukki.Api.ApiModels.Footer;
 using Lukki.Application.Footers.Commands.CreateFooter;
 using Lukki.Contracts.Footers;
 using Lukki.Domain.FooterAggregate;
@@ -13,9 +13,9 @@ public class FooterMappingConfig : IRegister
         config.NewConfig<(FooterLinkFormModel Link, Stream? IconStream), FooterLinkCommand>()
             .MapWith(
                 scr => new FooterLinkCommand(
-                    scr.Link.Text,
+                    scr.Link.Text ?? String.Empty,
                     scr.Link.Url,
-                    scr.IconStream,
+                    scr.IconStream ?? null,
                     scr.Link.SortOrder));
         
         config.NewConfig<(FooterSectionFormModel Section, List<FooterLinkCommand> Links), FooterSectionCommand>()
@@ -28,7 +28,7 @@ public class FooterMappingConfig : IRegister
         config.NewConfig<(CreateFooterFormModel Footer, List<FooterSectionCommand> Sections), CreateFooterCommand>()
             .MapWith(src => new CreateFooterCommand(
                     src.Footer.Name,
-                    src.Footer.Name,
+                    src.Footer.CopyrightText,
                     src.Sections));
 
         config.NewConfig<Footer, FooterResponse>()
@@ -43,7 +43,7 @@ public class FooterMappingConfig : IRegister
                                 link => new FooterLinkResponse(
                                     link.Text,
                                     link.Url,
-                                    link.Icon.Url,
+                                    link.Icon.Url ?? String.Empty,
                                     link.SortOrder)).ToList(),
                             section.SortOrder)));
 

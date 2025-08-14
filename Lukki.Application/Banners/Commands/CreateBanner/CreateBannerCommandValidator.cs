@@ -7,7 +7,7 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
     public CreateBannerCommandValidator()
     {
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Name is required.")
+            .NotEmpty()
             .Length(3, 100);
         // .WithMessage("Name length must be between 3 and 100 characters.");
 
@@ -23,14 +23,10 @@ public class CreateBannerCommandValidator : AbstractValidator<CreateBannerComman
                 //.WithMessage("Text length can't exceed 200 characters.");
 
                 slide.RuleFor(s => s.ButtonText)
-                    .NotEmpty()
-                    //.WithMessage("ButtonText is required.")
                     .MaximumLength(100);
                 //.WithMessage("ButtonText length can't exceed 100 characters.");
 
                 slide.RuleFor(s => s.ButtonUrl)
-                    .NotEmpty()
-                    //.WithMessage("ButtonUrl is required.")
                     .Must(uri => Uri.IsWellFormedUriString(uri, UriKind.Absolute));
                 //.WithMessage("ButtonUrl must be a valid URL.");
         });

@@ -1,12 +1,13 @@
-﻿using Lukki.Api.ApiModels.CreateFooterFormModel;
+﻿using ErrorOr;
+using Lukki.Api.ApiModels.Footer;
 using Lukki.Application.Footers.Commands.CreateFooter;
 using Lukki.Application.Footers.Queries.GetAllFooterNames;
 using Lukki.Application.Footers.Queries.GetFooterByName;
-using Lukki.Contracts;
 using Lukki.Contracts.Banners;
 using Lukki.Contracts.Footers;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.Common.Enums;
+using Lukki.Domain.Common.Errors;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
@@ -45,7 +46,11 @@ public class FooterController : ApiController
             {
                 if (link.Icon?.Length > maxFileSizeBytes)
                 {
-                    return BadRequest($"Icon '{link.Icon.FileName}' is too large. Max size: 20 KB.");
+                    return Problem(new List<Error> {
+                        Errors.Footer.ImageTooLarge(
+                            yourImageSize: link.Icon.Length,
+                            maxImageSize: maxFileSizeBytes)
+                    });
                 }
             }
         }
@@ -56,7 +61,7 @@ public class FooterController : ApiController
             var links = new List<FooterLinkCommand>();
             foreach (var link in section.Links)
             {
-                Stream iconStream = null;
+                Stream? iconStream = null;
                 if (link.Icon is not null)
                 {
                     iconStream = await FileHelpers.ConvertToStreamAsync(link.Icon);
@@ -92,7 +97,7 @@ public class FooterController : ApiController
         var getFooterByNameResult = await _mediator.Send(query);
 
         return getFooterByNameResult.Match(
-            footerResult => Ok(UniversalResponse<FooterResponse>.Create($"Footer {footerResult.Name} successfully found", _mapper.Map<FooterResponse>(footerResult))),
+            footerResult => Ok(_mapper.Map<FooterResponse>(footerResult)),
             errors => Problem(errors));
     }
     
@@ -105,7 +110,7 @@ public class FooterController : ApiController
         var getAllFooterNamesResult = await _mediator.Send(new GetAllFooterNamesQuery());
 
         return getAllFooterNamesResult.Match(
-            footerResult => Ok(UniversalResponse<FooterNamesResponse>.Create($"Footer names successfully found",_mapper.Map<FooterNamesResponse>(footerResult))),
+            footerResult => Ok(_mapper.Map<FooterNamesResponse>(footerResult)),
             errors => Problem(errors));
     }
     

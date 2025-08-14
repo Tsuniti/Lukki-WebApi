@@ -4,7 +4,7 @@ public record ProductResponse(
     string Id,
     string Name,
     string Description,
-    string TargetGroup,
+//    string TargetGroup,
     float? AverageRating,
     MoneyResponse Price,
     string CategoryId,

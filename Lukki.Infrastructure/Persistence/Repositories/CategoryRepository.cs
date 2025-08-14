@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.CategoryAggregate;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
 
@@ -16,5 +17,10 @@ public class CategoryRepository : ICategoryRepository
     {
         _dbContext.Add(category);
         await _dbContext.SaveChangesAsync();
+    }
+    
+    public async Task<List<Category>> GetAllAsync()
+    {
+        return await _dbContext.Categories.ToListAsync();
     }
 }

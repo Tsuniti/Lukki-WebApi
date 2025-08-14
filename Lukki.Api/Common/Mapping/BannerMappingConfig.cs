@@ -15,8 +15,8 @@ public class BannerMappingConfig : IRegister
             .MapWith(src => new SlideCommand(
                 src.ImageStream,
                 src.Model.Text ?? string.Empty,
-                src.Model.ButtonText,
-                src.Model.ButtonUrl,
+                src.Model.ButtonText ?? string.Empty,
+                src.Model.ButtonUrl ?? string.Empty,
                 src.Model.SortOrder));
 
 
