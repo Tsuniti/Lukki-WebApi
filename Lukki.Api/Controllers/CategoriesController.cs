@@ -1,9 +1,8 @@
 ﻿using Lukki.Application.Categories.Commands.CreateCategory;
 using Lukki.Application.Categories.Queries.GetAllCategories;
 using Lukki.Contracts.Categories;
-using Lukki.Contracts.Footers;
 using Lukki.Domain.CategoryAggregate;
-using Lukki.Domain.Common.Enums;
+using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +26,7 @@ public class CategoriesController : ApiController
 
     
     [HttpPost]
-    [Authorize(Roles = nameof(UserRole.SELLER))] // hack: Temporary, until we have an admin
+    [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)

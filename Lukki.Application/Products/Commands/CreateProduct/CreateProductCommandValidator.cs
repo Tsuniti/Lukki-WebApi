@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Lukki.Domain.ProductAggregate.Enums;
 
 namespace Lukki.Application.Products.Commands.CreateProduct;
 

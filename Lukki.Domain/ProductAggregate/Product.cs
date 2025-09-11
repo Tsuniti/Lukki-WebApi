@@ -1,7 +1,6 @@
 ﻿using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.ProductAggregate.Enums;
 using Lukki.Domain.ProductAggregate.Events;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 
@@ -69,7 +68,7 @@ public sealed class Product : AggregateRoot<ProductId>
             images,
             inStockProducts,
             sellerId,
-            DateTime.Now);
+            DateTime.UtcNow);
 
         product.AddDomainEvent(new ProductCreated(product));
 

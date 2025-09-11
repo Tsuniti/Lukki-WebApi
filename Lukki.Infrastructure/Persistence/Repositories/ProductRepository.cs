@@ -19,12 +19,29 @@ public class ProductRepository : IProductRepository
         _dbContext.Add(product);
         await _dbContext.SaveChangesAsync();
     }
-    
-    public async Task<List<Product>> GetProductsByProductIdsAsync(IEnumerable<ProductId> productIds)
+
+    public Task<Product> AddRating(Product product, short Rating)
+    {
+        product.AverageRating.AddNewRating(Rating);
+        return Update(product);
+    }
+
+    public async Task<List<Product>> GetListByProductIdsAsync(IEnumerable<ProductId> productIds)
     {
         return await _dbContext.Products
             .AsNoTracking()
             .Where(p => productIds.Contains(p.Id))
             .ToListAsync();
+    }
+    public async Task<Product?> GetByIdAsync(ProductId id)
+    {
+        return await _dbContext.Products
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
+    public async Task<Product> Update(Product product)
+    {
+        _dbContext.Products.Update(product);
+        await _dbContext.SaveChangesAsync();
+        return product;
     }
 }

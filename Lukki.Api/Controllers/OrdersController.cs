@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using Lukki.Application.Orders.Commands.CreateOrder;
 using Lukki.Contracts.Orders;
-using Lukki.Domain.Common.Enums;
 using Lukki.Domain.OrderAggregate;
+using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +25,7 @@ public class OrdersController : ApiController
     }
     
     [HttpPost]
-    [Authorize(Roles = nameof(UserRole.CUSTOMER))]
+    [Authorize(Roles = AccessRoles.Customer)]
     [ProducesResponseType(typeof(Order), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)

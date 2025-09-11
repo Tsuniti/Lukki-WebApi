@@ -3,11 +3,10 @@ using Lukki.Api.ApiModels.Footer;
 using Lukki.Application.Footers.Commands.CreateFooter;
 using Lukki.Application.Footers.Queries.GetAllFooterNames;
 using Lukki.Application.Footers.Queries.GetFooterByName;
-using Lukki.Contracts.Banners;
 using Lukki.Contracts.Footers;
 using Lukki.Domain.FooterAggregate;
-using Lukki.Domain.Common.Enums;
 using Lukki.Domain.Common.Errors;
+using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
@@ -16,11 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lukki.Api.Controllers;
 
-
 [Route("footer")]
 public class FooterController : ApiController
 {
-
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
@@ -29,32 +26,32 @@ public class FooterController : ApiController
         _mapper = mapper;
         _mediator = mediator;
     }
-    
+
     [HttpPost]
-    [Authorize(Roles = nameof(UserRole.SELLER))] // hack: Temporary, until we have an admin
+    [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
-
-    public async Task<IActionResult> CreateFooter([FromForm]CreateFooterFormModel form)
+    public async Task<IActionResult> CreateFooter([FromForm] CreateFooterFormModel form)
     {
-        
         const int maxFileSizeBytes = 20 * 1024; // 20 KB
-        
+
         foreach (var section in form.Sections)
         {
             foreach (var link in section.Links)
             {
                 if (link.Icon?.Length > maxFileSizeBytes)
                 {
-                    return Problem(new List<Error> {
-                        Errors.Footer.ImageTooLarge(
-                            yourImageSize: link.Icon.Length,
-                            maxImageSize: maxFileSizeBytes)
-                    });
+                    return Problem(
+                        new List<Error>
+                        {
+                            Errors.Footer.ImageTooLarge(
+                                yourImageSize: link.Icon.Length,
+                                maxImageSize: maxFileSizeBytes)
+                        });
                 }
             }
         }
-        
+
         var sections = new List<FooterSectionCommand>();
         foreach (var section in form.Sections)
         {
@@ -66,31 +63,34 @@ public class FooterController : ApiController
                 {
                     iconStream = await FileHelpers.ConvertToStreamAsync(link.Icon);
                 }
+
                 var mappedLink = _mapper.Map<(FooterLinkFormModel, Stream?), FooterLinkCommand>((link, iconStream));
                 links.Add(mappedLink);
             }
-            var mappedSection = _mapper.Map<(FooterSectionFormModel, List<FooterLinkCommand>), FooterSectionCommand>((section, links));
-            
+
+            var mappedSection =
+                _mapper.Map<(FooterSectionFormModel, List<FooterLinkCommand>), FooterSectionCommand>((section, links));
+
             sections.Add(mappedSection);
         }
-        
-        var command = _mapper.Map<(CreateFooterFormModel, List<FooterSectionCommand>), CreateFooterCommand>((form, sections));
-        
+
+        var command =
+            _mapper.Map<(CreateFooterFormModel, List<FooterSectionCommand>), CreateFooterCommand>((form, sections));
+
 
         var createFooterResult = await _mediator.Send(command);
-        
+
         return createFooterResult.Match(
             footer => Ok(_mapper.Map<FooterResponse>(footer)),
-            errors => Problem(errors) 
+            errors => Problem(errors)
         );
     }
-    
-    
+
+
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
-
-    public async Task<IActionResult> GetFooterByName([FromQuery]GetFooterRequest request)
+    public async Task<IActionResult> GetFooterByName([FromQuery] GetFooterRequest request)
     {
         var query = _mapper.Map<GetFooterByNameQuery>(request);
 
@@ -100,7 +100,7 @@ public class FooterController : ApiController
             footerResult => Ok(_mapper.Map<FooterResponse>(footerResult)),
             errors => Problem(errors));
     }
-    
+
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
@@ -113,5 +113,4 @@ public class FooterController : ApiController
             footerResult => Ok(_mapper.Map<FooterNamesResponse>(footerResult)),
             errors => Problem(errors));
     }
-    
 }

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Lukki.Application.Headers.Queries.GetHeaderByName;
 
 namespace Lukki.Application.Headers.Queries.GetHeaderByName;
 

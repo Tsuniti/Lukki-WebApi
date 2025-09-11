@@ -29,7 +29,7 @@ public class CategoryConfigurations : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Name)
             .HasMaxLength(100);
         
-        builder.Property(c => c.ParentCategoryId)
+        builder.Property(c => c.ParentId)
             .HasConversion(
                 id => id.Value,
                 value => CategoryId.Create(value))

@@ -5,12 +5,12 @@ public record ProductResponse(
     string Name,
     string Description,
 //    string TargetGroup,
-    float? AverageRating,
+    double? AverageRating,
     MoneyResponse Price,
     string CategoryId,
     List<string> Images,
     List<InStockProductResponse> InStockProducts,
-    List<string> ReviewIds,
+    // List<string> ReviewIds,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );

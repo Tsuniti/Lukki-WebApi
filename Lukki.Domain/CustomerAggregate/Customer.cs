@@ -1,13 +1,11 @@
 ﻿using Lukki.Domain.Common.Enums;
-using Lukki.Domain.Common.Interfaces;
 using Lukki.Domain.Common.Models;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Domain.CustomerAggregate;
 
-public sealed class Customer : AggregateRoot<UserId>, IUser
+public sealed class Customer : AggregateRoot<CustomerId>
 {
     private readonly List<CartItem> _cartItems = new();
     private readonly List<ProductId> _inWishListProductIds = new();
@@ -16,7 +14,6 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public string PasswordHash { get; private set; }
-    public UserRole Role { get; private set; }
 
     public string? PhoneNumber { get; private set; }
     
@@ -26,7 +23,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
     public DateTime? UpdatedAt { get; private set; }
     
     private Customer(
-        UserId customerId,
+        CustomerId customerId,
         string firstName,
         string lastName,
         string email,
@@ -41,7 +38,6 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
         Email = email;
         PasswordHash = passwordHash;
         PhoneNumber = phoneNumber;
-        Role = role;
         CreatedAt = createdAt;
     }
     
@@ -54,7 +50,7 @@ public sealed class Customer : AggregateRoot<UserId>, IUser
     )
     {
         return new(
-            UserId.CreateUnique(),
+            CustomerId.CreateUnique(),
             firstName,
             lastName,
             email,

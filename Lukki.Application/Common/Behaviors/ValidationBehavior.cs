@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using FluentValidation;
-using Lukki.Application.Authentication.Common;
+using Lukki.Application.Customers.Common;
 using MediatR;
 
 namespace Lukki.Application.Common.Behaviors;
@@ -8,7 +8,7 @@ namespace Lukki.Application.Common.Behaviors;
 public class ValidationBehavior<TRequest, TResponse> : 
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
-    where TResponse : IErrorOr<AuthenticationResult>
+    where TResponse : IErrorOr<CustomerAuthenticationResult>
 {
 
     private readonly IValidator<TRequest>? _validator;

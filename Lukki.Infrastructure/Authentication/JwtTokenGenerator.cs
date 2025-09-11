@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Lukki.Application.Common.Interfaces.Authentication;
 using Lukki.Application.Common.Interfaces.Services;
-using Lukki.Domain.Common.Interfaces;
+using Lukki.Domain.CustomerAggregate;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,20 +22,42 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _jwtSettings = jwtOptions.Value;
     }
 
-    public string GenerateToken(IUser user)
+    public string GenerateToken(Customer customer)
+    {
+        
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, customer.Id.Value.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, customer.Email),
+            new Claim(JwtSettings.RoleClaimType, AccessRoles.Customer),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        };
+
+        return CreateToken(claims);
+    }
+    
+    // public string GenerateToken(Admin admin)
+    // {
+    //     
+    //     var claims = new[]
+    //     {
+    //         new Claim(JwtRegisteredClaimNames.Sub, customer.Id.ToString()),
+    //         new Claim(JwtRegisteredClaimNames.Email, customer.Email),
+    //         new Claim(JwtSettings.RoleClaimType, AccessRoles.Admin),
+    //         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+    //     };
+    //
+    //     return CreateToken(claims);
+    // }
+    
+    private string CreateToken(IEnumerable<Claim> claims)
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
             SecurityAlgorithms.HmacSha256);
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtSettings.RoleClaimType, user.Role.ToString()),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        };
-
+        
+        
         var securityToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,

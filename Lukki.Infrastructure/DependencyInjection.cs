@@ -52,14 +52,18 @@ public static class DependencyInjection
         
         services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
 
-        
-        services.AddScoped<IUserRepository, UserRepository>();
+        //services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IReviewRepository, ReviewRepository>();
 
         services.AddScoped<IBannerRepository, BannerRepository>();
+        services.AddScoped<ITextboxBannerRepository, TextboxBannerRepository>();
+        services.AddScoped<IProductBannerRepository, ProductBannerRepository>();
         services.AddScoped<IFooterRepository, FooterRepository>();
         services.AddScoped<IHeaderRepository, HeaderRepository>();
         return services;

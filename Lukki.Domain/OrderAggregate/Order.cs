@@ -1,5 +1,6 @@
 ﻿using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.OrderAggregate.Entities;
 using Lukki.Domain.OrderAggregate.Enums;
 using Lukki.Domain.OrderAggregate.ValueObjects;
@@ -15,7 +16,7 @@ public sealed class Order : AggregateRoot<OrderId>
 
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
-    public UserId? CustomerId { get; private set; } // Nullable to save orders if customer is deleted
+    public CustomerId? CustomerId { get; private set; } // Nullable to save orders if customer is deleted
     public IReadOnlyList<InOrderProduct> InOrderProducts => _inOrderProducts.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
@@ -26,7 +27,7 @@ public sealed class Order : AggregateRoot<OrderId>
         Money totalAmount,
         Address shippingAddress,
         Address billingAddress,
-        UserId customerId,
+        CustomerId customerId,
         List<InOrderProduct> inOrderProducts,
         DateTime createdAt
     ) : base(orderId)
@@ -46,7 +47,7 @@ public sealed class Order : AggregateRoot<OrderId>
         Address shippingAddress,
         Address billingAddress,
         List<InOrderProduct> inOrderProducts,
-        UserId customerId
+        CustomerId customerId
     )
     {
         return new(

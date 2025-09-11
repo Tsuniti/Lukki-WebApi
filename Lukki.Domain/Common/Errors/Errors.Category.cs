@@ -10,6 +10,10 @@ public static partial class Errors
             code: "Category.NotFound",
             description: "Category not found with name: " + name);
         
+        public static Error RootParentNotFound(string id) => Error.Validation(
+            code: "Category.RootParentNotFound",
+            description: "Root Parent Category not found from category id: " + id);
+        
         public static Error NoCategoriesFound() => Error.Validation(
             code: "Category.NoCategoriesFound",
             description: "No Categories found. Probably no category exists");

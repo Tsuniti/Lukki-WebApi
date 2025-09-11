@@ -1,4 +1,5 @@
 ﻿using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
@@ -44,7 +45,7 @@ public class ReviewConfigurations : IEntityTypeConfiguration<Review>
         builder.Property(r => r.CustomerId)
             .HasConversion(
                 id => id.Value,
-                value => UserId.Create(value));
+                value => CustomerId.Create(value));
         
         /*builder.HasOne<Customer>()
             .WithMany()

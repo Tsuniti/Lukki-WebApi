@@ -1,5 +1,5 @@
-﻿using Lukki.Domain.Common.ValueObjects;
-using Lukki.Domain.CustomerAggregate;
+﻿using Lukki.Domain.CustomerAggregate;
+using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -82,7 +82,7 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
              .ValueGeneratedNever()
              .HasConversion(
                  id => id.Value,
-                 value => UserId.Create(value));
+                 value => CustomerId.Create(value));
          
          builder.Property(s => s.FirstName)
              .HasMaxLength(100);
@@ -91,8 +91,8 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
          builder.Property(s => s.Email)
              .HasMaxLength(100);
          builder.Property(s => s.PasswordHash);
-         builder.Property(s => s.Role)
-             .HasMaxLength(100);
+         
+         
          builder.Property(s => s.PhoneNumber)
              .HasMaxLength(16);
          

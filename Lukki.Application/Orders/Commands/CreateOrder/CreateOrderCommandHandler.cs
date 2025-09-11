@@ -3,6 +3,7 @@ using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.OrderAggregate.Entities;
 using Lukki.Domain.OrderAggregate.Enums;
@@ -33,7 +34,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             .Select(iop => ProductId.Create(iop.ProductId))
             .ToList();
 
-        var existingProducts = await _productRepository.GetProductsByProductIdsAsync(productIds);
+        var existingProducts = await _productRepository.GetListByProductIdsAsync(productIds);
     
         if (existingProducts.Count != productIds.Count)
         {
@@ -93,7 +94,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
                 postalCode: command.BillingAddress.PostalCode,
                 country: command.BillingAddress.Country),
             
-            customerId: UserId.Create(command.CustomerId),
+            customerId: CustomerId.Create(command.CustomerId),
             inOrderProducts: inOrderProducts
             
         );

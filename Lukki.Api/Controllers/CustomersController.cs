@@ -1,8 +1,15 @@
-﻿using MapsterMapper;
+﻿using Lukki.Application.Customers.Commands.Register;
+using Lukki.Contracts.Authentication;
+using Lukki.Contracts.Customers;
+using Lukki.Domain.Common.Errors;
+using MapsterMapper;
 using MediatR;
+using Lukki.Application.Customers.Queries.Login;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lukki.Api.Controllers;
 
+[Route("customers")]
 public class CustomersController : ApiController
 {
 
@@ -13,5 +20,44 @@ public class CustomersController : ApiController
     {
         _mapper = mapper;
         _mediator = mediator;
-    }
+    } 
+    
+     [HttpPost("register")]
+     [ProducesResponseType(typeof(CustomerAuthenticationResponse), StatusCodes.Status200OK)]
+
+     public async Task<IActionResult> CustomerRegister(CustomerRegisterRequest request)
+     {
+         var command = _mapper.Map<CustomerRegisterCommand>(request);
+
+         var authResult = await _mediator.Send(command);
+
+         return authResult.Match(
+             authResult => Ok(_mapper.Map<CustomerAuthenticationResponse>(authResult)),
+             errors => Problem(errors));
+     }
+
+     
+     
+     [HttpPost("login")]
+     [ProducesResponseType(typeof(CustomerAuthenticationResponse), StatusCodes.Status200OK)]
+
+     public async Task<IActionResult> Login(LoginRequest request)
+     {
+         var query = _mapper.Map<CustomerLoginQuery>(request);
+
+         var authResult = await _mediator.Send(query);
+
+         if (authResult.IsError && authResult.FirstError == Errors.Authentication.InvalidCredentials)
+         {
+             return Problem(
+                 statusCode: StatusCodes.Status401Unauthorized,
+                 title: authResult.FirstError.Description);
+         }
+
+
+         
+         return authResult.Match(
+             authResult => Ok(_mapper.Map<CustomerAuthenticationResponse>(authResult)),
+             errors => Problem(errors));
+     }
 }

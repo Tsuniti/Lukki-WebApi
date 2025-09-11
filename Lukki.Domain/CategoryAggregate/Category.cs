@@ -6,16 +6,16 @@ namespace Lukki.Domain.CategoryAggregate;
 public sealed class Category : AggregateRoot<CategoryId>
 {
     public string Name { get; }
-    public CategoryId? ParentCategoryId { get; private set; }
+    public CategoryId? ParentId { get; private set; }
 
     private Category(
         CategoryId categoryId,
         string name,
-        CategoryId? parentCategoryId
+        CategoryId? parentId
     ) : base(categoryId)
     {
         Name = name;
-        ParentCategoryId = parentCategoryId;
+        ParentId = parentId;
     }
 
     public static Category Create(

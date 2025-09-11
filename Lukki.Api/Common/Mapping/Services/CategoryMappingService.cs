@@ -9,14 +9,14 @@ public static class CategoryMappingService
     public static List<CategoryResponse> BuildCategoryTree(List<Category> categories)
     {
         var childrenLookup = categories
-            .Where(c => c.ParentCategoryId != null)
+            .Where(c => c.ParentId != null)
             .ToLookup(
-                keySelector: c => c.ParentCategoryId!, 
+                keySelector: c => c.ParentId!, 
                 elementSelector: c => c
             );
 
         return categories
-            .Where(c => c.ParentCategoryId == null)
+            .Where(c => c.ParentId == null)
             .Select(category => new CategoryResponse(
                 Id: category.Id.Value.ToString(),
                 Name: category.Name,

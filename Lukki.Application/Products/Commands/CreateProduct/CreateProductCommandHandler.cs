@@ -4,7 +4,6 @@ using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
-using Lukki.Domain.ProductAggregate.Enums;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using MediatR;
 
