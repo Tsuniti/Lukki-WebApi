@@ -8,6 +8,7 @@ public sealed class Banner : AggregateRoot<BannerId>
     private readonly List<Slide> _slides = new();
     
     public string Name { get; private set; }
+    public string Description { get; private set; }
     public IReadOnlyList<Slide> Slides => _slides.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
@@ -15,23 +16,27 @@ public sealed class Banner : AggregateRoot<BannerId>
     private Banner(
         BannerId bannerId,
         string name,
+        string description,
         List<Slide> slides,
         DateTime createdAt
     ) : base(bannerId)
     {
         Name = name;
+        Description = description;
         _slides = slides ?? new List<Slide>();
         CreatedAt = createdAt;
     }
     
     public static Banner Create(
         String name,
+        string description,
         List<Slide> slides
     )
     {
         return new(
             BannerId.CreateUnique(),
             name,
+            description,
             slides,
             DateTime.UtcNow
         );

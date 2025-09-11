@@ -15,6 +15,7 @@ public class BannerMappingConfig : IRegister
             .MapWith(src => new SlideCommand(
                 src.ImageStream,
                 src.Model.Text ?? string.Empty,
+                src.Model.Description ?? string.Empty,
                 src.Model.ButtonText ?? string.Empty,
                 src.Model.ButtonUrl ?? string.Empty,
                 src.Model.SortOrder));
@@ -24,6 +25,7 @@ public class BannerMappingConfig : IRegister
             .MapWith(
                 src => new CreateBannerCommand(
                     src.Form.Name,
+                    src.Form.Description,
                     src.Slides
                 ));
 
@@ -35,6 +37,7 @@ public class BannerMappingConfig : IRegister
                     slide => new SlideResponse(
                         slide.Image.Url,
                         slide.Text,
+                        slide.Description,
                         slide.ButtonText,
                         slide.ButtonUrl,
                         slide.SortOrder)));

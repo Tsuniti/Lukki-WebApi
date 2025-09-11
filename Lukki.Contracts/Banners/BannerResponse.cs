@@ -12,6 +12,7 @@ public record BannerResponse
 public record SlideResponse (
     string Image,
     string Text,
+    string Description,
     string ButtonText,
     string ButtonUrl,
     Int16 SortOrder

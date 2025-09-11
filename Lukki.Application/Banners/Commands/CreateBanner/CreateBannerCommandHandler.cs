@@ -56,6 +56,7 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
                 Slide.Create(
                     image: newImage,
                     text: requestSlide.Text,
+                    description: requestSlide.Description,
                     buttonText: requestSlide.ButtonText,
                     buttonUrl: requestSlide.ButtonUrl,
                     sortOrder: requestSlide.SortOrder));
@@ -66,6 +67,7 @@ public class CreateBannerCommandHandler : IRequestHandler<CreateBannerCommand, E
         // Create Banner
         var banner = Banner.Create(
             name: command.Name,
+            description: command.Description,
             slides: slides 
         );
         // Persist Banner
