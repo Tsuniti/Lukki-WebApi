@@ -2,7 +2,6 @@
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.ReviewBanners.Common;
 using Lukki.Domain.Common.Errors;
-using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.ReviewBannerAggregate;
 using Lukki.Domain.ReviewBannerAggregate.ValueObjects;
 using MediatR;

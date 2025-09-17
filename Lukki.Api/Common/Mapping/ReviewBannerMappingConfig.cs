@@ -1,13 +1,7 @@
-﻿using Lukki.Application.Products.Commands.CreateProduct;
-using Lukki.Application.ReviewBanners.Commands.CreateReviewBanner;
+﻿using Lukki.Application.ReviewBanners.Commands.CreateReviewBanner;
 using Lukki.Application.ReviewBanners.Common;
-using Lukki.Application.Reviews.Commands.CreateReview;
-using Lukki.Application.Reviews.Common;
-using Lukki.Contracts.Products;
 using Lukki.Contracts.ReviewBanners;
-using Lukki.Contracts.Reviews;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
-using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 using Lukki.Domain.ReviewBannerAggregate.ValueObjects;

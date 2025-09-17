@@ -1,5 +1,4 @@
 ﻿using Lukki.Domain.BrandAggregate;
-using Lukki.Domain.BrandAggregate.ValueObjects;
 
 namespace Lukki.Application.Common.Interfaces.Persistence;
 

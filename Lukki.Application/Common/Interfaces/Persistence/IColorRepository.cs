@@ -1,5 +1,4 @@
 ﻿using Lukki.Domain.ColorAggregate;
-using Lukki.Domain.ColorAggregate.ValueObjects;
 
 namespace Lukki.Application.Common.Interfaces.Persistence;
 

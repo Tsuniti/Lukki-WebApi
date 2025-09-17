@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Domain.BrandAggregate;
-using Lukki.Domain.BrandAggregate;
 using MediatR;
 
 namespace Lukki.Application.Brands.Commands.CreateBrand;

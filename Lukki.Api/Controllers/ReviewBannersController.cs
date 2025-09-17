@@ -1,18 +1,12 @@
-﻿using Lukki.Application.Categories.Queries.GetAllCategories;
-using Lukki.Application.ReviewBanners.Commands.CreateReviewBanner;
+﻿using Lukki.Application.ReviewBanners.Commands.CreateReviewBanner;
 using Lukki.Application.ReviewBanners.Queries.GetReviewBannerById;
-using Lukki.Application.Reviews.Queries.GetReviewsByIds;
 using Lukki.Contracts.Banners;
 using Lukki.Contracts.ReviewBanners;
-using Lukki.Domain.CategoryAggregate;
-using Lukki.Domain.ReviewBannerAggregate;
-using Lukki.Domain.ReviewAggregate;
 using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Error = ErrorOr.Error;
 
 namespace Lukki.Api.Controllers;
 

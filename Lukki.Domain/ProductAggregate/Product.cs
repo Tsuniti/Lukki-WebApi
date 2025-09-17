@@ -3,6 +3,7 @@ using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.ColorAggregate.ValueObjects;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
+using Lukki.Domain.MaterialAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.Events;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 
@@ -10,6 +11,7 @@ namespace Lukki.Domain.ProductAggregate;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
+    private readonly List<MaterialId> _materialIds = new();
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();
     public string Name { get; private set; }
@@ -20,7 +22,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public CategoryId CategoryId { get; private set; }
     public BrandId BrandId { get; private set; }
     public ColorId ColorId { get; private set; }
-    public UserId SellerId { get; private set; }
+    public IReadOnlyList<MaterialId> MaterialIds => _materialIds.AsReadOnly();
     public IReadOnlyList<Image> Images => _images.AsReadOnly();
     public IReadOnlyList<InStockProduct> InStockProducts => _inStockProducts.AsReadOnly();
     public DateTime CreatedAt { get; private set; }
@@ -36,9 +38,9 @@ public sealed class Product : AggregateRoot<ProductId>
         CategoryId categoryId,
         BrandId brandId,
         ColorId colorId,
+        List<MaterialId> materialIds,
         List<Image> images,
         List<InStockProduct> inStockProducts,
-        UserId sellerId,
         DateTime createdAt) : base(productId)
     {
         Name = name;
@@ -49,9 +51,9 @@ public sealed class Product : AggregateRoot<ProductId>
         CategoryId = categoryId;
         BrandId = brandId;
         ColorId = colorId;
+        _materialIds = materialIds;
         _images = images;
         _inStockProducts = inStockProducts;
-        SellerId = sellerId;
         CreatedAt = createdAt;
     }
     public static Product Create(
@@ -62,9 +64,9 @@ public sealed class Product : AggregateRoot<ProductId>
         CategoryId categoryId,
         BrandId brandId,
         ColorId colorId,
+        List<MaterialId> materialIds,
         List<Image> images,
-        List<InStockProduct> inStockProducts,
-        UserId sellerId
+        List<InStockProduct> inStockProducts
     )
     {
         var product = new Product(
@@ -77,9 +79,9 @@ public sealed class Product : AggregateRoot<ProductId>
             categoryId,
             brandId,
             colorId,
+            materialIds,
             images,
             inStockProducts,
-            sellerId,
             DateTime.UtcNow);
 
         product.AddDomainEvent(new ProductCreated(product));

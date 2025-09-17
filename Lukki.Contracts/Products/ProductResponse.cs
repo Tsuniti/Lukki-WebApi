@@ -10,6 +10,7 @@ public record ProductResponse(
     string CategoryId,
     string BrandId,
     string ColorId,
+    List<string> MaterialIds,
     List<string> Images,
     List<InStockProductResponse> InStockProducts,
     // List<string> ReviewIds,

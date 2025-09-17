@@ -1,5 +1,4 @@
 ﻿using Lukki.Domain.Common.Models;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;

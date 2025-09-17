@@ -1,5 +1,4 @@
-﻿using Lukki.Domain.ReviewAggregate;
-using MediatR;
+﻿using MediatR;
 using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Reviews.Common;

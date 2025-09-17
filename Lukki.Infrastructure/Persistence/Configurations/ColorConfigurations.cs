@@ -38,12 +38,5 @@ public class ColorConfigurations : IEntityTypeConfiguration<Color>
             .HasConversion(
                 image => image.Url,
                 url => Image.Create(url));
-
-        /*builder.HasOne<Color>()
-            .WithMany()
-            .HasForeignKey(c => c.ParentColorId)
-            .OnDelete(DeleteBehavior.ClientCascade);*/
-
-
     }
 }

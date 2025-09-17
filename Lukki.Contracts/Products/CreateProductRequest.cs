@@ -8,6 +8,7 @@ public record CreateProductRequest(
     string CategoryId,
     string BrandId,
     string ColorId,
+    List<string> MaterialIds,
     //Image does not fall into contracts, because This is IFormFile
     List<InStockProductRequest> InStockProducts
 );

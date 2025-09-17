@@ -3,7 +3,6 @@ using Lukki.Contracts.Brands;
 using Lukki.Domain.BrandAggregate;
 using Lukki.Domain.BrandAggregate.ValueObjects;
 using Mapster;
-using Lukki.Api.Common.Mapping.Services;
 using Lukki.Domain.Common.ValueObjects;
 
 namespace Lukki.Api.Common.Mapping;

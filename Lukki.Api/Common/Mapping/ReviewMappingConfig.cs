@@ -1,9 +1,6 @@
-﻿using Lukki.Application.Products.Commands.CreateProduct;
-using Lukki.Application.Reviews.Commands.CreateReview;
+﻿using Lukki.Application.Reviews.Commands.CreateReview;
 using Lukki.Application.Reviews.Common;
-using Lukki.Contracts.Products;
 using Lukki.Contracts.Reviews;
-using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.ReviewAggregate.ValueObjects;
 using Mapster;

@@ -1,6 +1,4 @@
-﻿using Lukki.Contracts.Reviews;
-
-namespace Lukki.Contracts.ReviewBanners;
+﻿namespace Lukki.Contracts.ReviewBanners;
 
 public record ReviewBannerResponse
 (

@@ -3,7 +3,6 @@ using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.ColorAggregate;
-using Lukki.Domain.ColorAggregate.ValueObjects;
 using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.ValueObjects;
 using MediatR;

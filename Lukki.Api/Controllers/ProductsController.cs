@@ -33,12 +33,6 @@ public class ProductsController : ApiController
         [FromForm]CreateProductRequest request, 
         [FromForm]List<IFormFile> images)
     {
-        var sellerId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
-        
-        if (string.IsNullOrEmpty(sellerId))
-        {
-            return Unauthorized("Seller ID not found in token");
-        }
         
         
         var command = _mapper.Map<CreateProductCommand>(request);
@@ -46,7 +40,7 @@ public class ProductsController : ApiController
         var streamImages = await FileHelpers.ConvertToStreamsAsync(images);
         
         var createProductResult = await _mediator.Send(command with 
-            { SellerId = sellerId, Images = streamImages });
+            { Images = streamImages });
         
         return createProductResult.Match(
             product => Ok(_mapper.Map<ProductResponse>(product)),

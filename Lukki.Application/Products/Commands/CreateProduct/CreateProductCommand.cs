@@ -13,6 +13,7 @@ public record CreateProductCommand(
     string CategoryId,
     string BrandId,
     string ColorId,
+    List<string> MaterialIds,
     List<Stream> Images,
     List<InStockProductCommand> InStockProducts
 ) : IRequest<ErrorOr<Product>>;

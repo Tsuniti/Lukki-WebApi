@@ -35,11 +35,5 @@ public class BrandConfigurations : IEntityTypeConfiguration<Brand>
                 image => image.Url,
                 url => Image.Create(url));
 
-        /*builder.HasOne<Brand>()
-            .WithMany()
-            .HasForeignKey(c => c.ParentBrandId)
-            .OnDelete(DeleteBehavior.ClientCascade);*/
-
-
     }
 }

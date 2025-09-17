@@ -16,9 +16,39 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         ConfigureProductsTable(builder);
         ConfigureProductImagesTable(builder);
         ConfigureProductInStockProductsTable(builder);
-
+        ConfigureProductMaterialIdsTable(builder);
     }
 
+    
+    private void ConfigureProductMaterialIdsTable(EntityTypeBuilder<Product> builder)
+    {
+        builder.OwnsMany(
+            p => p.MaterialIds,
+            pb =>
+            {
+                pb.ToTable("ProductMaterialIds");
+     
+                pb.WithOwner().HasForeignKey("ProductId");
+     
+                pb.HasKey("Id");
+     
+                pb.Property(p => p.Value)
+                    .HasColumnName("MaterialId")
+                    .ValueGeneratedNever();
+                 
+                /*builder.HasOne<Material>()
+                    .WithMany()
+                    .HasForeignKey("MaterialId")
+                    .OnDelete(DeleteBehavior.Cascade);*/
+
+     
+            });
+         
+        builder.Metadata.FindNavigation(nameof(Product.MaterialIds))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
+    }
+    
+    
     private void ConfigureProductInStockProductsTable(EntityTypeBuilder<Product> builder)
     {
         builder.OwnsMany(
@@ -121,12 +151,6 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .WithMany()
             .HasForeignKey(p => p.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);*/
-        
-        
-        builder.Property(p => p.SellerId)
-            .HasConversion(
-                id => id.Value,
-                value => UserId.Create(value));
         
         /*builder.HasOne<Seller>()
             .WithMany()

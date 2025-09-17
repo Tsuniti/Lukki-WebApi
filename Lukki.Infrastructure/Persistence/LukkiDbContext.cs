@@ -6,6 +6,7 @@ using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate;
 using Lukki.Domain.FooterAggregate;
 using Lukki.Domain.HeaderAggregate;
+using Lukki.Domain.MaterialAggregate;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductBannerAggregate;
@@ -30,6 +31,7 @@ public class LukkiDbContext : DbContext
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Brand> Brands { get; set; } = null!;
     public DbSet<Color> Colors { get; set; } = null!;
+    public DbSet<Material> Materials { get; set; } = null!;
     public DbSet<Customer> Customers { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;

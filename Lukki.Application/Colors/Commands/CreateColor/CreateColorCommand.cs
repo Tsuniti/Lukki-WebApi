@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Domain.ColorAggregate;
-using Lukki.Domain.ColorAggregate;
 using MediatR;
 
 namespace Lukki.Application.Colors.Commands.CreateColor;

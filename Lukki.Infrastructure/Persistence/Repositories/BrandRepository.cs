@@ -1,6 +1,5 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.BrandAggregate;
-using Lukki.Domain.BrandAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
