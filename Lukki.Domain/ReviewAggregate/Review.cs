@@ -8,11 +8,11 @@ namespace Lukki.Domain.ReviewAggregate;
 
 public sealed class Review  : AggregateRoot<ReviewId>
 {
-    public short Rating { get; }
-    public string Comment { get; }
-    public ProductId ProductId { get; }
-    public CustomerId? CustomerId { get; }      // Nullable to save reviews if customer is deleted
-    public DateTime CreatedAt { get; }
+    public short Rating { get; private set; }
+    public string Comment { get; private set; }
+    public ProductId ProductId { get; private set; }
+    public CustomerId? CustomerId { get; private set; }      // Nullable to save reviews if customer is deleted
+    public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
 
     private Review(

@@ -13,12 +13,12 @@ namespace Lukki.Api.Controllers;
 
 
 [Route("textbox-banners")]
-public class TextboxBannerController : ApiController
+public class TextboxBannersController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
-    public TextboxBannerController(IMapper mapper, ISender mediator)
+    public TextboxBannersController(IMapper mapper, ISender mediator)
     {
         _mapper = mapper;
         _mediator = mediator;

@@ -20,6 +20,10 @@ public sealed class ReviewId : ValueObject
     {
         return new ReviewId(value);
     }
+    public static ReviewId Create(string value)
+    {
+        return new ReviewId(Guid.Parse(value));
+    }
 
 
     protected override IEnumerable<object> GetEqualityComponents()

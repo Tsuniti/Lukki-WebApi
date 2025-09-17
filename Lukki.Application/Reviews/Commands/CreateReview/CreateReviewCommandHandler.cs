@@ -2,7 +2,7 @@
 using MediatR;
 using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Application.Reviews.Commands.Common;
+using Lukki.Application.Reviews.Common;
 using Lukki.Domain.Common.Errors;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;

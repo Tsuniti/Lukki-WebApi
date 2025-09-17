@@ -1,6 +1,6 @@
 ﻿using Lukki.Domain.ReviewAggregate;
 
-namespace Lukki.Application.Reviews.Commands.Common;
+namespace Lukki.Application.Reviews.Common;
 
 public record ReviewResult
 (

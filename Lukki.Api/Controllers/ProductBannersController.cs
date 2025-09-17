@@ -18,12 +18,12 @@ namespace Lukki.Api.Controllers;
 
 
 [Route("product-banners")]
-public class ProductBannerController : ApiController
+public class ProductBannersController : ApiController
 {
     private readonly IMapper _mapper;
     private readonly ISender _mediator;
 
-    public ProductBannerController(IMapper mapper, ISender mediator)
+    public ProductBannersController(IMapper mapper, ISender mediator)
     {
         _mapper = mapper;
         _mediator = mediator;
@@ -33,10 +33,9 @@ public class ProductBannerController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [Consumes("multipart/form-data")]
     [ProducesResponseType(typeof(ProductBanner), StatusCodes.Status200OK)]
 
-    public async Task<IActionResult> CreateProductBanner([FromForm] CreateProductBannerRequest request)
+    public async Task<IActionResult> CreateProductBanner(CreateProductBannerRequest request)
     {
         
         var command = _mapper.Map<CreateProductBannerCommand>(request);

@@ -1,7 +1,7 @@
 ﻿using Lukki.Domain.ReviewAggregate;
 using MediatR;
 using ErrorOr;
-using Lukki.Application.Reviews.Commands.Common;
+using Lukki.Application.Reviews.Common;
 
 namespace Lukki.Application.Reviews.Commands.CreateReview;
 
