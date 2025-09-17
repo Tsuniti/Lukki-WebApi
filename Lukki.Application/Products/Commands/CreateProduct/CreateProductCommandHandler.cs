@@ -9,6 +9,7 @@ using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.MaterialAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
+using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 using MediatR;
 
 namespace Lukki.Application.Products.Commands.CreateProduct;
@@ -52,6 +53,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
                 currency: command.Price.Currency
             ),
             categoryId: CategoryId.Create(command.CategoryId),
+            promoCategoryIds: command.PromoCategoryIds.ConvertAll(promoCategoryId => PromoCategoryId.Create(promoCategoryId)),
             brandId: BrandId.Create(command.BrandId),
             colorId: ColorId.Create(command.ColorId),
             materialIds: command.MaterialIds.ConvertAll(materialId => MaterialId.Create(materialId)),

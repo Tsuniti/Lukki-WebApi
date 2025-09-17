@@ -16,6 +16,7 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
         ConfigureProductsTable(builder);
         ConfigureProductImagesTable(builder);
         ConfigureProductInStockProductsTable(builder);
+        ConfigureProductPromoCategoryIdsTable(builder);
         ConfigureProductMaterialIdsTable(builder);
     }
 
@@ -48,6 +49,33 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .SetPropertyAccessMode(PropertyAccessMode.Field);
     }
     
+    private void ConfigureProductPromoCategoryIdsTable(EntityTypeBuilder<Product> builder)
+    {
+        builder.OwnsMany(
+            p => p.PromoCategoryIds,
+            pb =>
+            {
+                pb.ToTable("ProductPromoCategoryIds");
+     
+                pb.WithOwner().HasForeignKey("ProductId");
+     
+                pb.HasKey("Id");
+     
+                pb.Property(p => p.Value)
+                    .HasColumnName("PromoCategoryId")
+                    .ValueGeneratedNever();
+                 
+                /*builder.HasOne<Material>()
+                    .WithMany()
+                    .HasForeignKey("PromoCategoryId")
+                    .OnDelete(DeleteBehavior.Cascade);*/
+
+     
+            });
+         
+        builder.Metadata.FindNavigation(nameof(Product.PromoCategoryIds))!
+            .SetPropertyAccessMode(PropertyAccessMode.Field);
+    }
     
     private void ConfigureProductInStockProductsTable(EntityTypeBuilder<Product> builder)
     {

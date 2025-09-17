@@ -44,6 +44,7 @@ static class ProductBannerMappingService
                             Currency: product.Price.Currency
                         ),
                         CategoryId: product.CategoryId.Value.ToString(),
+                        PromoCategoryIds: product.PromoCategoryIds.Select(pc => pc.Value.ToString()).ToList(),
                         BrandId: product.BrandId.Value.ToString(),
                         ColorId: product.ColorId.Value.ToString(),
                         MaterialIds: product.MaterialIds.Select(m => m.Value.ToString()).ToList(),

@@ -6,11 +6,13 @@ using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.MaterialAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.Events;
 using Lukki.Domain.ProductAggregate.ValueObjects;
+using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 
 namespace Lukki.Domain.ProductAggregate;
 
 public sealed class Product : AggregateRoot<ProductId>
 {
+    private readonly List<PromoCategoryId> _promoCategoryIds = new();
     private readonly List<MaterialId> _materialIds = new();
     private readonly List<InStockProduct> _inStockProducts = new();
     private readonly List<Image> _images = new();
@@ -20,6 +22,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public AverageRating AverageRating { get; private set; }
     public Money Price { get; private set; }
     public CategoryId CategoryId { get; private set; }
+    public IReadOnlyList<PromoCategoryId> PromoCategoryIds => _promoCategoryIds.AsReadOnly();
     public BrandId BrandId { get; private set; }
     public ColorId ColorId { get; private set; }
     public IReadOnlyList<MaterialId> MaterialIds => _materialIds.AsReadOnly();
@@ -36,6 +39,7 @@ public sealed class Product : AggregateRoot<ProductId>
         AverageRating averageRating,
         Money price,
         CategoryId categoryId,
+        List<PromoCategoryId> promoCategoryIds,
         BrandId brandId,
         ColorId colorId,
         List<MaterialId> materialIds,
@@ -49,6 +53,7 @@ public sealed class Product : AggregateRoot<ProductId>
         AverageRating = averageRating;
         Price = price;
         CategoryId = categoryId;
+        _promoCategoryIds = promoCategoryIds;
         BrandId = brandId;
         ColorId = colorId;
         _materialIds = materialIds;
@@ -62,6 +67,7 @@ public sealed class Product : AggregateRoot<ProductId>
         // TargetGroup targetGroup,
         Money price,
         CategoryId categoryId,
+        List<PromoCategoryId> promoCategoryIds,
         BrandId brandId,
         ColorId colorId,
         List<MaterialId> materialIds,
@@ -77,6 +83,7 @@ public sealed class Product : AggregateRoot<ProductId>
             AverageRating.CreateNew(),
             price,
             categoryId,
+            promoCategoryIds,
             brandId,
             colorId,
             materialIds,

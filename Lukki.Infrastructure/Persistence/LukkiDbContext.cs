@@ -10,6 +10,7 @@ using Lukki.Domain.MaterialAggregate;
 using Lukki.Domain.OrderAggregate;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductBannerAggregate;
+using Lukki.Domain.PromoCategoryAggregate;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.ReviewBannerAggregate;
 using Lukki.Domain.SellerAggregate;
@@ -29,6 +30,7 @@ public class LukkiDbContext : DbContext
         _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
     }
     public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<PromoCategory> PromoCategories { get; set; } = null!;
     public DbSet<Brand> Brands { get; set; } = null!;
     public DbSet<Color> Colors { get; set; } = null!;
     public DbSet<Material> Materials { get; set; } = null!;

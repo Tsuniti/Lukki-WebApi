@@ -11,6 +11,7 @@ public record CreateProductCommand(
 //    string TargetGroup,
     PriceCommand Price,
     string CategoryId,
+    List<string> PromoCategoryIds,
     string BrandId,
     string ColorId,
     List<string> MaterialIds,

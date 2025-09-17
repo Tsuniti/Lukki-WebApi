@@ -6,6 +6,7 @@ public record CreateProductRequest(
 //    string TargetGroup,
     Price Price,
     string CategoryId,
+    List<string> PromoCategoryIds,
     string BrandId,
     string ColorId,
     List<string> MaterialIds,
