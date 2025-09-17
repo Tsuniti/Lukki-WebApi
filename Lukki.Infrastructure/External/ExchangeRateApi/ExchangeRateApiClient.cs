@@ -22,7 +22,7 @@ public class ExchangeRateApiClient : IExchangeRateApiClient
     public async Task<ExchangeRateData> FetchLatestRatesAsync()
     {
         var response = await _httpClient.GetFromJsonAsync<ApiResponse>(
-            $"{_exchangeRateApiSettings.Url}/v6/{_exchangeRateApiSettings.ApiKey}/latest/{_exchangeRateApiSettings.BaseCurrency}");
+            $"{_exchangeRateApiSettings.Url}{_exchangeRateApiSettings.ApiKey}/latest/{_exchangeRateApiSettings.BaseCurrency}");
 
         if (response is null || response.Result != "success")
             throw new Exception("Failed to fetch exchange rates");

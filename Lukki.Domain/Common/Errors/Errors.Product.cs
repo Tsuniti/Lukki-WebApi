@@ -17,5 +17,9 @@ public static partial class Errors
 
         private static string FormatMissingIds(IEnumerable<ProductId> ids) 
             => string.Join(", ", ids.Select(id => id.Value));
+        
+        public static Error ExchangeRateFailed(string currency) => Error.Failure(
+            code: "Product.ExchangeRateFailed",
+            description: $"Failed to convert prices to currency: {currency}");
     }
 }

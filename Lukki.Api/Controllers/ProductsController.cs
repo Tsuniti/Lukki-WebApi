@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Lukki.Application.Products.Commands.CreateProduct;
+using Lukki.Application.Products.Queries.GetPagedProducts;
 using Lukki.Contracts.Products;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Infrastructure.Authentication;
@@ -46,5 +47,20 @@ public class ProductsController : ApiController
             product => Ok(_mapper.Map<ProductResponse>(product)),
             errors => Problem(errors) 
             );
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> GetPagedProducts(GetPagedProductsRequest request)
+    {
+        
+        var query = _mapper.Map<GetPagedProductsQuery>(request);
+        
+        
+        var pagedProductsResult = await _mediator.Send(query);
+        
+        return pagedProductsResult.Match(
+            products => Ok(_mapper.Map<PagedProductsResponse>(products)),
+            errors => Problem(errors) 
+        );
     }
 }
