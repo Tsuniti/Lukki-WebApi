@@ -1,5 +1,6 @@
 ﻿using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
+using Lukki.Domain.ColorAggregate.ValueObjects;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate.Events;
@@ -18,6 +19,7 @@ public sealed class Product : AggregateRoot<ProductId>
     public Money Price { get; private set; }
     public CategoryId CategoryId { get; private set; }
     public BrandId BrandId { get; private set; }
+    public ColorId ColorId { get; private set; }
     public UserId SellerId { get; private set; }
     public IReadOnlyList<Image> Images => _images.AsReadOnly();
     public IReadOnlyList<InStockProduct> InStockProducts => _inStockProducts.AsReadOnly();
@@ -33,6 +35,7 @@ public sealed class Product : AggregateRoot<ProductId>
         Money price,
         CategoryId categoryId,
         BrandId brandId,
+        ColorId colorId,
         List<Image> images,
         List<InStockProduct> inStockProducts,
         UserId sellerId,
@@ -45,6 +48,7 @@ public sealed class Product : AggregateRoot<ProductId>
         Price = price;
         CategoryId = categoryId;
         BrandId = brandId;
+        ColorId = colorId;
         _images = images;
         _inStockProducts = inStockProducts;
         SellerId = sellerId;
@@ -57,6 +61,7 @@ public sealed class Product : AggregateRoot<ProductId>
         Money price,
         CategoryId categoryId,
         BrandId brandId,
+        ColorId colorId,
         List<Image> images,
         List<InStockProduct> inStockProducts,
         UserId sellerId
@@ -71,6 +76,7 @@ public sealed class Product : AggregateRoot<ProductId>
             price,
             categoryId,
             brandId,
+            colorId,
             images,
             inStockProducts,
             sellerId,

@@ -59,13 +59,17 @@ public static class DependencyInjection
         
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IBrandRepository, BrandRepository>();
+        services.AddScoped<IColorRepository, ColorRepository>();
+        
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IReviewRepository, ReviewRepository>();
+        
 
         services.AddScoped<IBannerRepository, BannerRepository>();
         services.AddScoped<ITextboxBannerRepository, TextboxBannerRepository>();
         services.AddScoped<IProductBannerRepository, ProductBannerRepository>();
         services.AddScoped<IReviewBannerRepository, ReviewBannerRepository>();
+        
         services.AddScoped<IFooterRepository, FooterRepository>();
         services.AddScoped<IHeaderRepository, HeaderRepository>();
         return services;

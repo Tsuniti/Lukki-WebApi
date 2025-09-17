@@ -4,6 +4,7 @@ using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
+using Lukki.Domain.ColorAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
@@ -51,6 +52,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             ),
             categoryId: CategoryId.Create(command.CategoryId),
             brandId: BrandId.Create(command.BrandId),
+            colorId: ColorId.Create(command.ColorId),
             images: newImages,
             inStockProducts: command.InStockProducts.ConvertAll(
                 inStockProduct =>

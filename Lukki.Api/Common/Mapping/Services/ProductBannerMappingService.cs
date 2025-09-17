@@ -45,6 +45,7 @@ static class ProductBannerMappingService
                         ),
                         CategoryId: product.CategoryId.Value.ToString(),
                         BrandId: product.BrandId.Value.ToString(),
+                        ColorId: product.ColorId.Value.ToString(),
                         Images: product.Images.Select(i => i.Url).ToList(),
                         InStockProducts: product.InStockProducts.Select(inStock => new InStockProductResponse(
                             Quantity: inStock.Quantity,
