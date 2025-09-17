@@ -1,4 +1,5 @@
 ﻿using Lukki.Domain.BannerAggregate;
+using Lukki.Domain.BrandAggregate;
 using Lukki.Domain.CategoryAggregate;
 using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate;
@@ -26,6 +27,7 @@ public class LukkiDbContext : DbContext
         _publishDomainEventsInterceptor = publishDomainEventsInterceptor;
     }
     public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<Brand> Brands { get; set; } = null!;
     public DbSet<Customer> Customers { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;

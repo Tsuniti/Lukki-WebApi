@@ -36,19 +36,6 @@ public class BannersController : ApiController
     public async Task<IActionResult> CreateBanner([FromForm] CreateBannerFormModel form)
     {
         
-        if (!ModelState.IsValid)
-        {
-            var errors = ModelState
-                .Where(kvp => kvp.Value?.Errors.Count > 0)
-                .Select(kvp => new
-                {
-                    Field = kvp.Key,
-                    Errors = kvp.Value!.Errors.Select(e => e.ErrorMessage)
-                });
-
-            return BadRequest(errors);
-        }
-        
         var slides = new List<SlideCommand>();
 
         foreach (var slide in form.Slides)

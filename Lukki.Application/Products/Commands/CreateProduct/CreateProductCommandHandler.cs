@@ -1,6 +1,8 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
+using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
+using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
@@ -13,11 +15,13 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 {
     private readonly IProductRepository _productRepository;
     private readonly IImageStorageService _imageStorage;
+    private readonly IImageCompressor _imageCompressor;
 
-    public CreateProductCommandHandler(IProductRepository productRepository, IImageStorageService imageStorage)
+    public CreateProductCommandHandler(IProductRepository productRepository, IImageStorageService imageStorage, IImageCompressor imageCompressor)
     {
         _productRepository = productRepository;
         _imageStorage = imageStorage;
+        _imageCompressor = imageCompressor;
     }
 
     public async Task<ErrorOr<Product>> Handle(
@@ -32,7 +36,8 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         foreach (var requestImage in command.Images)
         {
             string name = Guid.NewGuid().ToString();
-            newImages.Add(Image.Create( await _imageStorage.UploadImageAsync(requestImage, name)));
+            var compressedImageStream = await _imageCompressor.CompressAsync(requestImage);
+            newImages.Add(Image.Create( await _imageStorage.UploadImageAsync(compressedImageStream, name)));
         }
         
         // Create Product
@@ -45,6 +50,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
                 currency: command.Price.Currency
             ),
             categoryId: CategoryId.Create(command.CategoryId),
+            brandId: BrandId.Create(command.BrandId),
             images: newImages,
             inStockProducts: command.InStockProducts.ConvertAll(
                 inStockProduct =>

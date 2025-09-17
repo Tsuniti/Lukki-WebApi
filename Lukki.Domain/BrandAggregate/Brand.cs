@@ -1,44 +1,45 @@
-﻿using Lukki.Domain.CategoryAggregate.ValueObjects;
+﻿using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.Common.Models;
+using Lukki.Domain.Common.ValueObjects;
 
-namespace Lukki.Domain.CategoryAggregate;
+namespace Lukki.Domain.BrandAggregate;
 
-public sealed class Category : AggregateRoot<CategoryId>
+public sealed class Brand : AggregateRoot<BrandId>
 {
     public string Name { get; private set; }
-    public CategoryId? ParentId { get; private set; }
-    
+    public Image Logo { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
-
-    private Category(
-        CategoryId categoryId,
+    
+    private Brand(
+        BrandId brandId,
         string name,
-        CategoryId? parentId,
+        Image logo,
         DateTime createdAt
-    ) : base(categoryId)
+    ) : base(brandId)
     {
         Name = name;
-        ParentId = parentId;
+        Logo = logo;
         CreatedAt = createdAt;
     }
 
-    public static Category Create(
+    public static Brand Create(
         string name,
-        CategoryId? parentCategoryId = null
+        Image logo,
+        BrandId? parentBrandId = null
     )
     {
         return new(
-            CategoryId.CreateUnique(),
+            BrandId.CreateUnique(),
             name,
-            parentCategoryId,
+            logo,
             DateTime.UtcNow
         );
     }
     
     
 #pragma warning disable CS8618
-    private Category()
+    private Brand()
     {
         // EF Core requires a parameterless constructor for materialization
     }

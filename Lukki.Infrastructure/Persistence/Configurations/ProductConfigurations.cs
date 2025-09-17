@@ -1,4 +1,5 @@
-﻿using Lukki.Domain.CategoryAggregate.ValueObjects;
+﻿using Lukki.Domain.BrandAggregate.ValueObjects;
+using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate;
 using Lukki.Domain.ProductAggregate.ValueObjects;
@@ -104,6 +105,11 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
             .HasConversion(
                 id => id.Value,
                 value => CategoryId.Create(value));
+        
+        builder.Property(p => p.BrandId)
+            .HasConversion(
+                id => id.Value,
+                value => BrandId.Create(value));
         
         /*builder.HasOne<Category>()
             .WithMany()

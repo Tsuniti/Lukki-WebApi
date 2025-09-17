@@ -8,6 +8,7 @@ public record ProductResponse(
     double? AverageRating,
     MoneyResponse Price,
     string CategoryId,
+    string BrandId,
     List<string> Images,
     List<InStockProductResponse> InStockProducts,
     // List<string> ReviewIds,

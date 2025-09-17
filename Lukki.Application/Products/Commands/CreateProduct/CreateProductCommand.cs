@@ -11,6 +11,7 @@ public record CreateProductCommand(
 //    string TargetGroup,
     PriceCommand Price,
     string CategoryId,
+    string BrandId,
     List<Stream> Images,
     List<InStockProductCommand> InStockProducts
 ) : IRequest<ErrorOr<Product>>;

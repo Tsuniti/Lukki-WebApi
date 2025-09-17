@@ -11,9 +11,8 @@ public class ImageCompressor : IImageCompressor
     public async Task<Stream> CompressAsync(Stream imageStream)
     {
         using var image = await Image.LoadAsync(imageStream);
-        bool hasTransparency = image.HasTransparency(); // ← Метод расширения
-
-        // Ресайз (как раньше)
+        bool hasTransparency = image.HasTransparency(); // Extension method
+        
         if (image.Width > 1280 || image.Height > 1280)
         {
             image.Mutate(x => x.Resize(new ResizeOptions
@@ -25,13 +24,13 @@ public class ImageCompressor : IImageCompressor
             }));
         }
 
-        // Размытие только для JPEG (без прозрачности)
+        // Blur only for JPEG (without transparency)
         if (!hasTransparency)
         {
             image.Mutate(x => x.GaussianBlur(0.5f));
         }
 
-        // Сохранение в PNG или JPEG
+        // Saving in PNG or JPEG
         var outputStream = new MemoryStream();
         
         if (hasTransparency)
