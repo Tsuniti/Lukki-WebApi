@@ -28,7 +28,7 @@ public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Err
         
         
         // Validate the brand doesn't exist
-        if (await _brandRepository.GetByName(command.Name) is not null)
+        if (await _brandRepository.GetByNameAsync(command.Name) is not null)
         {
             return Errors.Brand.DuplicateName(command.Name);
         }

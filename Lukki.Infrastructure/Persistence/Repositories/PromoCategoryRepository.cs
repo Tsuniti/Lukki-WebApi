@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.PromoCategoryAggregate;
+using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
@@ -23,6 +24,15 @@ public class PromoCategoryRepository : IPromoCategoryRepository
     {
         return _dbContext.PromoCategories.FirstOrDefaultAsync(b => b.Name == name);
     }
+
+    public async Task<List<PromoCategory>> GetListByIdsAsync(IReadOnlyList<PromoCategoryId> ids)
+    {
+        return await _dbContext.PromoCategories
+            .AsNoTracking()
+            .Where(p => ids.Contains(p.Id))
+            .ToListAsync();
+    }
+
 
     public async Task<List<PromoCategory>> GetAllAsync()
     {

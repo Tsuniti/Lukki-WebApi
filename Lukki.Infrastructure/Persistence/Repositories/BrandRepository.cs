@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.BrandAggregate;
+using Lukki.Domain.BrandAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
@@ -19,9 +20,14 @@ public class BrandRepository : IBrandRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public Task<Brand?> GetByName(string name)
+    public Task<Brand?> GetByNameAsync(string name)
     {
         return _dbContext.Brands.FirstOrDefaultAsync(b => b.Name == name);
+    }
+
+    public async Task<Brand?> GetByIdAsync(BrandId id)
+    {
+        return await _dbContext.Brands.FirstOrDefaultAsync(b => b.Id == id);
     }
 
     public async Task<List<Brand>> GetAllAsync()

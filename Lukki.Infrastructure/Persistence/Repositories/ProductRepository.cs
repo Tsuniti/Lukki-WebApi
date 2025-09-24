@@ -30,7 +30,7 @@ public class ProductRepository : IProductRepository
         return Update(product);
     }
 
-    public async Task<List<Product>> GetListByProductIdsAsync(IEnumerable<ProductId> productIds)
+    public async Task<List<Product>> GetListByIdsAsync(IEnumerable<ProductId> productIds)
     {
         return await _dbContext.Products
             .AsNoTracking()

@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Lukki.Application.Products.Commands.CreateProduct;
+using Lukki.Application.Products.Queries.GetOneProductById;
 using Lukki.Application.Products.Queries.GetPagedProducts;
 using Lukki.Contracts.Products;
 using Lukki.Domain.ProductAggregate;
@@ -28,7 +29,7 @@ public class ProductsController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateProductResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateProduct(
         [FromForm]CreateProductRequest request, 
@@ -44,13 +45,15 @@ public class ProductsController : ApiController
             { Images = streamImages });
         
         return createProductResult.Match(
-            product => Ok(_mapper.Map<ProductResponse>(product)),
+            product => Ok(_mapper.Map<CreateProductResponse>(product)),
             errors => Problem(errors) 
             );
     }
     
-    [HttpPost]
-    public async Task<IActionResult> GetPagedProducts(GetPagedProductsRequest request)
+    [HttpGet("catalogue")]
+    [ProducesResponseType(typeof(PagedProductsResponse), StatusCodes.Status200OK)]
+
+    public async Task<IActionResult> GetPagedProducts([FromQuery]GetPagedProductsRequest request)
     {
         
         var query = _mapper.Map<GetPagedProductsQuery>(request);
@@ -60,6 +63,22 @@ public class ProductsController : ApiController
         
         return pagedProductsResult.Match(
             products => Ok(_mapper.Map<PagedProductsResponse>(products)),
+            errors => Problem(errors) 
+        );
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetOneProductById([FromQuery]GetOneProductByIdRequest request)
+    {
+        
+        var query = _mapper.Map<GetOneProductByIdQuery>(request);
+        
+        
+        var productResult = await _mediator.Send(query);
+        
+        return productResult.Match(
+            product => Ok(_mapper.Map<ProductResponse>(product)),
             errors => Problem(errors) 
         );
     }

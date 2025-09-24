@@ -18,7 +18,7 @@ public static class DependencyInjection
         
         
         services.AddScoped<IExchangeRateService, ExchangeRateService>();
-        services.AddScoped<ICurrencyConverter, CurrencyConverter>();
+        //services.AddScoped<ICurrencyConverter, CurrencyConverter>();
 
 
         ValidatorOptions.Global.LanguageManager.Enabled = false; // Disable global language manager

@@ -14,4 +14,4 @@ public record ProductBannerResponse
 public record GroupedProduct
 (
     string GroupName,
-    List<ProductResponse> Products);
+    List<CreateProductResponse> Products);

@@ -17,6 +17,10 @@ public static partial class Errors
             code: "Color.MultipleColorRepresentations",
             description: "Color must have ONLY ONE representation (HexColorCode or Image)");
         
+        public static Error NotFoundById(string id) => Error.Validation(
+            code: "Color.NotFoundById",
+            description: "Color not found with id: " + id);
+        
         public static Error DuplicateName(string name) => Error.Validation(
             code: "Color.DuplicateName",
             description: "Color already exist with name: " + name);

@@ -9,7 +9,7 @@ public interface IProductRepository
     Task AddAsync(Product product);
     Task<Product> Update(Product product);
     Task<Product> AddRating(Product product, short rating);
-    Task<List<Product>> GetListByProductIdsAsync(IEnumerable<ProductId> productIds);
+    Task<List<Product>> GetListByIdsAsync(IEnumerable<ProductId> productIds);
     Task<(IReadOnlyList<Product> Products, int TotalItems)> GetPagedAsync(ProductFilter filter);
     Task<Product?> GetByIdAsync(ProductId id);
 

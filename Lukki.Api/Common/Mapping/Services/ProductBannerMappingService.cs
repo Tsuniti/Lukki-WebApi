@@ -13,7 +13,7 @@ static class ProductBannerMappingService
         var groupedProducts = new List<GroupedProduct>();
         foreach (var category in rootCategories)
         {
-            groupedProducts.Add(new GroupedProduct (category.Name, new List<ProductResponse>()));
+            groupedProducts.Add(new GroupedProduct (category.Name, new List<CreateProductResponse>()));
         }
 
         foreach (var product in products)
@@ -34,12 +34,12 @@ static class ProductBannerMappingService
             {
                 if (groupedProduct.GroupName == parentCategory.Name)
                 {
-                    groupedProduct.Products.Add(new ProductResponse(
+                    groupedProduct.Products.Add(new CreateProductResponse(
                         Id: product.Id.Value.ToString(),
                         Name: product.Name,
                         Description: product.Description,
                         AverageRating: product.AverageRating.Value,
-                        Price: new MoneyResponse(
+                        Price: new CreateMoneyResponse(
                             Amount: product.Price.Amount,
                             Currency: product.Price.Currency
                         ),
@@ -49,7 +49,7 @@ static class ProductBannerMappingService
                         ColorId: product.ColorId.Value.ToString(),
                         MaterialIds: product.MaterialIds.Select(m => m.Value.ToString()).ToList(),
                         Images: product.Images.Select(i => i.Url).ToList(),
-                        InStockProducts: product.InStockProducts.Select(inStock => new InStockProductResponse(
+                        InStockProducts: product.InStockProducts.Select(inStock => new CreateInStockProductResponse(
                             Quantity: inStock.Quantity,
                             Size: inStock.Size
                         )).ToList(),

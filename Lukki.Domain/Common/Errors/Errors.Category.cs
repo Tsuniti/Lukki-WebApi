@@ -6,9 +6,13 @@ public static partial class Errors
 {
     public static class Category
     {
-        public static Error NotFound(string name) => Error.Validation(
+        public static Error NotFoundByName(string name) => Error.Validation(
             code: "Category.NotFound",
             description: "Category not found with name: " + name);
+        
+        public static Error NotFoundById(string id) => Error.Validation(
+            code: "Category.NotFound",
+            description: "Category not found with name: " + id);
         
         public static Error RootParentNotFound(string id) => Error.Validation(
             code: "Category.RootParentNotFound",

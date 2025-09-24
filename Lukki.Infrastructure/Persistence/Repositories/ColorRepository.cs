@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.ColorAggregate;
+using Lukki.Domain.ColorAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lukki.Infrastructure.Persistence.Repositories;
@@ -22,6 +23,11 @@ public class ColorRepository : IColorRepository
     public Task<Color?> GetByName(string name)
     {
         return _dbContext.Colors.FirstOrDefaultAsync(b => b.Name == name);
+    }
+
+    public async Task<Color?> GetByIdAsync(ColorId id)
+    {
+        return await _dbContext.Colors.FirstOrDefaultAsync(b => b.Id == id);
     }
 
     public async Task<List<Color>> GetAllAsync()
