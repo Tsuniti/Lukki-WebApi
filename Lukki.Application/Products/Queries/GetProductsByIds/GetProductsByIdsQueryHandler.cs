@@ -24,7 +24,7 @@ public class GetProductsByIdsQueryHandler :
             .Select(id => ProductId.Create(id))
             .ToList();
         
-        var products = await _productRepository.GetListByProductIdsAsync(productIds);
+        var products = await _productRepository.GetListByIdsAsync(productIds);
     
         if (products.Count != request.ProductIds.Count)
         {

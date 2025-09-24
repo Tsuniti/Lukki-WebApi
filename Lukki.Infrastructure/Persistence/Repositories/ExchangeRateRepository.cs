@@ -32,35 +32,41 @@ public class ExchangeRateRepository : IExchangeRateRepository
 
     public async Task UpdateAsync(ExchangeRateData exchangeRate)
     {
-        
-        var entity = new ExchangeRate
-        {
-            Id = 1, // всегда один
-            BaseCurrency = exchangeRate.BaseCurrency,
-            Rates = exchangeRate.Rates,
-            LastUpdated = exchangeRate.LastUpdated
-        };
-        _dbContext.Update(entity);
 
-        await _dbContext.SaveChangesAsync();
-    }
+        var tracked = _dbContext.ExchangeRates.Local.FirstOrDefault(e => e.Id == 1);
 
-    public async Task AddAsync(ExchangeRateData exchangeRate)
-    {
-        if (await _dbContext.ExchangeRates.AnyAsync())
+        if (tracked != null)
         {
-            throw new InvalidOperationException("Only one exchange rate record is allowed.");
+            // If it is already tracking, we just update the fields
+            tracked.BaseCurrency = exchangeRate.BaseCurrency;
+            tracked.Rates = exchangeRate.Rates;
+            tracked.LastUpdated = exchangeRate.LastUpdated;
+        }
+        else
+        {
+            // if it does not track, load the existing from the database
+            var existing = await _dbContext.ExchangeRates.FirstOrDefaultAsync(e => e.Id == 1);
+            if (existing != null)
+            {
+                existing.BaseCurrency = exchangeRate.BaseCurrency;
+                existing.Rates = exchangeRate.Rates;
+                existing.LastUpdated = exchangeRate.LastUpdated;
+            }
+            else
+            {
+                // if not in the database, add a new
+                var entity = new ExchangeRate
+                {
+                    Id = 1,
+                    BaseCurrency = exchangeRate.BaseCurrency,
+                    Rates = exchangeRate.Rates,
+                    LastUpdated = exchangeRate.LastUpdated
+                };
+                _dbContext.ExchangeRates.Add(entity);
+            }
         }
 
-        var entity = new ExchangeRate
-        {
-            Id = 1, // всегда один
-            BaseCurrency = exchangeRate.BaseCurrency,
-            Rates = exchangeRate.Rates,
-            LastUpdated = exchangeRate.LastUpdated
-        };
-
-        _dbContext.ExchangeRates.Add(entity);
         await _dbContext.SaveChangesAsync();
+
     }
 }

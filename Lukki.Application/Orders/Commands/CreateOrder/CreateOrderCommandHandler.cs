@@ -18,13 +18,13 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
     
     private readonly IOrderRepository _orderRepository;
     private readonly IProductRepository _productRepository;
-    private readonly ICurrencyConverter _currencyConverter; 
+    private readonly IExchangeRateService _exchangeRateService;
 
-    public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository, ICurrencyConverter currencyConverter)
+    public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository, IExchangeRateService exchangeRateService)
     {
         _orderRepository = orderRepository;
         _productRepository = productRepository;
-        _currencyConverter = currencyConverter;
+        _exchangeRateService = exchangeRateService;
     }
 
     public async Task<ErrorOr<Order>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
@@ -34,7 +34,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             .Select(iop => ProductId.Create(iop.ProductId))
             .ToList();
 
-        var existingProducts = await _productRepository.GetListByProductIdsAsync(productIds);
+        var existingProducts = await _productRepository.GetListByIdsAsync(productIds);
     
         if (existingProducts.Count != productIds.Count)
         {
@@ -56,18 +56,15 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             
             var subtotal = product.Price.Amount * requestItem.Quantity;
             
-            var convertedMoney =  await _currencyConverter.ConvertAsync(
-                    money: product.Price,
-                    toCurrency: command.TargetCurrency
-                );
+            product.Price.Convert(command.TargetCurrency, await _exchangeRateService.GetRatesAsync());
+            
+            // var convertedMoney =  await _currencyConverter.ConvertAsync(
+            //         money: product.Price,
+            //         toCurrency: command.TargetCurrency
+            //     );
             
             // Calculate total amount
-            totalAmount = totalAmount.Add(
-                Money.Create(
-                    amount: convertedMoney.Amount * requestItem.Quantity,
-                    currency: convertedMoney.Currency
-                )
-            );
+            totalAmount = totalAmount.Add(product.Price);
             
             inOrderProducts.Add(InOrderProduct.Create(
                 priceAtTimeOfOrder: product.Price,

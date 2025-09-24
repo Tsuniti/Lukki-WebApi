@@ -1,4 +1,7 @@
-﻿using Lukki.Domain.Common.Models;
+﻿using ErrorOr;
+using Lukki.Domain.Common.Models;
+using Lukki.Domain.Common.Errors;
+
 
 namespace Lukki.Domain.Common.ValueObjects;
 
@@ -22,11 +25,29 @@ public class Money : ValueObject
     {
         if (Currency != money.Currency)
         {
-            throw new InvalidOperationException(
-                $"Cannot add money with different currencies: {Currency} and {money.Currency}");
+            Errors.Errors.Money.SumDifferentCurrencies(Currency, money.Currency);
         }
         return new Money(Amount + money.Amount, Currency);
     }
+
+    public void Convert(string toCurrency, Dictionary<string, decimal> rates)
+    {
+        if (Currency == toCurrency)
+            return;
+
+        if (!rates.ContainsKey(Currency))
+            Errors.Errors.Money.CurrencyNotSupported(Currency);
+
+        if (!rates.ContainsKey(toCurrency))
+            Errors.Errors.Money.CurrencyNotSupported(toCurrency);
+
+        var usdAmount = Amount / rates[Currency];
+        var converted = usdAmount * rates[toCurrency];
+
+        Amount = converted;
+        Currency = toCurrency;
+    }
+    
     public override string ToString() => $"{Amount} {Currency}";
 
     protected override IEnumerable<object> GetEqualityComponents()

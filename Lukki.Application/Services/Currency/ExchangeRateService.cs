@@ -1,5 +1,6 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.Currency;
+using Lukki.Application.Common.Models;
 
 namespace Lukki.Application.Services.Currency;
 
@@ -18,24 +19,14 @@ public class ExchangeRateService : IExchangeRateService
     public async Task<Dictionary<string, decimal>> GetRatesAsync()
     {
         var exchangeRate = await _repository.GetAsync();
+        exchangeRate ??= new ExchangeRateData();
 
-        if (exchangeRate == null || (DateTime.UtcNow - exchangeRate.LastUpdated) > _cacheDuration)
+        if ((DateTime.UtcNow - exchangeRate.LastUpdated) > _cacheDuration)
         {
             var freshData = await _apiClient.FetchLatestRatesAsync();
-            
-            if (exchangeRate == null)
-            {
-                await _repository.AddAsync(freshData);
-            }
-            else
-            {
-                exchangeRate.Rates = freshData.Rates;
-                exchangeRate.BaseCurrency = freshData.BaseCurrency;
-                exchangeRate.LastUpdated = freshData.LastUpdated;
-                await _repository.UpdateAsync(exchangeRate);
-            }
 
             exchangeRate = freshData;
+            await _repository.UpdateAsync(exchangeRate);
         }
 
         return exchangeRate.Rates;

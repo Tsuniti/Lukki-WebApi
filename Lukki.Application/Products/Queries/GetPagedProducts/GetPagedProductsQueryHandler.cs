@@ -21,18 +21,20 @@ public class GetPagedProductsQueryHandler :
     
     private readonly IProductRepository _productRepository;
     private readonly IExchangeRateService _exchangeRateService; 
+   // private readonly ICurrencyConverter _currencyConverter;
 
 
     public GetPagedProductsQueryHandler(IProductRepository productRepository, IExchangeRateService exchangeRateService)
     {
         _productRepository = productRepository;
         _exchangeRateService = exchangeRateService;
+   //     _currencyConverter = currencyConverter;
     }
 
     public async Task<ErrorOr<PagedProductsResult>> Handle(GetPagedProductsQuery request, CancellationToken cancellationToken)
     {
 
-        await _exchangeRateService.GetRatesAsync();  // Ensure rates are up-to-date
+        var exchangeRates = await _exchangeRateService.GetRatesAsync();  // Ensure rates are up-to-date
         
         
         var filter = new ProductFilter(
@@ -40,11 +42,26 @@ public class GetPagedProductsQueryHandler :
            MinPrice: request.MinPrice,
            MaxPrice: request.MaxPrice,
            Currency: request.Currency,
-           CategoryIds: request.CategoryIds?.ConvertAll(CategoryId.Create),
-           PromoCategoryIds: request.PromoCategoryIds?.ConvertAll(PromoCategoryId.Create),
-           BrandIds: request.BrandIds?.ConvertAll(BrandId.Create),
-           ColorIds: request.ColorIds?.ConvertAll(ColorId.Create),
-           MaterialIds: request.MaterialIds?.ConvertAll(MaterialId.Create),
+           CategoryIds: request.CategoryIds?
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Select(CategoryId.Create)
+            .ToList(),
+           PromoCategoryIds: request.PromoCategoryIds?
+               .Where(x => !string.IsNullOrWhiteSpace(x))
+               .Select(PromoCategoryId.Create)
+               .ToList(),
+           BrandIds: request.BrandIds?
+               .Where(x => !string.IsNullOrWhiteSpace(x))
+               .Select(BrandId.Create)
+               .ToList(),
+           ColorIds: request.ColorIds?
+               .Where(x => !string.IsNullOrWhiteSpace(x))
+               .Select(ColorId.Create)
+               .ToList(),
+           MaterialIds: request.MaterialIds?
+               .Where(x => !string.IsNullOrWhiteSpace(x))
+               .Select(MaterialId.Create)
+               .ToList(),
            PageNumber: request.PageNumber,
            ItemsPerPage: request.ItemsPerPage,
            SortBy: request.SortBy
@@ -54,15 +71,27 @@ public class GetPagedProductsQueryHandler :
         try
         {
             var result = await _productRepository.GetPagedAsync(filter);
-            
-            return new PagedProductsResult(
-                Products: result.Products.Select(p => new PagedProductItemResult(
+
+            var productItems = new List<PagedProductItemResult>();
+
+            foreach (var p in result.Products)
+            {
+                // var convertedPrice = await _currencyConverter.ConvertAsync(p.Price, filter.Currency);
+
+                p.Price.Convert(filter.Currency, exchangeRates);
+                
+                productItems.Add(new PagedProductItemResult(
                     Id: p.Id.Value.ToString(),
                     Name: p.Name,
                     Price: new PagedProductItemMoneyResult(
-                        Amount: Math.Round(p.Price.Amount, 2),
+                        Amount: p.Price.Amount,
                         Currency: p.Price.Currency
-                    ))).ToList(),
+                    )
+                ));
+            }
+
+            return new PagedProductsResult(
+                Products: productItems.ToList(),
                 CurrentPage: request.PageNumber,
                 TotalPages: (int)Math.Ceiling((double)result.TotalItems / filter.ItemsPerPage),
                 TotalItems: result.TotalItems
