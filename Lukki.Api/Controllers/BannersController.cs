@@ -31,11 +31,10 @@ public class BannersController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(Banner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BannerResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateBanner([FromForm] CreateBannerFormModel form)
     {
-        
         var slides = new List<SlideCommand>();
 
         foreach (var slide in form.Slides)
@@ -60,9 +59,10 @@ public class BannersController : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Banner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BannerResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetBannerByName([FromQuery]GetBannerRequest request)
     {
+
         var query = _mapper.Map<GetBannerByNameQuery>(request);
 
         var getBannerByNameResult = await _mediator.Send(query);
@@ -74,7 +74,7 @@ public class BannersController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Banner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BannerNamesResponse), StatusCodes.Status200OK)]
     [Route("names")]
     public async Task<IActionResult> GetAllBannerNames()
     {

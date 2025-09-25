@@ -28,7 +28,7 @@ public class MaterialsController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(Material), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(MaterialResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateMaterial(CreateMaterialRequest request)
     {
@@ -45,7 +45,7 @@ public class MaterialsController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Material), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<MaterialResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllMaterials()
     {
         var getAllMaterialsResult = await _mediator.Send(new GetAllMaterialsQuery());

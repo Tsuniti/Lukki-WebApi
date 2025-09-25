@@ -28,7 +28,7 @@ public class PromoCategoriesController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(PromoCategory), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PromoCategoryResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreatePromoCategory(CreatePromoCategoryRequest request)
     {
@@ -45,7 +45,7 @@ public class PromoCategoriesController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(PromoCategory), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<PromoCategoryResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllPromoCategories()
     {
         var getAllPromoCategoriesResult = await _mediator.Send(new GetAllPromoCategoriesQuery());

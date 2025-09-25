@@ -9,6 +9,9 @@ namespace Lukki.Api.Controllers;
 [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
 public class ApiController : ControllerBase
 {
+    
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
     protected IActionResult Problem(List<Error> errors)
     {
         

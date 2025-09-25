@@ -29,7 +29,7 @@ public class BrandsController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(Brand), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BrandResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateBrand([FromForm]CreateBrandRequest request, [FromForm]IFormFile image)
     {
@@ -48,7 +48,7 @@ public class BrandsController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Brand), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<BrandResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllBrands()
     {
         var getAllBrandsResult = await _mediator.Send(new GetAllBrandsQuery());

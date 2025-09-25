@@ -30,7 +30,7 @@ public class FooterController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FooterResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateFooter([FromForm] CreateFooterFormModel form)
     {
         const int maxFileSizeBytes = 20 * 1024; // 20 KB
@@ -103,7 +103,7 @@ public class FooterController : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Footer), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(FooterNamesResponse), StatusCodes.Status200OK)]
     [Route("names")]
     public async Task<IActionResult> GetAllFooterNames()
     {

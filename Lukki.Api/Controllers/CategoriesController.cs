@@ -27,7 +27,7 @@ public class CategoriesController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CategoryResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
     {
@@ -44,7 +44,7 @@ public class CategoriesController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Category), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<CategoryResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCategories()
     {
         var getAllCategoriesResult = await _mediator.Send(new GetAllCategoriesQuery());

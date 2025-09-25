@@ -29,7 +29,7 @@ public class ColorsController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(Color), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ColorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateColor([FromForm] CreateColorRequest request, [FromForm] IFormFile? image)
     {
         Stream? streamImage = null;
@@ -64,7 +64,7 @@ public class ColorsController : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Color), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<ColorResponse>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllColors()
     {
         var getAllColorsResult = await _mediator.Send(new GetAllColorsQuery());

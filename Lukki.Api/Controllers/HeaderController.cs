@@ -32,7 +32,7 @@ public class HeadersController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(MyHeader), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(HeaderResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateFooter(CreateHeaderFormModel form)
     {
         
@@ -99,7 +99,7 @@ public class HeadersController : ApiController
     
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(MyHeader), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(HeaderResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> GetHeaderByName([FromQuery]GetHeaderRequest request)
     {
@@ -120,7 +120,7 @@ public class HeadersController : ApiController
     }
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(MyHeader), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(HeaderNamesResponse), StatusCodes.Status200OK)]
     [Route("names")]
     public async Task<IActionResult> GetAllHeaderNames()
     {

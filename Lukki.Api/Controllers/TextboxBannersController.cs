@@ -29,7 +29,7 @@ public class TextboxBannersController : ApiController
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
     [Consumes("multipart/form-data")]
-    [ProducesResponseType(typeof(TextboxBanner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TextboxBannerResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateTextboxBanner(
         [FromForm]CreateTextboxBannerRequest request,
@@ -55,7 +55,7 @@ public class TextboxBannersController : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(TextboxBanner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TextboxBannerResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTextboxBannerById([FromQuery]GetTextboxBannerRequest request)
     {
         var query = _mapper.Map<GetTextboxBannerByIdQuery>(request);

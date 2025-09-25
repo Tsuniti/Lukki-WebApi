@@ -33,7 +33,7 @@ public class ProductBannersController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(ProductBanner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProductBannerResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateProductBanner(CreateProductBannerRequest request)
     {
@@ -51,7 +51,7 @@ public class ProductBannersController : ApiController
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(ProductBanner), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProductBannerResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProductBannerById([FromQuery]GetProductBannerRequest request)
     {
         var query = _mapper.Map<GetProductBannerByIdQuery>(request);

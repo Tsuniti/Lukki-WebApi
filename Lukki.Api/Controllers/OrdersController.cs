@@ -26,7 +26,7 @@ public class OrdersController : ApiController
     
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)]
-    [ProducesResponseType(typeof(Order), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {

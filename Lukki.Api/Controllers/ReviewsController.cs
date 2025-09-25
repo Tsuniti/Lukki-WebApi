@@ -24,7 +24,7 @@ public class ReviewsController : ApiController
  
     [HttpPost]
     [Authorize(Roles = AccessRoles.Customer)] // hack: should be ADMIN
-    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ReviewResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateReview(CreateReviewRequest request)
     {
         var customerId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
