@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Lukki.Application.Reviews.Commands.CreateReview;
+using Lukki.Application.Reviews.Queries.GetPagedReviews;
 using Lukki.Contracts.Reviews;
-using Lukki.Domain.ProductAggregate;
 using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
@@ -43,4 +43,21 @@ public class ReviewsController : ApiController
         );
     }
     
+    [HttpGet]
+
+    [ProducesResponseType(typeof(PagedReviewsResponse), StatusCodes.Status200OK)]
+
+    public async Task<IActionResult> GetPagedReviews([FromQuery]GetPagedReviewsRequest request)
+    {
+        
+        var query = _mapper.Map<GetPagedReviewsQuery>(request);
+        
+        
+        var pagedReviewsResult = await _mediator.Send(query);
+        
+        return pagedReviewsResult.Match(
+            reviews => Ok(_mapper.Map<PagedReviewsResponse>(reviews)),
+            errors => Problem(errors) 
+        );
+    }
 }

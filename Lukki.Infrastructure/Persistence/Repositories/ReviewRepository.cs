@@ -26,13 +26,39 @@ public class ReviewRepository : IReviewRepository
     {
         return await _dbContext.Reviews.AnyAsync(r => r.CustomerId == customerId && r.ProductId == productId);
     }
-    
+
     public async Task<Review?> GetByIdAsync(ReviewId id)
     {
         return await _dbContext.Reviews
             .FirstOrDefaultAsync(r => r.Id == id);
     }
-    
+
+    public async Task<(List<Review> Reviews, int TotalItems)> GetPagedAsync(string productId, int pageNumber,
+        int itemsPerPage, string sortBy)
+    {
+        IQueryable<Review> query = _dbContext.Reviews.AsQueryable();
+
+
+        query = query.Where(r => r.ProductId == ProductId.Create(productId));
+
+
+        query = sortBy switch // "newest", "rate_asc", "rate_desc"
+        {
+            "rate_asc" => query.OrderBy(r => r.Rating),
+            "rate_desc" => query.OrderByDescending(r => r.Rating),
+            _ => query.OrderBy(p => p.Id) // newest or default
+        };
+
+        var totalCount = await query.CountAsync();
+
+        var reviews = await query
+            .Skip((pageNumber - 1) * itemsPerPage)
+            .Take(itemsPerPage)
+            .ToListAsync();
+
+        return (reviews, totalCount);
+    }
+
     public async Task<List<Review>> GetListByReviewIdsAsync(IEnumerable<ReviewId> reviewIds)
     {
         return await _dbContext.Reviews
@@ -40,5 +66,4 @@ public class ReviewRepository : IReviewRepository
             .Where(p => reviewIds.Contains(p.Id))
             .ToListAsync();
     }
-    
 }
