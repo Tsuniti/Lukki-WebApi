@@ -13,7 +13,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
-    public string PasswordHash { get; private set; }
+    public string? PasswordHash { get; private set; }
 
     public string? PhoneNumber { get; private set; }
     
@@ -27,9 +27,8 @@ public sealed class Customer : AggregateRoot<CustomerId>
         string firstName,
         string lastName,
         string email,
-        string passwordHash,
+        string? passwordHash,
         string? phoneNumber,
-        UserRole role,
         DateTime createdAt
     ) : base(customerId)
     {
@@ -45,7 +44,7 @@ public sealed class Customer : AggregateRoot<CustomerId>
         string firstName,
         string lastName,
         string email,
-        string passwordHash,
+        string? passwordHash,
         string? phoneNumber
     )
     {
@@ -56,7 +55,6 @@ public sealed class Customer : AggregateRoot<CustomerId>
             email,
             passwordHash,
             phoneNumber,
-            UserRole.CUSTOMER,
             DateTime.UtcNow
         );
     }

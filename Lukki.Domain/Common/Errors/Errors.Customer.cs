@@ -13,5 +13,10 @@ public static partial class Errors
         public static Error NotFound(string id) => Error.Conflict(
             code: "Customer.NotFound", 
             description: $"Customer not found with id: {id}");
+        
+        public static Error InvalidGoogleToken => Error.Validation(
+            code: "Customer.InvalidGoogleToken", 
+            description: "The provided Google ID token is invalid.");
+        
     }
 }

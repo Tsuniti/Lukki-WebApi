@@ -12,6 +12,8 @@ public static class DependencyInjection
     
         services.AddSingleton<ProblemDetailsFactory, LukkiProblemDetailsFactory>();
         
+        
+        
         services.AddMappings();
         return services;
     }

@@ -44,7 +44,7 @@ public static class DependencyInjection
         this IServiceCollection services)
     {
         
-
+        services.AddSingleton<IGoogleAuthService, GoogleAuthService>();
 
         services.AddScoped<IImageCompressor, ImageCompressor>();
         

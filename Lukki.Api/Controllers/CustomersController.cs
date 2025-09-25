@@ -1,4 +1,5 @@
-﻿using Lukki.Application.Customers.Commands.Register;
+﻿using Lukki.Application.Customers.Commands.GoogleRegister;
+using Lukki.Application.Customers.Commands.Register;
 using Lukki.Contracts.Authentication;
 using Lukki.Contracts.Customers;
 using Lukki.Domain.Common.Errors;
@@ -35,6 +36,21 @@ public class CustomersController : ApiController
              authResult => Ok(_mapper.Map<CustomerAuthenticationResponse>(authResult)),
              errors => Problem(errors));
      }
+     [HttpPost("google-auth")]
+     [ProducesResponseType(typeof(CustomerAuthenticationResponse), StatusCodes.Status200OK)]
+     public async Task<IActionResult> CustomerGoogleAuth(GoogleAuthRequest request)
+     {
+         var command = _mapper.Map<CustomerGoogleAuthCommand>(request);
+
+         var authResult = await _mediator.Send(command);
+
+         return authResult.Match(
+             result => Ok(_mapper.Map<CustomerAuthenticationResponse>(result)),
+             errors => Problem(errors)
+         );
+     }
+     
+     
 
      
      
