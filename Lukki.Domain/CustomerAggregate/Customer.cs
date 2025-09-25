@@ -1,5 +1,4 @@
-﻿using Lukki.Domain.Common.Enums;
-using Lukki.Domain.Common.Models;
+﻿using Lukki.Domain.Common.Models;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
 

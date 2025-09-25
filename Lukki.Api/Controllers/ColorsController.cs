@@ -2,7 +2,6 @@
 using Lukki.Application.Colors.Commands.CreateColor;
 using Lukki.Application.Colors.Queries.GetAllColors;
 using Lukki.Contracts.Colors;
-using Lukki.Domain.ColorAggregate;
 using Lukki.Domain.Common.Errors;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;

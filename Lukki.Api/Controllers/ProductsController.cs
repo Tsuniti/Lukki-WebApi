@@ -1,9 +1,7 @@
-﻿using System.Security.Claims;
-using Lukki.Application.Products.Commands.CreateProduct;
+﻿using Lukki.Application.Products.Commands.CreateProduct;
 using Lukki.Application.Products.Queries.GetOneProductById;
 using Lukki.Application.Products.Queries.GetPagedProducts;
 using Lukki.Contracts.Products;
-using Lukki.Domain.ProductAggregate;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;

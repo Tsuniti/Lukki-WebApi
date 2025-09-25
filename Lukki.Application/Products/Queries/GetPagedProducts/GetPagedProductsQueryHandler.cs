@@ -6,10 +6,7 @@ using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.ColorAggregate.ValueObjects;
 using Lukki.Domain.Common.Errors;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.MaterialAggregate.ValueObjects;
-using Lukki.Domain.ProductAggregate;
-using Lukki.Domain.ProductAggregate.ValueObjects;
 using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 using MediatR;
 

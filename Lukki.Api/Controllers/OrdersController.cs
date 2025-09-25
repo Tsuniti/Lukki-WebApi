@@ -1,11 +1,8 @@
 ﻿using System.Security.Claims;
 using Lukki.Application.Orders.Commands.CreateOrder;
 using Lukki.Contracts.Orders;
-using Lukki.Domain.OrderAggregate;
-using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lukki.Api.Controllers;

@@ -1,9 +1,7 @@
 ﻿using Lukki.Application.Materials.Commands.CreateMaterial;
 using Lukki.Application.Materials.Queries.GetAllMaterials;
 using Lukki.Contracts.Materials;
-using Lukki.Domain.MaterialAggregate;
 using Lukki.Infrastructure.Authentication;
-using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

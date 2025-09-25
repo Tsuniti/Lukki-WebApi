@@ -2,7 +2,6 @@
 using Lukki.Application.Customers.Commands.Register;
 using Lukki.Contracts.Authentication;
 using Lukki.Contracts.Customers;
-using Lukki.Domain.Common.Errors;
 using MapsterMapper;
 using MediatR;
 using Lukki.Application.Customers.Queries.Login;

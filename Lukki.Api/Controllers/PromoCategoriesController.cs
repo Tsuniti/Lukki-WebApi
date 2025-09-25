@@ -1,9 +1,7 @@
 ﻿using Lukki.Application.PromoCategories.Commands.CreatePromoCategory;
 using Lukki.Application.PromoCategories.Queries.GetAllPromoCategories;
 using Lukki.Contracts.PromoCategories;
-using Lukki.Domain.PromoCategoryAggregate;
 using Lukki.Infrastructure.Authentication;
-using Lukki.Infrastructure.Helpers;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

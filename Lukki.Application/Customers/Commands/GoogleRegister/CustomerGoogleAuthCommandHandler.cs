@@ -5,7 +5,6 @@ using Lukki.Application.Customers.Common;
 using Lukki.Domain.Common.Errors;
 using MediatR;
 using ErrorOr;
-using Lukki.Domain.Common.Enums;
 using Lukki.Domain.CustomerAggregate;
 
 namespace Lukki.Application.Customers.Commands.GoogleRegister;

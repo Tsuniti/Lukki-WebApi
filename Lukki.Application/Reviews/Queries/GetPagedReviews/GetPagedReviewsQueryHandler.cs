@@ -1,17 +1,7 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Reviews.Common;
-using Lukki.Domain.BrandAggregate.ValueObjects;
-using Lukki.Domain.CategoryAggregate.ValueObjects;
-using Lukki.Domain.ColorAggregate.ValueObjects;
-using Lukki.Domain.Common.Errors;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate;
-using Lukki.Domain.MaterialAggregate.ValueObjects;
-using Lukki.Domain.ReviewAggregate;
-using Lukki.Domain.ReviewAggregate.ValueObjects;
-using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 using MediatR;
 
 namespace Lukki.Application.Reviews.Queries.GetPagedReviews;

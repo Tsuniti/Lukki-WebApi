@@ -1,5 +1,4 @@
 ﻿using ErrorOr;
-using Lukki.Domain.ProductAggregate.ValueObjects;
 
 namespace Lukki.Domain.Common.Errors;
 

@@ -1,7 +1,6 @@
 ﻿using Lukki.Domain.BrandAggregate.ValueObjects;
 using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.ColorAggregate.ValueObjects;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.MaterialAggregate.ValueObjects;
 using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 

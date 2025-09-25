@@ -1,10 +1,7 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
-using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
-using Lukki.Application.Common.Interfaces.Services.ImageStorage;
 using Lukki.Domain.MaterialAggregate;
 using Lukki.Domain.Common.Errors;
-using Lukki.Domain.Common.ValueObjects;
 using MediatR;
 
 namespace Lukki.Application.Materials.Commands.CreateMaterial;

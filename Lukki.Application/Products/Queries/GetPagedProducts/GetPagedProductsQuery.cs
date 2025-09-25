@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Lukki.Application.Products.Common;
-using Lukki.Domain.ProductAggregate;
 using MediatR;
 
 namespace Lukki.Application.Products.Queries.GetPagedProducts;

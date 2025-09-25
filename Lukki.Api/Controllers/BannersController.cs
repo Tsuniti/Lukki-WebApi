@@ -3,7 +3,6 @@ using Lukki.Application.Banners.Commands.CreateBanner;
 using Lukki.Application.Banners.Queries.GetAllBannerNames;
 using Lukki.Application.Banners.Queries.GetBannerByName;
 using Lukki.Contracts.Banners;
-using Lukki.Domain.BannerAggregate;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;

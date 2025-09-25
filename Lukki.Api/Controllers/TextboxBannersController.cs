@@ -1,7 +1,6 @@
 ﻿using Lukki.Application.TextboxBanners.Commands.CreateTextboxBanner;
 using Lukki.Application.TextboxBanners.Queries.GetTextboxBannerById;
 using Lukki.Contracts.TextboxBanners;
-using Lukki.Domain.TextboxBannerAggregate;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;

@@ -6,12 +6,9 @@ using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Products.Common;
 using Lukki.Domain.BrandAggregate;
 using Lukki.Domain.CategoryAggregate;
-using Lukki.Domain.CategoryAggregate.ValueObjects;
 using Lukki.Domain.ColorAggregate;
 using Lukki.Domain.Common.Errors;
-using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.ProductAggregate.ValueObjects;
-using Lukki.Domain.PromoCategoryAggregate;
 
 namespace Lukki.Application.Products.Queries.GetOneProductById;
 

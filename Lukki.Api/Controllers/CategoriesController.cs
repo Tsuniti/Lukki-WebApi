@@ -1,7 +1,6 @@
 ﻿using Lukki.Application.Categories.Commands.CreateCategory;
 using Lukki.Application.Categories.Queries.GetAllCategories;
 using Lukki.Contracts.Categories;
-using Lukki.Domain.CategoryAggregate;
 using Lukki.Infrastructure.Authentication;
 using MapsterMapper;
 using MediatR;

@@ -1,7 +1,6 @@
 ﻿using Lukki.Application.Brands.Commands.CreateBrand;
 using Lukki.Application.Brands.Queries.GetAllBrands;
 using Lukki.Contracts.Brands;
-using Lukki.Domain.BrandAggregate;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.Helpers;
 using MapsterMapper;

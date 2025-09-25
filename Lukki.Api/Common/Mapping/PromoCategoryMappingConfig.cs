@@ -3,7 +3,6 @@ using Lukki.Contracts.PromoCategories;
 using Lukki.Domain.PromoCategoryAggregate;
 using Lukki.Domain.PromoCategoryAggregate.ValueObjects;
 using Mapster;
-using Lukki.Domain.Common.ValueObjects;
 
 namespace Lukki.Api.Common.Mapping;
 
