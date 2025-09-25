@@ -29,7 +29,6 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
 
     public async Task<ErrorOr<Order>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
-        
         var productIds = command.InOrderProducts
             .Select(iop => ProductId.Create(iop.ProductId))
             .ToList();
@@ -58,11 +57,6 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             
             product.Price.Convert(command.TargetCurrency, await _exchangeRateService.GetRatesAsync());
             
-            // var convertedMoney =  await _currencyConverter.ConvertAsync(
-            //         money: product.Price,
-            //         toCurrency: command.TargetCurrency
-            //     );
-            
             // Calculate total amount
             totalAmount = totalAmount.Add(product.Price);
             
@@ -76,9 +70,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
 
 
         var order = Order.Create(
-            status: Enum.Parse<OrderStatus>(command.Status, true),
             totalAmount: totalAmount,
-            
             shippingAddress: Address.Create(
                 street: command.ShippingAddress.Street,
                 city: command.ShippingAddress.City,
@@ -91,7 +83,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
                 postalCode: command.BillingAddress.PostalCode,
                 country: command.BillingAddress.Country),
             
-            customerId: CustomerId.Create(command.CustomerId),
+            customerId: command.CustomerId is not null ? CustomerId.Create(command.CustomerId) : null,
             inOrderProducts: inOrderProducts
             
         );

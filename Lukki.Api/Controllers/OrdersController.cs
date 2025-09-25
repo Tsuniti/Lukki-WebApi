@@ -25,18 +25,11 @@ public class OrdersController : ApiController
     }
     
     [HttpPost]
-    [Authorize(Roles = AccessRoles.Customer)]
     [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
 
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {
         var customerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        
-        if (string.IsNullOrEmpty(customerId))
-        {
-            return Unauthorized("Customer ID not found in token");
-        }
-        
         
         var command = _mapper.Map<CreateOrderCommand>(request);
 

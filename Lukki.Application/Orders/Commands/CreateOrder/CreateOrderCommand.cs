@@ -5,7 +5,7 @@ using MediatR;
 namespace Lukki.Application.Orders.Commands.CreateOrder;
 
 public record CreateOrderCommand(
-    string CustomerId,
+    string? CustomerId,
     string Status,
     AddressCommand ShippingAddress,
     AddressCommand BillingAddress,

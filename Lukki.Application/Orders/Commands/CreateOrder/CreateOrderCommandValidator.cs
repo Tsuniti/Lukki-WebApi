@@ -15,8 +15,6 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
             .NotEmpty();
         RuleFor(x => x.ShippingAddress)
             .NotEmpty();
-        RuleFor(x => x.CustomerId)
-            .NotEmpty();
         RuleFor(x => x.InOrderProducts)
             .NotEmpty();
     }

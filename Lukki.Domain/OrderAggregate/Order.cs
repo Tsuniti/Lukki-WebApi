@@ -27,7 +27,7 @@ public sealed class Order : AggregateRoot<OrderId>
         Money totalAmount,
         Address shippingAddress,
         Address billingAddress,
-        CustomerId customerId,
+        CustomerId? customerId,
         List<InOrderProduct> inOrderProducts,
         DateTime createdAt
     ) : base(orderId)
@@ -42,17 +42,16 @@ public sealed class Order : AggregateRoot<OrderId>
     }
     
     public static Order Create(
-        OrderStatus status,
         Money totalAmount,
         Address shippingAddress,
         Address billingAddress,
         List<InOrderProduct> inOrderProducts,
-        CustomerId customerId
+        CustomerId? customerId
     )
     {
         return new(
             OrderId.CreateUnique(),
-            status,
+            OrderStatus.CREATED,
             totalAmount,
             shippingAddress,
             billingAddress,
