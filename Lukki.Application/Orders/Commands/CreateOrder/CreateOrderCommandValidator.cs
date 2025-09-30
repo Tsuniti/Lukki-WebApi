@@ -9,8 +9,6 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     public CreateOrderCommandValidator(IOrderRepository orderRepository)
     {
         
-        RuleFor(x => x.Status)
-            .NotEmpty();
         RuleFor(x => x.BillingAddress)
             .NotEmpty();
         RuleFor(x => x.ShippingAddress)

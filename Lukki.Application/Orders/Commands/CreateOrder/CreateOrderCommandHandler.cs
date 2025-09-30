@@ -1,6 +1,8 @@
 ﻿using ErrorOr;
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.Currency;
+using Lukki.Application.Common.Interfaces.Services.Payment;
+using Lukki.Application.Orders.Common;
 using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
@@ -18,12 +20,14 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
     private readonly IOrderRepository _orderRepository;
     private readonly IProductRepository _productRepository;
     private readonly IExchangeRateService _exchangeRateService;
+    private readonly IPaymentService _paymentService;
 
-    public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository, IExchangeRateService exchangeRateService)
+    public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository, IExchangeRateService exchangeRateService, IPaymentService paymentService)
     {
         _orderRepository = orderRepository;
         _productRepository = productRepository;
         _exchangeRateService = exchangeRateService;
+        _paymentService = paymentService;
     }
 
     public async Task<ErrorOr<Order>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
@@ -42,7 +46,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
         
         
         var productsDict = existingProducts
-            .ToDictionary(p => p.Id.Value.ToString()); // Используем Guid как ключ
+            .ToDictionary(p => p.Id.Value.ToString()); // use id as a key
         
         var inOrderProducts = new List<InOrderProduct>(command.InOrderProducts.Count);
         
@@ -57,7 +61,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
             product.Price.Convert(command.TargetCurrency, await _exchangeRateService.GetRatesAsync());
             
             // Calculate total amount
-            totalAmount = totalAmount.Add(product.Price);
+            totalAmount = totalAmount.Add(product.Price.Multiply((int)requestItem.Quantity));
             
             inOrderProducts.Add(InOrderProduct.Create(
                 priceAtTimeOfOrder: product.Price,
@@ -65,11 +69,28 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Err
                 size: requestItem.Size,
                 productId: product.Id
             ));
+
+            var inStockProduct = product.InStockProducts.FirstOrDefault( isp => isp.Size == requestItem.Size);
+            if (inStockProduct is null)
+            {
+                return Errors.Product.NotFoundInStock(product.Id.Value.ToString(), requestItem.Size);
+            }
+            if (inStockProduct.Quantity < requestItem.Quantity)
+            {
+                return Errors.Product.InsufficientStock(product.Id.Value.ToString(), requestItem.Quantity, inStockProduct.Quantity);
+            }
+            inStockProduct.UpdateQuantity(inStockProduct.Quantity - requestItem.Quantity);
+            await _productRepository.UpdateAsync(product);
         }
 
+        var paymentIntentId = await _paymentService.CreatePaymentIntentAsync(
+            totalAmount.Amount,
+            totalAmount.Currency);
+        
 
         var order = Order.Create(
             totalAmount: totalAmount,
+            paymentIntentId: paymentIntentId,
             shippingAddress: Address.Create(
                 street: command.ShippingAddress.Street,
                 city: command.ShippingAddress.City,

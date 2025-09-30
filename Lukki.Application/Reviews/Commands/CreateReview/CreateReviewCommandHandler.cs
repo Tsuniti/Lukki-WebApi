@@ -50,7 +50,7 @@ public class CreateReviewCommandHandler : IRequestHandler<CreateReviewCommand, E
         
         await _reviewRepository.AddAsync(review);
         product.AverageRating.AddNewRating(review.Rating);
-        await _productRepository.Update(product);
+        await _productRepository.UpdateAsync(product);
         
         return new ReviewResult(
             review,

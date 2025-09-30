@@ -5,9 +5,11 @@ using Lukki.Application.Common.Interfaces.Services;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Common.Interfaces.Services.ImageCompressor;
 using Lukki.Application.Common.Interfaces.Services.ImageStorage;
+using Lukki.Application.Common.Interfaces.Services.Payment;
 using Lukki.Infrastructure.Authentication;
 using Lukki.Infrastructure.External.ExchangeRateApi;
 using Lukki.Infrastructure.External.Cloudinary;
+using Lukki.Infrastructure.External.StripePayment;
 using Lukki.Infrastructure.OtherSettings;
 using Lukki.Infrastructure.Persistence;
 using Lukki.Infrastructure.Persistence.Interceptors;
@@ -32,6 +34,7 @@ public static class DependencyInjection
         services.AddAuth(configuration)
             .AddExchangeRateApi(configuration)
             .AddCloudinaryImageService(configuration)
+            .AddPaymentService(configuration)
             .AddDbContext(configuration)
             .AddPersistance();
         
@@ -138,6 +141,15 @@ public static class DependencyInjection
     {
         services.Configure<CloudinarySettings>(configuration.GetSection(CloudinarySettings.SectionName));
         services.AddSingleton<IImageStorageService, CloudinaryImageService /*LocalImageStorageService*/>();
+        return services;
+    }
+    
+    public static IServiceCollection AddPaymentService(
+        this IServiceCollection services,
+        ConfigurationManager configuration)
+    {
+        services.Configure<StripePaymentServiceSettings>(configuration.GetSection(StripePaymentServiceSettings.SectionName));
+        services.AddSingleton<IPaymentService, StripePaymentService>();
         return services;
     }
     

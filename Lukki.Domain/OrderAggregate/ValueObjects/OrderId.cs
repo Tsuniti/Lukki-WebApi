@@ -20,6 +20,16 @@ public class OrderId : ValueObject
     {
         return new OrderId(value);
     }
+    
+    public static OrderId Create(string value)
+    {
+        if (!Guid.TryParse(value, out var guidValue))
+        {
+            throw new ArgumentException("Invalid GUID format.", nameof(value));
+        }
+        
+        return new OrderId(guidValue);
+    }
 
 
     protected override IEnumerable<object> GetEqualityComponents()

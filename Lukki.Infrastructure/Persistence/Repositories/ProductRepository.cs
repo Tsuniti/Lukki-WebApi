@@ -27,13 +27,12 @@ public class ProductRepository : IProductRepository
     public Task<Product> AddRating(Product product, short rating)
     {
         product.AverageRating.AddNewRating(rating);
-        return Update(product);
+        return UpdateAsync(product);
     }
 
     public async Task<List<Product>> GetListByIdsAsync(IEnumerable<ProductId> productIds)
     {
         return await _dbContext.Products
-            .AsNoTracking()
             .Where(p => productIds.Contains(p.Id))
             .ToListAsync();
     }
@@ -139,7 +138,7 @@ public class ProductRepository : IProductRepository
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<Product> Update(Product product)
+    public async Task<Product> UpdateAsync(Product product)
     {
         _dbContext.Products.Update(product);
         await _dbContext.SaveChangesAsync();
@@ -150,7 +149,6 @@ public class ProductRepository : IProductRepository
     private async Task<Dictionary<CategoryId, List<CategoryId>>> BuildCategoryTreesAsync()
     {
         var allCategories = await _dbContext.Categories
-            .AsNoTracking()
             .ToListAsync();
         
         return allCategories.ToDictionary(

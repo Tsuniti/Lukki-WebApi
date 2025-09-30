@@ -5,9 +5,10 @@ public record OrderResponse
     string Id,
     string Status,
     MoneyResponse TotalAmount,
+    string PaymentIntentId, 
     AddressResponse ShippingAddress,
     AddressResponse BillingAddress,
-    string CustomerId,
+    string? CustomerId,
     List<InOrderProductResponse> InOrderProducts,
     DateTime CreatedAt,
     DateTime? UpdatedAt
@@ -26,6 +27,7 @@ public record AddressResponse(
 );
 
 public record InOrderProductResponse(
+    MoneyResponse PriceAtTimeOfOrder,
     uint Quantity,
     string Size,
     string ProductId

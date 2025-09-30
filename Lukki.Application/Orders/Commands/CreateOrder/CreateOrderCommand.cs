@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using Lukki.Application.Orders.Common;
 using Lukki.Domain.OrderAggregate;
 using MediatR;
 
@@ -6,7 +7,6 @@ namespace Lukki.Application.Orders.Commands.CreateOrder;
 
 public record CreateOrderCommand(
     string? CustomerId,
-    string Status,
     AddressCommand ShippingAddress,
     AddressCommand BillingAddress,
     List<InOrderProductCommand> InOrderProducts,

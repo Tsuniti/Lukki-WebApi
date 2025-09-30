@@ -13,7 +13,7 @@ public sealed class Order : AggregateRoot<OrderId>
 
     public OrderStatus Status { get; private set; }
     public Money TotalAmount { get; private set; }
-
+    public string PaymentIntentId { get; private set; }
     public Address ShippingAddress { get; private set; }
     public Address BillingAddress { get; private set; }
     public CustomerId? CustomerId { get; private set; } // Nullable to save orders if customer is deleted
@@ -25,6 +25,7 @@ public sealed class Order : AggregateRoot<OrderId>
         OrderId orderId,
         OrderStatus status,
         Money totalAmount,
+        string paymentIntentId,
         Address shippingAddress,
         Address billingAddress,
         CustomerId? customerId,
@@ -34,6 +35,7 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         Status = status;
         TotalAmount = totalAmount;
+        PaymentIntentId = paymentIntentId;
         ShippingAddress = shippingAddress;
         BillingAddress = billingAddress;
         CustomerId = customerId;
@@ -43,6 +45,7 @@ public sealed class Order : AggregateRoot<OrderId>
     
     public static Order Create(
         Money totalAmount,
+        string paymentIntentId,
         Address shippingAddress,
         Address billingAddress,
         List<InOrderProduct> inOrderProducts,
@@ -53,6 +56,7 @@ public sealed class Order : AggregateRoot<OrderId>
             OrderId.CreateUnique(),
             OrderStatus.CREATED,
             totalAmount,
+            paymentIntentId,
             shippingAddress,
             billingAddress,
             customerId,
@@ -60,6 +64,14 @@ public sealed class Order : AggregateRoot<OrderId>
             DateTime.UtcNow
         );
     }
+    
+    
+    public void MarkAsPaid()
+    {
+        Status = OrderStatus.PAID;
+        UpdatedAt = DateTime.UtcNow;
+    }
+    
     
 #pragma warning disable CS8618
     private Order()

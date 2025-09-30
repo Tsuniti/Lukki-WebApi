@@ -27,6 +27,11 @@ public class Money : ValueObject
         }
         return new Money(Amount + money.Amount, Currency);
     }
+    
+    public Money Multiply(int factor)
+    {
+        return new Money(Amount * factor, Currency);
+    }
 
     public void Convert(string toCurrency, Dictionary<string, decimal> rates)
     {

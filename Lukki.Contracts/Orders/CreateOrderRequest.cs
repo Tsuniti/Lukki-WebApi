@@ -2,9 +2,8 @@
 
 public record CreateOrderRequest
 (
-    string Status,
-    AddressRequest ShippingAddressRequest,
-    AddressRequest BillingAddressRequest,
+    AddressRequest ShippingAddress,
+    AddressRequest BillingAddress,
     List<InOrderProductRequest> InOrderProducts,
     string TargetCurrency
 );

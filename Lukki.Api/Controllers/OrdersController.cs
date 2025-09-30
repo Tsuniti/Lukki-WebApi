@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Lukki.Application.Orders.Commands.ConfirmPayment;
 using Lukki.Application.Orders.Commands.CreateOrder;
 using Lukki.Contracts.Orders;
 using MapsterMapper;
@@ -23,7 +24,6 @@ public class OrdersController : ApiController
     
     [HttpPost]
     [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
-
     public async Task<IActionResult> CreateOrder(CreateOrderRequest request)
     {
         var customerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -37,4 +37,21 @@ public class OrdersController : ApiController
             errors => Problem(errors) 
         );
     }
+    
+    [HttpPost("payment-confirm")]
+    [ProducesResponseType(typeof(ConfirmPaymentResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ConfirmPayment(ConfirmPaymentRequest request)
+    {
+        var command = _mapper.Map<ConfirmPaymentCommand>(request);
+
+        var confirmPaymentResult = await _mediator.Send(command);
+        
+        return confirmPaymentResult.Match(
+            paymentIntentId => Ok(_mapper.Map<ConfirmPaymentResponse>(paymentIntentId)),
+            errors => Problem(errors) 
+        );
+    }
+
+    
+    
 }

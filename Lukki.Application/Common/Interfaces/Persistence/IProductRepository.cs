@@ -7,7 +7,7 @@ namespace Lukki.Application.Common.Interfaces.Persistence;
 public interface IProductRepository
 {
     Task AddAsync(Product product);
-    Task<Product> Update(Product product);
+    Task<Product> UpdateAsync(Product product);
     Task<Product> AddRating(Product product, short rating);
     Task<List<Product>> GetListByIdsAsync(IEnumerable<ProductId> productIds);
     Task<(IReadOnlyList<Product> Products, int TotalItems)> GetPagedAsync(ProductFilter filter);
