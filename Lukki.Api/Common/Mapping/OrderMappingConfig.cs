@@ -1,5 +1,4 @@
 ﻿using Lukki.Application.Orders.Commands.CreateOrder;
-using Lukki.Application.Orders.Common;
 using Lukki.Contracts.Orders;
 using Lukki.Domain.CustomerAggregate.ValueObjects;
 using Lukki.Domain.OrderAggregate;

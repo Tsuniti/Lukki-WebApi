@@ -1,6 +1,5 @@
 ﻿using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Domain.OrderAggregate;
-using Lukki.Domain.OrderAggregate.Enums;
 using Lukki.Domain.OrderAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 

@@ -2,7 +2,6 @@
 using Lukki.Application.Common.Interfaces.Persistence;
 using Lukki.Application.Common.Interfaces.Services.Currency;
 using Lukki.Application.Common.Interfaces.Services.Payment;
-using Lukki.Application.Orders.Common;
 using Lukki.Domain.Common.Errors;
 using Lukki.Domain.Common.ValueObjects;
 using Lukki.Domain.CustomerAggregate.ValueObjects;

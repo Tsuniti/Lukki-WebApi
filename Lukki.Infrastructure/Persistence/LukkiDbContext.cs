@@ -13,7 +13,6 @@ using Lukki.Domain.ProductBannerAggregate;
 using Lukki.Domain.PromoCategoryAggregate;
 using Lukki.Domain.ReviewAggregate;
 using Lukki.Domain.ReviewBannerAggregate;
-using Lukki.Domain.SellerAggregate;
 using Lukki.Domain.TextboxBannerAggregate;
 using Lukki.Infrastructure.Persistence.Interceptors;
 using Lukki.Infrastructure.Persistence.Models;
@@ -38,7 +37,6 @@ public class LukkiDbContext : DbContext
     public DbSet<Order> Orders { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
-    public DbSet<Seller> Sellers { get; set; } = null!;
     public DbSet<Banner> Banners { get; set; } = null!;
     public DbSet<TextboxBanner> TextboxBanners { get; set; } = null!;
     public DbSet<ProductBanner> ProductBanners { get; set; } = null!;

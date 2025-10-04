@@ -54,9 +54,7 @@ public static class DependencyInjection
         services.AddScoped<PublishDomainEventsInterceptor>();
         
         services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
-
-        //services.AddScoped<IUserRepository, UserRepository>();
-
+        
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         
